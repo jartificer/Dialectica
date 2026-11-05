@@ -1,0 +1,11 @@
+{
+  "name": "dialectica",
+  "version": "2.0.0",
+  "description": "Argue your way through 2,500 years of philosophy.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "python3 -m http.server 8000"
+  }
+}
