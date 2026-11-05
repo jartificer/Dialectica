@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialectica</title>
+<meta name="description" content="Argue your way through 2,500 years of philosophy: talk each great thinker out of their most cherished conviction.">
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand"><h1>DIALECTICA</h1><span>reason your way through 2,500 years</span></div>
+    <div style="display:flex;gap:8px">
+      <button class="iconbtn" id="mapBtn" hidden>← Timeline</button>
+      <button class="iconbtn" id="themeBtn" title="Toggle light/dark">Light / dark</button>
+    </div>
+  </header>
+
+  <!-- MAP -->
+  <main id="mapView">
+    <section class="intro">
+      <p><strong>Every great thinker has a conviction they would die for.</strong> Your task is to talk each of them out of it.</p>
+      <p>Write to them in plain English. They will answer, push back, try to sidetrack you, and lose patience if you waffle. Find the weak joint in their view, follow the argument where it leads, and bring them to accept the idea they set out to reject.</p>
+      <div class="howto">
+        <div><b>Conviction</b>Rises each time you land a real argument. Fill it to win.</div>
+        <div><b>Patience</b>Drops when you ramble, repeat yourself, fire off lists of keywords, or walk into an old objection they've already answered.</div>
+        <div><b>Hints</b>Free with the early thinkers. Later ones charge a little patience.</div>
+        <div><b>Difficulty</b>Rises through history. Later thinkers need longer chains of argument.</div>
+      </div>
+    </section>
+    <section class="timeline" id="timeline"></section>
+    <p class="footnote"><span id="count">0</span> thinkers on the timeline. Progress is saved in this browser. <button id="resetAll">Reset progress</button> · <button id="unlockAll">Unlock every thinker</button></p>
+  </main>
+
+  <!-- DIALOGUE -->
+  <main id="talkView" class="hidden">
+    <div class="stage">
+      <section class="chatcol">
+        <div class="chathead">
+          <div class="portrait" id="pPortrait"></div>
+          <div><h2 id="pName"></h2><div class="meta" id="pMeta"></div></div>
+          <div class="mood" id="pMood"></div>
+        </div>
+        <div class="log" id="log" aria-live="polite"></div>
+        <form class="composer" id="composer">
+          <textarea id="input" placeholder="Make your argument…" autocomplete="off" aria-label="Your argument"></textarea>
+          <button class="btn" id="sendBtn" type="submit">Say</button>
+        </form>
+        <div class="endpanel hidden" id="endPanel"></div>
+      </section>
+      <aside class="side" id="side">
+        <div class="box">
+          <h4>Conviction</h4>
+          <div class="meter"><i id="convBar"></i></div>
+          <div class="meterlabel"><span id="convTxt">0%</span><span id="turnTxt">0 exchanges</span></div>
+          <h4 style="margin-top:12px">Patience</h4>
+          <div class="pips" id="pips"></div>
+        </div>
+        <div class="box collapsible"><h4>Their conviction</h4><p id="pCore"></p></div>
+        <div class="box"><h4>Convince them that</h4><p class="target" id="pTarget"></p></div>
+        <button class="iconbtn moretoggle" id="moreBtn" type="button">More details ▾</button>
+        <div class="box collapsible"><h4>Where the argument stands</h4><p id="pStance"></p></div>
+        <div class="box">
+          <div class="actions">
+            <button class="btn ghost" id="hintBtn" type="button">Hint</button>
+            <button class="btn ghost" id="restartBtn" type="button">Start over</button>
+          </div>
+          <p class="tip collapsible-tip" style="margin-top:10px">Argue in full sentences. Ask questions if you're unsure what they mean. Quoting them back to themselves often works.</p>
+        </div>
+        <div class="box collapsible"><h4>About</h4><p class="tip" id="pBio"></p></div>
+      </aside>
+    </div>
+  </main>
+</div>
+<div class="bootfail hidden" id="bootFail">
+  <p><b>Dialectica could not start.</b></p>
+  <p id="bootWhy">Browsers only load JavaScript modules over http(s). From the project folder, run <code>python3 -m http.server</code> and open <a href="http://localhost:8000">http://localhost:8000</a>.</p>
+</div>
+<script>
+  // Modules are blocked on file:// and in very old browsers; say so instead of showing a dead page.
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      if (window.__dialecticaBooted) return;
+      var el = document.getElementById("bootFail");
+      if (location.protocol !== "file:") document.getElementById("bootWhy").textContent = "Something went wrong while loading the game. The browser console has details.";
+      el.classList.remove("hidden");
+    }, 1500);
+  });
+</script>
+</body>
+</html>
