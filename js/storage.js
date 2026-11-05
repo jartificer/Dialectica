@@ -5,6 +5,7 @@
    ===================================================================== */
 const SAVE_KEY = "dialectica.v1";
 const THEME_KEY = "dialectica.theme";
+const ADMIN_KEY = "dialectica.admin";
 
 function store() {
   try { return globalThis.localStorage || null; } catch (e) { return null; }
@@ -41,3 +42,8 @@ export function resetProgress() { save = { done: {}, unlocked: false }; write(SA
 
 export const loadTheme = () => read(THEME_KEY);
 export const saveTheme = t => write(THEME_KEY, t);
+
+/* Admin mode: every thinker open, debug tools on, and wins are not recorded,
+   so trying a later thinker never touches real progress. */
+export const loadAdmin = () => read(ADMIN_KEY) === "1";
+export const saveAdmin = on => write(ADMIN_KEY, on ? "1" : "0");

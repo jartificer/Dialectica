@@ -15,6 +15,7 @@ const fast = () => !!window.DIALECTICA_FAST || /[?&]fast\b/.test(location.search
 let PHILOSOPHERS = [];
 let C = null;       // the current Conversation
 let busy = false;
+let admin = false;  // admin mode: everything open, debug tools, wins not saved
 
 export function initUI(philosophers) {
   PHILOSOPHERS = philosophers;
@@ -28,7 +29,19 @@ export function initUI(philosophers) {
     $("moreBtn").textContent = s.classList.contains("expanded") ? "Hide details ▴" : "More details ▾";
   };
   $("resetAll").onclick = () => { store.resetProgress(); renderMap(); };
-  $("unlockAll").onclick = () => { store.unlockAll(); renderMap(); };
+  admin = store.loadAdmin() || /[?&]admin\b/.test(location.search);
+  if (admin) store.saveAdmin(true);
+  $("adminToggle").onclick = () => { admin = !admin; store.saveAdmin(admin); applyAdmin(); renderMap(); };
+  $("jumpBtn").onclick = () => { if (C && admin && !busy) show(C.jumpTo($("nodeSelect").value)); };
+  $("refillBtn").onclick = () => { if (C && admin && !busy) show(C.refill()); };
+  $("walkBtn").onclick = () => {
+    if (!C || !admin) return;
+    const w = C.ph.walkthrough || [];
+    if (!w.length) return;
+    C.walkIdx = ((C.walkIdx ?? -1) + 1) % w.length;
+    $("input").value = w[C.walkIdx]; $("input").focus();
+  };
+  applyAdmin();
   $("themeBtn").onclick = () => {
     const root = document.documentElement;
     const cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -40,12 +53,20 @@ export function initUI(philosophers) {
   showView("map");
 }
 
+function applyAdmin() {
+  $("adminBadge").hidden = !admin;
+  $("adminNote").hidden = !admin;
+  $("adminBox").hidden = !admin || !C;
+  $("adminToggle").textContent = "Admin mode: " + (admin ? "on" : "off");
+  $("adminToggle").setAttribute("aria-pressed", String(admin));
+}
+
 /* A thinker is open if it is first, if the previous one is convinced,
    or if it (or anyone later) was already convinced — so new thinkers
    added between old ones never lock a returning player out. */
 function isUnlocked(i) {
   const p = store.progress();
-  if (p.unlocked || i === 0) return true;
+  if (admin || p.unlocked || i === 0) return true;
   if (store.isDone(PHILOSOPHERS[i - 1].id)) return true;
   return PHILOSOPHERS.slice(i).some(ph => store.isDone(ph.id));
 }
@@ -96,6 +117,9 @@ export function startTalk(id) {
   $("pTarget").textContent = ph.target;
   $("pBio").textContent = ph.bio;
   $("hintBtn").textContent = hintCost(ph) ? "Hint (−1 patience)" : "Hint (free)";
+  $("nodeSelect").innerHTML = Object.keys(ph.nodes).map(id => '<option value="' + esc(id) + '">' + esc(id) + "</option>").join("");
+  $("debugTxt").textContent = "Send a message to see how it was parsed.";
+  applyAdmin();
   $("log").innerHTML = "";
   $("endPanel").classList.add("hidden"); $("composer").classList.remove("hidden");
   show(C.opening());
@@ -150,6 +174,13 @@ function updateSide() {
   pips.setAttribute("aria-label", "Patience " + Math.max(0, C.pat) + " of " + ph.patience);
   $("pStance").textContent = C.stance;
   $("pMood").textContent = C.mood;
+  if (admin) {
+    $("nodeSelect").value = C.node;
+    const d = C.debug;
+    $("debugTxt").textContent = "Node: " + C.node + " · patience " + Math.max(0, C.pat) + "/" + ph.patience + " · conviction " + C.conv + "%" +
+      (d ? "\nLast reply: " + d.kind + (d.detail ? " (" + d.detail + ")" : "") +
+        "\nQuoted back: " + (d.frag ? "“" + d.frag + "”" : "none") + " · echo word: " + (d.echo || "none") : "");
+  }
 }
 
 function submit() {
@@ -167,10 +198,11 @@ function end(result) {
   const p = $("endPanel"); p.classList.remove("hidden"); p.innerHTML = "";
   const btn = (label, cls, fn) => { const b = document.createElement("button"); b.className = cls; b.textContent = label; b.onclick = fn; p.appendChild(b); };
   if (result === "win") {
-    store.recordWin(C.ph.id, C.turns);
+    if (admin) addMsg({ who: "sys", text: "Admin mode: this win was not saved to your progress." });
+    else store.recordWin(C.ph.id, C.turns);
     const next = PHILOSOPHERS[PHILOSOPHERS.indexOf(C.ph) + 1];
     if (next) btn("Next: " + next.name + " →", "btn", () => startTalk(next.id));
-    else addMsg({ who: "sys", cls: "good", text: "You have convinced every philosopher on the timeline. Twenty-five centuries, argued down." });
+    else if (!admin && PHILOSOPHERS.every(p => store.isDone(p.id))) addMsg({ who: "sys", cls: "good", text: "You have convinced every philosopher on the timeline. Twenty-five centuries, argued down." });
   } else {
     btn("Try again", "btn", () => startTalk(C.ph.id));
   }

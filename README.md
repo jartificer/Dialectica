@@ -19,6 +19,16 @@ GitHub Pages also works: enable it for the repository root.
 
 Add `?fast` to the URL to skip the "thinking…" delays (handy for testing).
 
+### Admin mode
+
+Click **Admin mode** at the bottom of the timeline, or add `?admin` to the URL. Admin mode:
+
+- opens every thinker, so you can talk to anyone without beating the earlier ones first;
+- adds an Admin box to each conversation, where you can jump to any node of the argument tree, refill patience, fill in the next line of the walkthrough, and see how your last message was parsed (which move or trap matched, the stuffing check, and what was quoted back to you);
+- never saves wins, so your real progress stays exactly as it was.
+
+It stays on until you click it off again.
+
 ## Layout
 
 ```

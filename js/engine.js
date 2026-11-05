@@ -43,6 +43,7 @@ export class Conversation {
     this.stuffs = 0;
     this.result = null;
     this.stanceText = "";
+    this.debug = null; // what the last reply was based on, for admin mode
   }
 
   get over() { return this.result !== null; }
@@ -86,17 +87,21 @@ export class Conversation {
     const speak = (t, extra) => out.push({ who: "them", text: this.say(t, Object.assign({}, vars, extra || {})) });
     const sys = (text, cls) => out.push({ who: "sys", text, cls });
     const P = U.text;
+    const note = (kind, detail) => { this.debug = { kind, detail: detail || "", node: this.node, frag: U.frag, echo: U.echo }; };
+    note("deflect");
 
     if (!U.words) { speak("@short"); return out; }
 
     // repeated input
-    if (P === this.last) { this.pat -= 1; speak("@repeat"); return this.finish(out); }
+    if (P === this.last) { note("repeat"); this.pat -= 1; speak("@repeat"); return this.finish(out); }
     this.last = P;
     this.turns++;
 
     // keyword stuffing beats everything else
     const st = detectStuffing(U, ph, node);
+    const stuffInfo = "stuffing check: separate hits " + st.nodeHits + " here, " + st.treeHits + " in the whole tree" + (st.listy ? ", reads as a bare list" : "");
     if (st.stuffed) {
+      note("stuffing", stuffInfo);
       this.stuffs++;
       this.pat -= 1;
       speak("@stuffing");
@@ -107,29 +112,34 @@ export class Conversation {
     }
 
     // argument moves: the decision tree
-    for (const mv of node.moves) {
-      if (matchNeed(mv.need, U, this.concepts).full) { this.advance(mv, out, vars); return this.finish(out); }
+    for (const [i, mv] of node.moves.entries()) {
+      const m = matchNeed(mv.need, U, this.concepts);
+      if (m.full) {
+        note("move", "move " + (i + 1) + " → " + mv.to + " (matched: " + m.words.join(", ") + "; " + stuffInfo + ")");
+        this.advance(mv, out, vars); return this.finish(out);
+      }
     }
     // traps: objections they have already answered
     for (const tr of node.traps || []) {
       if (matchNeed(tr.need, U, this.concepts).full) {
         this.pat -= tr.cost || 0;
+        note("trap", "matched: " + matchNeed(tr.need, U, this.concepts).words.join(", ") + ", cost " + (tr.cost || 0));
         speak(tr.reply);
         if (tr.cost) sys("They have heard that objection before. (−" + tr.cost + " patience)");
         return this.finish(out);
       }
     }
     // speech acts
-    if (RX.insult.test(P)) { this.pat -= 2; speak("@insult"); sys("That cost you 2 patience.", "bad"); return this.finish(out); }
-    if (RX.flatter.test(P) && U.words < 14) { speak("@flatter"); return this.finish(out); }
-    if (RX.greet.test(P) && U.words < 7) { speak("@greet"); return this.finish(out); }
+    if (RX.insult.test(P)) { this.pat -= 2; note("insult"); speak("@insult"); sys("That cost you 2 patience.", "bad"); return this.finish(out); }
+    if (RX.flatter.test(P) && U.words < 14) { note("flatter"); speak("@flatter"); return this.finish(out); }
+    if (RX.greet.test(P) && U.words < 7) { note("greet"); speak("@greet"); return this.finish(out); }
     if (RX.who.test(P)) {
-      speak("@whoami");
+      note("who are you"); speak("@whoami");
       out.push({ who: "them", text: this.say(ph.bio.split(". ").slice(0, 2).join(". ").replace(/\.?$/, "."), vars) });
       return this.finish(out);
     }
-    if (RX.giveup.test(P)) { speak("@giveup"); sys("Stuck? The Hint button nudges you toward the next step."); return this.finish(out); }
-    if (RX.agree.test(P) && U.words < 6) { speak("@agree"); return this.finish(out); }
+    if (RX.giveup.test(P)) { note("giveup"); speak("@giveup"); sys("Stuck? The Hint button nudges you toward the next step."); return this.finish(out); }
+    if (RX.agree.test(P) && U.words < 6) { note("agree"); speak("@agree"); return this.finish(out); }
 
     // near-miss: part of a multi-part argument
     let best = null, bestFrac = 0;
@@ -140,18 +150,20 @@ export class Conversation {
     }
     if (best && bestFrac >= 0.5 && this.partials < 3) {
       this.partials++;
+      note("near miss", "half of a move matched: " + best.words.join(", "));
       speak("@near", { half: best.words[0] || null });
       return this.finish(out);
     }
 
     // questions: restate where things stand
     if (U.isQuestion && RX.ask.test(P)) {
+      note("question");
       speak("@restate");
       out.push({ who: "them", text: this.say(this.stanceText || node.enter || ph.nodes[ph.start].enter, vars) });
       return this.finish(out);
     }
 
-    if (U.words < 3) { speak("@short"); return this.finish(out); }
+    if (U.words < 3) { note("too short"); speak("@short"); return this.finish(out); }
 
     // deflection, built from the player's own words
     this.pat -= 1;
@@ -189,6 +201,20 @@ export class Conversation {
     }
     return out;
   }
+
+  /* ---- admin mode ---- */
+  jumpTo(id) {
+    const n = this.ph.nodes[id];
+    if (!n || this.over) return [];
+    this.node = id;
+    this.partials = 0;
+    const text = n.enter ? this.say(n.enter, {}) : "";
+    this.stanceText = text || n.stance;
+    const out = [{ who: "sys", text: "Admin: jumped to node “" + id + "”." }];
+    if (text) out.push({ who: "them", text });
+    return out;
+  }
+  refill() { if (!this.over) this.pat = this.ph.patience; return [{ who: "sys", text: "Admin: patience refilled." }]; }
 
   hint() {
     if (this.over) return [];
