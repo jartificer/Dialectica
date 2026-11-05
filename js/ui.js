@@ -64,14 +64,9 @@ function applyAdmin() {
   $("adminToggle").setAttribute("aria-pressed", String(admin));
 }
 
-/* A thinker is open if it is first, if the previous one is convinced,
-   or if it (or anyone later) was already convinced — so new thinkers
-   added between old ones never lock a returning player out. */
+/* Whether a thinker is open: see isUnlockedAt in storage.js. */
 function isUnlocked(i) {
-  const p = store.progress();
-  if (admin || p.unlocked || i === 0) return true;
-  if (store.isDone(PHILOSOPHERS[i - 1].id)) return true;
-  return PHILOSOPHERS.slice(i).some(ph => store.isDone(ph.id));
+  return admin || store.isUnlockedAt(PHILOSOPHERS.map(p => p.id), i, store.progress());
 }
 
 function renderMap() {
@@ -95,6 +90,8 @@ function renderMap() {
     if (open) b.onclick = () => startTalk(ph.id);
     tl.appendChild(b);
   });
+  // remember who is open now, so a later version that adds thinkers never re-locks them
+  if (!admin) store.markOpened(PHILOSOPHERS.filter((ph, i) => isUnlocked(i)).map(ph => ph.id));
   if (PHILOSOPHERS.length && PHILOSOPHERS.every(p => store.isDone(p.id))) {
     const d = document.createElement("div"); d.className = "box"; d.style.marginTop = "18px";
     d.innerHTML = "<h4>Finale</h4><p>You have argued your way across twenty-five centuries and talked every one of them out of their most cherished conviction. Socrates would be proud, and then he would ask you what you think you know.</p>";
