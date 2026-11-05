@@ -33,8 +33,10 @@ js/grammar.js           generates replies in each thinker's voice (see "Grammar"
 js/concepts.js          shared word lists, used as @concept in patterns
 js/storage.js           progress and theme in localStorage
 js/ui.js                timeline, dialogue view, end panels
+js/portraits.js         loads portraits/<id>.svg and paints them (glyph fallback)
 philosophers/index.js   the list of philosopher files
 philosophers/<id>.js    one file per thinker: bio, voice and argument tree
+portraits/<id>.svg      one line-art portrait per thinker
 tests/                  node:test suites (npm test)
 ```
 
@@ -42,14 +44,15 @@ tests/                  node:test suites (npm test)
 
 1. Copy an existing file in `philosophers/` (for example `parmenides.js`) to `philosophers/<id>.js`.
 2. Add `"<id>"` to `philosophers/index.js`. The order there does not matter: the timeline is sorted by `born`.
-3. Run `npm test`. The tests validate the file, play its `walkthrough`, and throw keyword dumps at every node.
+3. Draw `portraits/<id>.svg` (see "Portraits" below).
+4. Run `npm test`. The tests validate the file, play its `walkthrough`, and throw keyword dumps at every node.
 
 A philosopher file exports one object:
 
 | field | meaning |
 |---|---|
 | `id`, `name`, `dates`, `born` | `born` is a year, negative for BCE; it orders the timeline |
-| `era`, `place`, `glyph`, `color` | timeline grouping and portrait |
+| `era`, `place`, `glyph`, `color` | timeline grouping; `color` tints the portrait, `glyph` stands in if the SVG is missing |
 | `diff` (1–5), `patience` | difficulty never drops along the timeline (a test checks it) |
 | `core`, `target` | what they believe, and what you must convince them of |
 | `bio` | shown in the sidebar, and when you ask "who are you?" |
@@ -103,3 +106,14 @@ npm test
 ```
 
 The tests need Node 18 or newer and nothing else. They validate every data file, check that every template refers to rules that exist, play every walkthrough with several random seeds, check that keyword dumps never advance, and check that each voice produces varied, fully expanded deflections in every mood.
+
+## Portraits
+
+Each thinker has a stylized line-art portrait in `portraits/<id>.svg`, based on a well-known bust, painting or engraving (each file's first line says which). They appear on the timeline, in the conversation header, and larger above the bio.
+
+Rules for a portrait (the tests check them):
+
+- `viewBox="4 5 56 56"` on a 64-unit drawing grid; the UI crops it to a circle, so keep the head near the centre.
+- Draw with `stroke="currentColor"` and `fill="none"` (or `fill="currentColor"` for small dots). No hard-coded colours, so it follows light and dark mode.
+- Only plain shapes: `path`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `rect`, `g`. No scripts, links, styles or embedded images.
+- Under 4 KB.
