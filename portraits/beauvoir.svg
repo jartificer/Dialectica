@@ -1,0 +1,17 @@
+<!-- Beauvoir, after the photographs of the 1940s and 50s: hair wrapped up in her signature turban, high cheekbones, pale eyes, a neat collar -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M24 27C23.5 18 27 15 32 15S40.5 18 40 27"/>
+<path d="M23 21q-2.5-8 2-11.5q7-4.5 14 0q4.5 3.5 2 11.5q-9-3.5-18 0M24 15.5q8-6 16-1M23.5 18.5q8-5 17 0M30 9q2 5 10 7"/>
+<path d="M24 21.5q-1 2 0 5M40 21.5q1 2 0 5"/>
+<path d="M32 25.8l-1 5.4q1 .8 2 0"/>
+<path d="M24 28q.5 7 3 10.5q2.5 3.5 5 3.5t5-3.5q2.5-3.5 3-10.5"/>
+<path d="M29 41.5v5M35 41.5v5"/>
+<path d="M25 47l4-.5l3 4l3-4l4 .5l-2 4l-5 1l-5-1z"/>
+<path d="M8 64q2-11 15-16M56 64q-2-11-15-16M32 52v12"/>
+<g class="brow l"><path d="M26.4 22.6q2.2-1 4.2 0"/></g>
+<g class="brow r"><path d="M33.4 22.6q2.2-1 4.2 0"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><path d="M34.2 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.4" r=".6" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.4" r=".6" fill="currentColor" stroke="none"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30.2 36.6q1.8.6 3.6 0"/><path class="m-smile" opacity="0" d="M29.5 36.1q2.5 2.6 5 0"/><path class="m-frown" opacity="0" d="M30 37.7q2-2.2 4 0"/><path class="m-flat" opacity="0" d="M30.5 36.9h3"/><ellipse class="m-open" opacity="0" cx="32" cy="37.5" rx="1.2" ry="1.8"/></g>
+</g>
+</svg>

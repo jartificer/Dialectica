@@ -1,6 +1,6 @@
 /* Plato */
 export default {
-  id:"plato", name:"Plato", dates:"c. 427–347 BCE", era:"Ancient Greece", place:"The Academy, Athens",
+  id:"plato", name:"Plato", dates:"c. 427–347 BCE", era:"Axial Age", place:"The Academy, Athens",
   diff:3, patience:8, glyph:"Π", color:"#3d5c9c", born:-427,
   core:"The Forms are eternal and exist apart from the things we see.",
   target:"The Forms do not exist apart from the things we see.",

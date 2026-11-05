@@ -2,7 +2,7 @@
 
 Argue your way through 2,500 years of philosophy. Every great thinker has a conviction they would die for; your job is to talk each of them out of it, in plain English.
 
-Seventeen thinkers, in chronological order, get harder as you go: Thales, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Epicurus, Marcus Aurelius, Augustine, Anselm, Descartes, Berkeley, Hume, Kant, Nietzsche and Sartre.
+Thirty-three thinkers from Greece, China, India, Persia, Europe and beyond, in chronological order, get harder as you go: Thales, Laozi, Confucius, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Zhuangzi, Epicurus, Marcus Aurelius, Nāgārjuna, Augustine, Śaṅkara, Ibn Sīnā, Anselm, al-Ghazālī, Aquinas, Wang Yangming, Hobbes, Descartes, Spinoza, Berkeley, Hume, Kant, Wollstonecraft, Kierkegaard, Marx, Nietzsche, Wittgenstein, Sartre and Beauvoir.
 
 ## Running it
 
@@ -41,7 +41,7 @@ js/engine.js            Conversation: meters, argument tree, speech acts (no DOM
 js/parser.js            understands the player's text (see "Parser")
 js/grammar.js           generates replies in each thinker's voice (see "Grammar")
 js/concepts.js          shared word lists, used as @concept in patterns
-js/storage.js           progress and theme in localStorage
+js/storage.js           progress (with save migration) and theme in localStorage
 js/ui.js                timeline, dialogue view, end panels
 js/portraits.js         loads portraits/<id>.svg and paints them (glyph fallback)
 philosophers/index.js   the list of philosopher files
@@ -56,6 +56,8 @@ tests/                  node:test suites (npm test)
 2. Add `"<id>"` to `philosophers/index.js`. The order there does not matter: the timeline is sorted by `born`.
 3. Draw `portraits/<id>.svg` (see "Portraits" below).
 4. Run `npm test`. The tests validate the file, play its `walkthrough`, and throw keyword dumps at every node.
+
+Never rename or remove an existing id: saved wins are keyed by it. You can insert a thinker anywhere on the timeline; see "Saved progress" below for why that never locks anyone out.
 
 A philosopher file exports one object:
 
@@ -133,3 +135,11 @@ Rules for a portrait (the tests check them):
 The portraits are rigged so that faces can move. Inside the `<svg>`, everything sits in `<g class="fig">`. Inside that, the eyebrows are in `<g class="brow l">` and `<g class="brow r">`, and the eyes are in `<g class="eyes"><g class="look">…</g></g>`. `<g class="mouth">` holds five mouth shapes, `m-rest`, `m-smile`, `m-frown`, `m-flat` and `m-open`; all but `m-rest` have `opacity="0"`. A moustache can go in an optional `<g class="stache">`.
 
 At rest a portrait breathes and blinks. Its held face follows the thinker's mood: composed, impatient, intrigued, wavering, irritated, persuaded or dismissive. Each reply also triggers a bigger reaction for about two seconds. A good argument gets astonishment and a jolt. An insult gets fury and a recoil. Keyword stuffing or repeating yourself gets a scowl and a head shake. A deflection gets a raised eyebrow and a tilt. A win gets a beaming bounce, and a loss makes them turn away. `js/portraits.js` (`reactionFor`) chooses the face and `css/style.css` draws it. With reduced motion turned on, the faces still change but nothing moves.
+
+## Saved progress
+
+Progress lives in `localStorage` under `dialectica.v1`, and every new version must keep it valid:
+
+- Wins are keyed by philosopher id, so adding or reordering thinkers never loses one. A test checks that every id from older versions still exists.
+- A thinker is open if it is first, if the one before it is convinced, if it or anyone later is convinced, or if it has ever been open before. The save remembers every thinker that has been open (`opened`), so inserting new thinkers between old ones never re-locks someone you had already reached.
+- Older saves without `opened` are migrated on load (`migrate` in `js/storage.js`): the old unlock rule is replayed against the old timeline (`LEGACY_ORDER`). `tests/progress.test.js` covers the migration.

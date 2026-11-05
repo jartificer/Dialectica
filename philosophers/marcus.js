@@ -1,6 +1,6 @@
 /* Marcus Aurelius */
 export default {
-  id:"marcus", name:"Marcus Aurelius", dates:"121–180 CE", era:"Roman Empire", place:"A winter camp on the Danube",
+  id:"marcus", name:"Marcus Aurelius", dates:"121–180 CE", era:"Classical antiquity", place:"A winter camp on the Danube",
   diff:3, patience:8, glyph:"M", color:"#7d3c5a", born:121,
   core:"Grief is an error of judgment. The wise feel no passion at a loss.",
   target:"Grief can be a fitting response to loss, not an error.",

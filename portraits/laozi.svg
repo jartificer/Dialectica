@@ -1,0 +1,17 @@
+<!-- Laozi, after the traditional ink paintings of the Old Master on his ox: high bald dome, long drooping brows, long white beard, large earlobes, crossed robe -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M23 27Q21.5 9 32 8.5T41 27"/>
+<path d="M27 13q5-1.5 10 0M28.5 16q3.5-1 7 0"/>
+<path d="M23 24c-2.5 0-3 9 .5 9.5M41 24c2.5 0 3 9-.5 9.5"/>
+<path d="M32 26l-1.3 6q1.3.9 2.6 0"/>
+<path d="M28 35q4-2 8 0q-1 1.5-4 1.5t-4-1.5"/>
+<path d="M23 29q0 8 3 12q2 8 6 13q4-5 6-13q3-4 3-12"/>
+<path d="M28.5 41l1 7M32 43v8M35.5 41l-1 7M26.5 37l1.5 5M37.5 37l-1.5 5"/>
+<path d="M8 64q2-11 16-15l8 13l8-13q14 4 16 15M24 49l8 15M40 49l-8 15"/>
+<g class="brow l"><path d="M25.5 22.5q2.5-1.5 5 0q-2 .5-4 3"/></g>
+<g class="brow r"><path d="M33.5 22.5q2.5-1.5 5 0q2 .5 4 3"/></g>
+<g class="eyes"><g class="look"><path d="M27 25.8q1.5-.8 3 0"/><path d="M34 25.8q1.5-.8 3 0"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30 37.5h4"/><path class="m-smile" opacity="0" d="M29.2 36.9q2.8 2.8 5.6 0"/><path class="m-frown" opacity="0" d="M29.7 38.6q2.3-2.4 4.6 0"/><path class="m-flat" opacity="0" d="M30.3 37.8h3.4"/><ellipse class="m-open" opacity="0" cx="32" cy="38.4" rx="1.3" ry="2"/></g>
+</g>
+</svg>

@@ -1,6 +1,6 @@
 /* Protagoras */
 export default {
-  id:"protagoras", name:"Protagoras of Abdera", dates:"c. 490–420 BCE", era:"Ancient Greece", place:"Abdera, Thrace",
+  id:"protagoras", name:"Protagoras of Abdera", dates:"c. 490–420 BCE", era:"Axial Age", place:"Abdera, Thrace",
   diff:2, patience:9, glyph:"Π", color:"#7a5a9a", born:-490,
   core:"Man is the measure of all things — truth is relative to each person.",
   target:"Some truths are not relative to any person.",

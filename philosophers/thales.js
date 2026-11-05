@@ -1,6 +1,6 @@
 /* Thales */
 export default {
-  id:"thales", name:"Thales of Miletus", dates:"c. 624–546 BCE", era:"Ancient Greece", place:"Miletus, Ionia",
+  id:"thales", name:"Thales of Miletus", dates:"c. 624–546 BCE", era:"Axial Age", place:"Miletus, Ionia",
   diff:1, patience:10, glyph:"Θ", color:"#2f6f8f", born:-624,
   core:"All things are made of water.",
   target:"Water cannot be the first principle of all things.",

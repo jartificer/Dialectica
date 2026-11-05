@@ -1,6 +1,6 @@
 /* Heraclitus */
 export default {
-  id:"heraclitus", name:"Heraclitus of Ephesus", dates:"c. 535–475 BCE", era:"Ancient Greece", place:"Ephesus, Ionia",
+  id:"heraclitus", name:"Heraclitus of Ephesus", dates:"c. 535–475 BCE", era:"Axial Age", place:"Ephesus, Ionia",
   diff:1, patience:9, glyph:"Η", color:"#b4532a", born:-535,
   core:"Everything flows; nothing stays the same.",
   target:"Something in the world is permanent and unchanging.",

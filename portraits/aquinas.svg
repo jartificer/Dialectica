@@ -1,0 +1,19 @@
+<!-- Aquinas, after Carlo Crivelli's altarpiece panel and Fra Angelico: Dominican tonsure ring, broad round face, white habit and black cappa, a sun on his breast -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M21.5 27Q20 12 32 12T42.5 27"/>
+<path d="M22 21q1.5-3 2.5-1q1-3 2.5-1.5q1.5-2.5 3-1q1.5-2 3 0q1.5-2 3 .5q1.5-1.5 2.5 1q1.5-1.5 2.5 1.5"/>
+<path d="M21.5 25c-2.3 0-2.3 5.5 0 5.5M42.5 25c2.3 0 2.3 5.5 0 5.5"/>
+<path d="M32 25.5l-1.3 6q1.3.9 2.6 0"/>
+<path d="M21.5 28q0 9 3.5 12.5q3 3.5 7 3.5t7-3.5q3.5-3.5 3.5-12.5"/>
+<path d="M26 42q6 3 12 0"/>
+<path d="M28 44v3M36 44v3"/>
+<path d="M8 64q2-12 17-16q7 2 14 0q15 4 17 16M24 48q-2 8 0 16M40 48q2 8 0 16"/>
+<circle cx="32" cy="56" r="2.5"/>
+<path d="M32 51.5v1.5M32 59v1.5M27.5 56h1.5M35 56h1.5M28.8 52.8l1 1M34.2 58.2l1 1M35.2 52.8l-1 1M29.8 58.2l-1 1"/>
+<g class="brow l"><path d="M26 22.5q2.5-1.2 4.5 0"/></g>
+<g class="brow r"><path d="M33.5 22.5q2.5-1.2 4.5 0"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><path d="M34.2 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.4" r=".6" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.4" r=".6" fill="currentColor" stroke="none"/></g></g>
+<g class="mouth"><path class="m-rest" d="M29.5 37.5q2.5.8 5 0"/><path class="m-smile" opacity="0" d="M29 36.9q3 2.8 6 0"/><path class="m-frown" opacity="0" d="M29.5 38.6q2.5-2.4 5 0"/><path class="m-flat" opacity="0" d="M30 37.8h4"/><ellipse class="m-open" opacity="0" cx="32" cy="38.4" rx="1.4" ry="2"/></g>
+</g>
+</svg>

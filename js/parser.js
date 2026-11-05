@@ -315,7 +315,7 @@ export function extractEcho(raw) {
   return best;
 }
 
-const PROPER = new Set("god zeus apollo poseidon hera plato socrates aristotle thales heraclitus parmenides protagoras epicurus descartes hume kant nietzsche darwin christ jesus berkeley locke anselm augustine marcus sartre beauvoir athens rome delphi logos".split(" "));
+const PROPER = new Set("god zeus apollo poseidon hera plato socrates aristotle thales heraclitus parmenides protagoras epicurus descartes hume kant nietzsche darwin christ jesus berkeley locke anselm augustine marcus sartre beauvoir athens rome delphi logos laozi confucius zhuangzi huizi nagarjuna shankara brahman avicenna ghazali aquinas wang hobbes spinoza wollstonecraft kierkegaard regine marx engels wittgenstein russell fosca dao".split(" "));
 const VERBISH = new Set("are were have had can could will would should must might may do did does think say said claim claimed believe believed know knew mean meant hold held admit admitted want wanted see saw just also never always really still yourself said".split(" "));
 const AFTER_YOU_SUBJECT = new Set(["", "that", "and", "but", "because", "if", "when", "so", "as", "since", "unless", "though", "although", "then", "or"]);
 
