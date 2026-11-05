@@ -1,0 +1,17 @@
+<!-- Marcus Aurelius, after the equestrian statue on the Capitol and his busts: thick curly hair and beard, cloak pinned at the shoulder -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M23 28C21 17 26 11 32 11S43 17 41 28"/>
+<path d="M22.5 22q-2-2 0-4q-1-3 2-4q0-3 3-2.5q1.5-2.5 4.5-1q3-1.5 4.5 1q3-.5 3 2.5q3 1 2 4q2 2 0 4"/>
+<path d="M25 18.5q1.3 1.3 2.6 0M28.5 16.5q1.3 1.3 2.6 0M32.5 16.5q1.3 1.3 2.6 0M36.2 18.5q1.3 1.3 2.6 0M26.5 21q1.3 1.3 2.6 0M30.5 20q1.3 1.3 2.6 0M34.7 21q1.3 1.3 2.6 0"/>
+<path d="M22.5 23c-2.3 0-2.3 5.5 0 5.5M41.5 23c2.3 0 2.3 5.5 0 5.5"/>
+<path d="M26 24q2-1 4.5 0M33.5 24q2.5-1 4.5 0"/>
+<path d="M26.8 26.6q1.5-1.2 3 0M34.2 26.6q1.5-1.2 3 0M27.5 27h1.4M35 27h1.4"/>
+<path d="M32 26l-1.2 6q1.2.9 2.4 0"/>
+<path d="M28 35q4-2.4 8 0M30 37.2h4"/>
+<path d="M22.5 29q-1 10 2.5 14q3.5 4.5 7 4.5t7-4.5q3.5-4 2.5-14"/>
+<path d="M24.5 34q1.4 1.4 2.6 0M37 34q1.4 1.4 2.6 0M26 39q1.3 1.3 2.6 0M35.4 39q1.3 1.3 2.6 0M29.5 43q1.2 1.2 2.4 0M32.1 43q1.2 1.2 2.4 0"/>
+<path d="M28.5 47.5v3M35.5 47.5v3"/>
+<path d="M8 64q3-11 18-13.5M56 64q-3-11-18-13.5"/>
+<path d="M20 52q8 3 18 12M44 51q-2 6 0 13"/>
+<circle cx="44" cy="51.5" r="2.4"/><circle cx="44" cy="51.5" r=".6" fill="currentColor"/>
+</svg>

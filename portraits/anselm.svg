@@ -1,0 +1,14 @@
+<!-- Anselm, as a Benedictine monk in medieval manuscripts: cowl, tonsure, clean-shaven, holding his book -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 44Q14 24 20 15Q26 8 32 8T44 15Q50 24 48 44"/>
+<path d="M22 46q-3-20 2.5-28q3-4 7.5-4t7.5 4q5.5 8 2.5 28"/>
+<path d="M25 19.5q7-3.5 14 0"/>
+<path d="M28 21l.3-2M32 20.6v-2M36 21l-.3-2"/>
+<path d="M24.5 25.5c-2 0-2 5 0 5M39.5 25.5c2 0 2 5 0 5"/>
+<path d="M26.5 25.5q2-1 4.2 0M33.3 25.5q2.2-1 4.2 0"/>
+<path d="M27.2 28q1.4-.9 2.8 0M34 28q1.4-.9 2.8 0"/>
+<path d="M32 27.5l-1.2 6q1.2.9 2.4 0"/>
+<path d="M29.5 37.5q2.5.6 5 0M30.5 41.5q1.5.5 3 0"/>
+<path d="M16 44q-6 4-8 20M48 44q6 4 8 20M22 46q10 6 20 0"/>
+<path d="M24 64l2-9.5h14l2 9.5M26.5 57.5h11"/>
+</svg>

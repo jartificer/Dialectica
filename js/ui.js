@@ -5,6 +5,7 @@
    ===================================================================== */
 import { Conversation, DIFFICULTY, hintCost } from "./engine.js";
 import * as store from "./storage.js";
+import { paintPortrait } from "./portraits.js";
 
 const $ = id => document.getElementById(id);
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -83,11 +84,12 @@ function renderMap() {
     b.dataset.id = ph.id;
     b.setAttribute("aria-label", ph.name + (done ? " (convinced)" : open ? "" : " (locked)"));
     b.innerHTML =
-      '<div class="portrait" style="background:' + ph.color + '">' + esc(ph.glyph) + "</div>" +
+      '<div class="portrait"></div>' +
       "<div><h3>" + esc(ph.name) + '</h3><div class="meta">' + esc(ph.dates) + " · " + esc(ph.place) + "</div>" +
       '<div class="claims">' + (open ? "“" + esc(ph.core) + "”<br><i>Convince them: " + esc(ph.target) + "</i>" : "<i>Convince " + esc(PHILOSOPHERS[i - 1].name) + " to unlock.</i>") + "</div></div>" +
       '<div class="status"><span class="stars" title="Difficulty">' + stars(ph.diff) + "</span>" + DIFFICULTY[ph.diff] +
       (done ? '<br><span class="ok">✓ Convinced</span><br>best: ' + best + " exchanges" : "") + "</div>";
+    paintPortrait(b.querySelector(".portrait"), ph);
     if (open) b.onclick = () => startTalk(ph.id);
     tl.appendChild(b);
   });
@@ -110,7 +112,11 @@ export function startTalk(id) {
   if (!ph) return;
   C = new Conversation(ph);
   showView("talk");
-  $("pPortrait").textContent = ph.glyph; $("pPortrait").style.background = ph.color;
+  paintPortrait($("pPortrait"), ph);
+  // a larger copy of the portrait heads the "About" box
+  let big = $("pBioPortrait");
+  if (!big) { big = document.createElement("div"); big.id = "pBioPortrait"; big.className = "portrait big"; $("pBio").before(big); }
+  paintPortrait(big, ph);
   $("pName").textContent = ph.name;
   $("pMeta").textContent = ph.dates + " · " + stars(ph.diff) + " " + DIFFICULTY[ph.diff];
   $("pCore").textContent = "“" + ph.core + "”";
