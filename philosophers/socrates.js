@@ -1,6 +1,6 @@
 /* Socrates */
 export default {
-  id:"socrates", name:"Socrates", dates:"c. 470–399 BCE", era:"Ancient Greece", place:"Athens",
+  id:"socrates", name:"Socrates", dates:"c. 470–399 BCE", era:"Axial Age", place:"Athens",
   diff:2, patience:8, glyph:"Σ", color:"#5f7d4a", born:-470,
   core:"I know that I know nothing.",
   target:"Socrates does have real knowledge.",

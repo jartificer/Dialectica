@@ -1,6 +1,6 @@
 /* Aristotle */
 export default {
-  id:"aristotle", name:"Aristotle", dates:"384–322 BCE", era:"Ancient Greece", place:"The Lyceum, Athens",
+  id:"aristotle", name:"Aristotle", dates:"384–322 BCE", era:"Axial Age", place:"The Lyceum, Athens",
   diff:3, patience:8, glyph:"Α", color:"#8a6d2b", born:-384,
   core:"Nature does nothing in vain — everything in nature exists for a purpose.",
   target:"Nature can produce the appearance of design without any purpose.",

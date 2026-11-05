@@ -1,6 +1,6 @@
 /* Parmenides */
 export default {
-  id:"parmenides", name:"Parmenides of Elea", dates:"c. 515–450 BCE", era:"Ancient Greece", place:"Elea, Magna Graecia",
+  id:"parmenides", name:"Parmenides of Elea", dates:"c. 515–450 BCE", era:"Axial Age", place:"Elea, Magna Graecia",
   diff:2, patience:9, glyph:"Π", color:"#8a7a3a", born:-515,
   core:"What is not cannot be — so change and motion are illusions.",
   target:"Change is real.",
