@@ -71,6 +71,81 @@ button{font:inherit;color:inherit;cursor:pointer}
 .portrait.big{width:132px;height:132px;margin:6px auto 12px;font-size:48px}
 .portrait.big svg{stroke-width:1.25}
 
+/* ---------- portrait animation ----------
+   Each SVG has .fig (everything), .brow.l/.brow.r, .eyes > .look, and a .mouth
+   holding five shapes (m-rest, m-smile, m-frown, m-flat, m-open) of which one shows.
+   At rest: slow breathing and a blink. The conversation sets data-face (a held
+   expression) and data-anim (a one-off head movement) on the portrait. */
+.portrait.art .fig,.portrait.art .brow,.portrait.art .look,.portrait.art .eyes,.portrait.art .mouth,.portrait.art .stache{transform-box:fill-box;transform-origin:center}
+.portrait.art .fig{transform-box:view-box;transform-origin:32px 50px}
+.portrait.art .brow,.portrait.art .look,.portrait.art .mouth,.portrait.art .stache{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.portrait.art .mouth>*{opacity:0;transition:opacity .18s}
+.portrait.art .mouth>.m-rest{opacity:1}
+.portrait.art svg{transition:transform .5s ease}
+.card:not(.locked) .portrait.art .eyes,.chathead .portrait.art .eyes,.portrait.big.art .eyes{animation:blink 5.5s infinite;animation-delay:var(--blink,0s)}
+.chathead .portrait.art .fig,.portrait.big.art .fig{animation:breathe 4.5s ease-in-out infinite alternate}
+@keyframes blink{0%,93%,100%{transform:none}95.5%{transform:scaleY(.1)}}
+@keyframes breathe{from{transform:none}to{transform:translateY(-.5px) rotate(.6deg)}}
+
+/* mouth shapes */
+.portrait[data-face] .mouth>.m-rest{opacity:0}
+.portrait[data-face="neutral"] .mouth>.m-rest,.portrait[data-face="interested"] .mouth>.m-rest{opacity:1}
+.portrait:is([data-face="glad"],[data-face="amused"]) .mouth>.m-smile{opacity:1}
+.portrait:is([data-face="cross"],[data-face="furious"],[data-face="uneasy"],[data-face="scorn"]) .mouth>.m-frown{opacity:1}
+.portrait:is([data-face="stern"],[data-face="puzzled"],[data-face="thinking"]) .mouth>.m-flat{opacity:1}
+.portrait[data-face="astonished"] .mouth>.m-open{opacity:1}
+
+/* brows: l and r rotate in opposite directions; "inner end down" reads as anger */
+.portrait[data-face="interested"] .brow{transform:translateY(-1px)}
+.portrait[data-face="stern"] .brow.l{transform:translateY(.5px) rotate(9deg)}
+.portrait[data-face="stern"] .brow.r{transform:translateY(.5px) rotate(-9deg)}
+.portrait:is([data-face="cross"],[data-face="furious"]) .brow.l{transform:translateY(1.2px) rotate(18deg)}
+.portrait:is([data-face="cross"],[data-face="furious"]) .brow.r{transform:translateY(1.2px) rotate(-18deg)}
+.portrait[data-face="furious"] .brow.l{transform:translateY(1.6px) rotate(26deg)}
+.portrait[data-face="furious"] .brow.r{transform:translateY(1.6px) rotate(-26deg)}
+.portrait[data-face="uneasy"] .brow.l{transform:translateY(-1px) rotate(-14deg)}
+.portrait[data-face="uneasy"] .brow.r{transform:translateY(-1px) rotate(14deg)}
+.portrait:is([data-face="glad"],[data-face="amused"]) .brow{transform:translateY(-1.4px)}
+.portrait[data-face="astonished"] .brow{transform:translateY(-2.8px) scaleX(1.1)}
+.portrait:is([data-face="puzzled"],[data-face="scorn"]) .brow.l{transform:translateY(-2.2px) rotate(-8deg)}
+.portrait:is([data-face="puzzled"],[data-face="scorn"]) .brow.r{transform:translateY(.8px) rotate(-10deg)}
+.portrait[data-face="thinking"] .brow.l{transform:translateY(-1.2px)}
+
+/* eyes */
+.portrait[data-face="astonished"] .look{transform:scale(1.35)}
+.portrait:is([data-face="cross"],[data-face="furious"]) .look{transform:scaleY(.45)}
+.portrait[data-face="scorn"] .look{transform:scaleY(.5) translateX(-1.2px)}
+.portrait[data-face="glad"] .look{transform:scaleY(.2) translateY(.6px)}
+.portrait[data-face="amused"] .look{transform:scaleY(.65)}
+.portrait[data-face="thinking"] .look{transform:translate(1.2px,-.8px)}
+.portrait[data-face="puzzled"] .look{transform:translateX(-.8px)}
+.portrait[data-face="uneasy"] .look{transform:translateX(.9px)}
+
+/* mouth and moustache placement */
+.portrait[data-face="puzzled"] .mouth{transform:rotate(-12deg) translateX(.6px)}
+.portrait[data-face="furious"] .mouth{transform:scale(1.3,1.5)}
+.portrait[data-face="glad"] .mouth{transform:scale(1.25)}
+.portrait:is([data-face="glad"],[data-face="amused"]) .stache{transform:translateY(-.6px) scaleX(1.06)}
+.portrait:is([data-face="cross"],[data-face="furious"],[data-face="scorn"]) .stache{transform:translateY(.5px) scaleX(.94)}
+
+/* one-off head movements */
+.portrait[data-anim="jolt"] svg{animation:jolt .9s ease-out}
+.portrait[data-anim="shake"] svg{animation:shake .7s ease-in-out}
+.portrait[data-anim="recoil"] svg{animation:recoil 1s ease-out}
+.portrait[data-anim="nod"] svg{animation:nod .9s ease-in-out}
+.portrait[data-anim="tilt"] svg{transform:rotate(-7deg)}
+.portrait[data-anim="bounce"] svg{animation:bounce 1.2s ease-out}
+.portrait[data-anim="turn"] svg{transform:translateX(5%) rotate(8deg) scaleX(.94)}
+@keyframes jolt{0%{transform:none}15%{transform:translateY(4%) scale(.95)}40%{transform:translateY(-5%) scale(1.06)}100%{transform:none}}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-5%) rotate(-5deg)}40%{transform:translateX(5%) rotate(5deg)}60%{transform:translateX(-3%) rotate(-3deg)}80%{transform:translateX(2%) rotate(2deg)}}
+@keyframes recoil{0%{transform:none}20%{transform:translate(4%,3%) rotate(9deg) scale(.94)}60%{transform:translate(1%,1%) rotate(3deg)}100%{transform:none}}
+@keyframes nod{0%,100%{transform:none}30%{transform:translateY(5%) rotate(-2deg)}60%{transform:translateY(-1%)}}
+@keyframes bounce{0%{transform:none}25%{transform:translateY(-9%) scale(1.06)}50%{transform:translateY(0)}70%{transform:translateY(-4%)}100%{transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .portrait.art *,.portrait.art svg{animation:none!important;transition:none!important}
+}
+
 /* ---------- dialogue ---------- */
 .stage{display:grid;grid-template-columns:1fr 300px;gap:20px;padding:18px 0 24px;height:calc(100vh - 62px);min-height:520px}
 .chatcol{display:flex;flex-direction:column;min-height:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}

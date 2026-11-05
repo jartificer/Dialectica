@@ -1,15 +1,20 @@
 <!-- Heraclitus, the weeping philosopher as Raphael painted him in The School of Athens: brooding, head propped on his fist -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
 <path d="M24 27C23.5 16 28 11.5 33 11.5S42.5 16 42 27"/>
 <path d="M25 15q-4 5-3.5 13q.5 6-2.5 12M41 15q4 5 3.5 13q-.5 6 1.5 11"/>
-<path d="M27 23.5l3.5 1M39 23.5l-3.5 1M33 22v2"/>
-<path d="M27.5 27q1.5 1 3 0M35.5 27q1.5 1 3 0"/>
+<path d="M33 22v2"/>
 <path d="M33 26l-1.3 6q1.3.9 2.6 0"/>
-<path d="M29.5 35.5q3.5-1.6 7 0M31 38.5q2-1 4 0"/>
+<path d="M29.5 35.5q3.5-1.6 7 0"/>
 <path d="M25 30q-.5 11 3.5 15q4.5 4 9 0q4-4 4-15"/>
 <path d="M29 40.5l.5 3M33 42l0 3.5M37 40.5l-.5 3"/>
 <path d="M24 31q-4 .5-4.5 4.5q0 4 3.5 5.5q3 1 4.5-1.5"/>
 <path d="M20 36.5q1.5.5 3.5-.5M20.5 39q1.5.5 3-.3"/>
 <path d="M19.5 39l-6 25M27 41l-4 23"/>
 <path d="M45 39q8 6 12 25M38 48l-2 16"/>
+<g class="brow l"><path d="M27 23.5l3.5 1"/></g>
+<g class="brow r"><path d="M39 23.5l-3.5 1"/></g>
+<g class="eyes"><g class="look"><path d="M27.5 27q1.5 1 3 0"/><path d="M35.5 27q1.5 1 3 0"/></g></g>
+<g class="mouth"><path class="m-rest" d="M31 38.5q2-1 4 0"/><path class="m-smile" opacity="0" d="M30.2 37.3q2.8 2.8 5.6 0"/><path class="m-frown" opacity="0" d="M30.7 39q2.3-2.4 4.6 0"/><path class="m-flat" opacity="0" d="M31.3 38.2h3.4"/><ellipse class="m-open" opacity="0" cx="33" cy="38.8" rx="1.3" ry="2"/></g>
+</g>
 </svg>

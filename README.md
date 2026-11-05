@@ -127,3 +127,9 @@ Rules for a portrait (the tests check them):
 - Draw with `stroke="currentColor"` and `fill="none"` (or `fill="currentColor"` for small dots). No hard-coded colours, so it follows light and dark mode.
 - Only plain shapes: `path`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `rect`, `g`. No scripts, links, styles or embedded images.
 - Under 4 KB.
+
+### Animation
+
+The portraits are rigged so that faces can move. Inside the `<svg>`, everything sits in `<g class="fig">`. Inside that, the eyebrows are in `<g class="brow l">` and `<g class="brow r">`, and the eyes are in `<g class="eyes"><g class="look">…</g></g>`. `<g class="mouth">` holds five mouth shapes, `m-rest`, `m-smile`, `m-frown`, `m-flat` and `m-open`; all but `m-rest` have `opacity="0"`. A moustache can go in an optional `<g class="stache">`.
+
+At rest a portrait breathes and blinks. Its held face follows the thinker's mood: composed, impatient, intrigued, wavering, irritated, persuaded or dismissive. Each reply also triggers a bigger reaction for about two seconds. A good argument gets astonishment and a jolt. An insult gets fury and a recoil. Keyword stuffing or repeating yourself gets a scowl and a head shake. A deflection gets a raised eyebrow and a tilt. A win gets a beaming bounce, and a loss makes them turn away. `js/portraits.js` (`reactionFor`) chooses the face and `css/style.css` draws it. With reduced motion turned on, the faces still change but nothing moves.

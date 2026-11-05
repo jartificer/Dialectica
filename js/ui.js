@@ -5,7 +5,7 @@
    ===================================================================== */
 import { Conversation, DIFFICULTY, hintCost } from "./engine.js";
 import * as store from "./storage.js";
-import { paintPortrait } from "./portraits.js";
+import { paintPortrait, faceFor, reactionFor, setFace } from "./portraits.js";
 
 const $ = id => document.getElementById(id);
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -16,6 +16,8 @@ const fast = () => !!window.DIALECTICA_FAST || /[?&]fast\b/.test(location.search
 let PHILOSOPHERS = [];
 let C = null;       // the current Conversation
 let busy = false;
+let settleTimer = 0;  // returns the portrait to its mood face after a reaction
+const faces = () => [$("pPortrait"), $("pBioPortrait")];
 let admin = false;  // admin mode: everything open, debug tools, wins not saved
 
 export function initUI(philosophers) {
@@ -117,6 +119,8 @@ export function startTalk(id) {
   let big = $("pBioPortrait");
   if (!big) { big = document.createElement("div"); big.id = "pBioPortrait"; big.className = "portrait big"; $("pBio").before(big); }
   paintPortrait(big, ph);
+  clearTimeout(settleTimer);
+  setFace(faces(), faceFor(C.mood));
   $("pName").textContent = ph.name;
   $("pMeta").textContent = ph.dates + " · " + stars(ph.diff) + " " + DIFFICULTY[ph.diff];
   $("pCore").textContent = "“" + ph.core + "”";
@@ -145,24 +149,33 @@ function addMsg(m) {
 }
 
 /* Play lines one by one, with a "thinking" pause before the philosopher speaks. */
-function show(lines) {
+function show(lines, reaction = null) {
   busy = true; $("sendBtn").disabled = true;
   const conv = C;
-  let i = 0;
+  let i = 0, reacted = false;
+  clearTimeout(settleTimer);
   const step = () => {
     if (conv !== C) return; // the player restarted mid-reply
     if (i >= lines.length) {
       busy = false; $("sendBtn").disabled = false; updateSide();
+      // hold the reaction for a moment, then settle into the mood (the end states stay)
+      if (!C.over) settleTimer = setTimeout(() => { if (conv === C && !busy) setFace(faces(), faceFor(C.mood)); }, reaction ? 2600 : 0);
       if (C.result) end(C.result); else $("input").focus();
       return;
     }
     const m = lines[i++];
     if (m.who !== "them") { addMsg(m); step(); return; }
+    if (!reacted && reaction) setFace(faces(), "thinking");
     const t = document.createElement("div"); t.className = "typing";
     t.innerHTML = esc(C.ph.name.split(" ")[0]) + " is thinking<span>.</span><span>.</span><span>.</span>";
     $("log").appendChild(t); $("log").scrollTop = $("log").scrollHeight;
     const delay = fast() ? 0 : Math.min(1500, 350 + m.text.length * 4);
-    setTimeout(() => { t.remove(); if (conv === C) { addMsg(m); step(); } }, delay);
+    setTimeout(() => {
+      t.remove();
+      if (conv !== C) return;
+      if (!reacted && reaction) { reacted = true; setFace(faces(), reaction.face, reaction.anim); }
+      addMsg(m); step();
+    }, delay);
   };
   updateSide();
   step();
@@ -195,7 +208,10 @@ function submit() {
   if (!raw) return;
   $("input").value = "";
   addMsg({ who: "you", text: raw });
-  show(C.respond(raw));
+  const before = { conv: C.conv, pat: C.pat };
+  C.debug = null; // so a hint (which sets no debug info) is not read as the previous reply
+  const lines = C.respond(raw);
+  show(lines, reactionFor(before, C, C.debug?.kind ?? null));
 }
 
 function end(result) {
