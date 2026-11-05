@@ -11,7 +11,7 @@
 <body>
 <div class="wrap">
   <header class="topbar">
-    <div class="brand"><h1>DIALECTICA</h1><span>reason your way through 2,500 years</span></div>
+    <div class="brand"><h1>DIALECTICA</h1><span>reason your way through 2,500 years</span><b class="adminbadge" id="adminBadge" hidden>Admin mode</b></div>
     <div style="display:flex;gap:8px">
       <button class="iconbtn" id="mapBtn" hidden>← Timeline</button>
       <button class="iconbtn" id="themeBtn" title="Toggle light/dark">Light / dark</button>
@@ -31,7 +31,8 @@
       </div>
     </section>
     <section class="timeline" id="timeline"></section>
-    <p class="footnote"><span id="count">0</span> thinkers on the timeline. Progress is saved in this browser. <button id="resetAll">Reset progress</button> · <button id="unlockAll">Unlock every thinker</button></p>
+    <p class="footnote"><span id="count">0</span> thinkers on the timeline. Progress is saved in this browser. <button id="resetAll">Reset progress</button> · <button id="adminToggle" aria-pressed="false">Admin mode: off</button></p>
+    <p class="footnote adminnote" id="adminNote" hidden>Admin mode opens every thinker and adds debug tools to each conversation. Wins in admin mode are not saved, so your real progress stays as it is.</p>
   </main>
 
   <!-- DIALOGUE -->
@@ -68,6 +69,18 @@
             <button class="btn ghost" id="restartBtn" type="button">Start over</button>
           </div>
           <p class="tip collapsible-tip" style="margin-top:10px">Argue in full sentences. Ask questions if you're unsure what they mean. Quoting them back to themselves often works.</p>
+        </div>
+        <div class="box adminbox" id="adminBox" hidden>
+          <h4>Admin</h4>
+          <div class="adminrow">
+            <select id="nodeSelect" aria-label="Argument node"></select>
+            <button class="btn ghost" id="jumpBtn" type="button">Jump</button>
+          </div>
+          <div class="adminrow">
+            <button class="btn ghost" id="refillBtn" type="button">Refill patience</button>
+            <button class="btn ghost" id="walkBtn" type="button" title="Put the next walkthrough line in the text box">Fill in answer</button>
+          </div>
+          <p class="tip" id="debugTxt">Send a message to see how it was parsed.</p>
         </div>
         <div class="box collapsible"><h4>About</h4><p class="tip" id="pBio"></p></div>
       </aside>
