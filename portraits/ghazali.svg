@@ -1,0 +1,18 @@
+<!-- al-Ghazali, after traditional devotional depictions (no portrait survives): tall turban with a hanging tail, long narrow beard, Sufi cloak, prayer beads -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M23.5 27C23 18 27 15.5 32 15.5S41 18 40.5 27"/>
+<path d="M22.5 21Q20 14 23 9Q27 3.5 32 4Q37 3.5 41 9Q44 14 41.5 21Q32 18 22.5 21M22.5 17.5q9.5-4 19 0M22.8 13.5q9.2-4 18.4 0M24.5 9.5q7.5-3.5 15 0M41.5 19q4 4 3 12"/>
+<path d="M23.5 24.5c-2.3 0-2.3 5.5 0 5.5M40.5 24.5c2.3 0 2.3 5.5 0 5.5"/>
+<path d="M32 25.5l-1.3 6q1.3.9 2.6 0"/>
+<path d="M32 34.3q-3-1-4.5 1.5M32 34.3q3-1 4.5 1.5"/>
+<path d="M23.5 28q-.5 9 3 14q2.5 5 5.5 9q3-4 5.5-9q3.5-5 3-14"/>
+<path d="M29 42l1.5 5M35 42l-1.5 5M32 44v4"/>
+<path d="M8 64q2-11 16-15q4 6 8 7q4-1 8-7q14 4 16 15M24 49l-1 15M40 49l1 15"/>
+<path d="M17 58q-1 4 2 6M17 58l1-1" stroke-dasharray=".1 1.8" stroke-width="2"/>
+<g class="brow l"><path d="M26 22.5q2.5-1.2 4.5 0"/></g>
+<g class="brow r"><path d="M33.5 22.5q2.5-1.2 4.5 0"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.8q1.5-.8 3 0"/><path d="M34.2 25.8q1.5-.8 3 0"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30 37.5h4"/><path class="m-smile" opacity="0" d="M29.2 36.9q2.8 2.8 5.6 0"/><path class="m-frown" opacity="0" d="M29.7 38.6q2.3-2.4 4.6 0"/><path class="m-flat" opacity="0" d="M30.3 37.8h3.4"/><ellipse class="m-open" opacity="0" cx="32" cy="38.4" rx="1.3" ry="2"/></g>
+</g>
+</svg>

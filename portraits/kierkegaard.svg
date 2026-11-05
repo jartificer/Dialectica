@@ -1,0 +1,17 @@
+<!-- Kierkegaard, after his cousin Niels Christian Kierkegaard's sketch of about 1840: hair brushed up into a tall quiff, narrow face, high collar points and a wide cravat -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M24 27C23.5 18 27 14.5 32 14.5S40.5 18 40 27"/>
+<path d="M24 21q-2-7 2-11q4-4 10-3q5 1 5 6q0 4-1 8M26 18q1-6 6-9M29.5 17q1-5 5-7.5M33.5 17q2-4 5-5"/>
+<path d="M24 24.5c-2.2 0-2.2 5.5 0 5.5M40 24.5c2.2 0 2.2 5.5 0 5.5"/>
+<path d="M32 25.5l-1.5 6.5q1.5.8 3 0"/>
+<path d="M24 29q.5 7.5 3 11q2.5 3.5 5 3.5t5-3.5q2.5-3.5 3-11"/>
+<path d="M29 43v2.5M35 43v2.5"/>
+<path d="M26 45.5l3 4.5l3-3l3 3l3-4.5M28 50q4 3 8 0l-2 4h-4z"/>
+<path d="M8 64q2-11 16-17l8 17l8-17q14 6 16 17"/>
+<g class="brow l"><path d="M26 22.5q2.5-1.2 4.5 0"/></g>
+<g class="brow r"><path d="M33.5 22.5q2.5-1.2 4.5 0"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><path d="M34.2 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.4" r=".6" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.4" r=".6" fill="currentColor" stroke="none"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30 37.5h4"/><path class="m-smile" opacity="0" d="M29.2 36.9q2.8 2.8 5.6 0"/><path class="m-frown" opacity="0" d="M29.7 38.6q2.3-2.4 4.6 0"/><path class="m-flat" opacity="0" d="M30.3 37.8h3.4"/><ellipse class="m-open" opacity="0" cx="32" cy="38.4" rx="1.3" ry="2"/></g>
+</g>
+</svg>
