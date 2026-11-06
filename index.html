@@ -31,7 +31,8 @@
       </div>
     </section>
     <section class="timeline" id="timeline"></section>
-    <p class="footnote"><span id="count">0</span> thinkers on the timeline. Progress is saved in this browser. <button id="resetAll">Reset progress</button> · <button id="adminToggle" aria-pressed="false">Admin mode: off</button></p>
+    <p class="footnote"><span id="count">0</span> thinkers on the timeline. Progress is saved in this browser. <button id="resetAll">Reset progress</button> · <button id="adminToggle" aria-pressed="false">Admin mode: off</button> · <button id="smartToggle" aria-pressed="true">Smart understanding: on</button></p>
+    <p class="footnote" id="smartNote" hidden>Smart understanding downloads a small language model (about 23 MB, once) so thinkers recognise your argument in your own words. It only reads what you write: every reply is still the thinker's own. Without it, the game understands keywords and everyday remarks.</p>
     <p class="footnote adminnote" id="adminNote" hidden>Admin mode opens every thinker and adds debug tools to each conversation. Wins in admin mode are not saved, so your real progress stays as it is.</p>
   </main>
 
@@ -69,6 +70,7 @@
             <button class="btn ghost" id="restartBtn" type="button">Start over</button>
           </div>
           <p class="tip collapsible-tip" style="margin-top:10px">Argue in full sentences. Ask questions if you're unsure what they mean. Quoting them back to themselves often works.</p>
+          <p class="tip" id="smartStatus" style="margin-top:6px"></p>
         </div>
         <div class="box adminbox" id="adminBox" hidden>
           <h4>Admin</h4>

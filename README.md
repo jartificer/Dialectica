@@ -39,6 +39,9 @@ js/registry.js          loads philosophers/index.js, validates, sorts by `born`
 js/validate.js          checks a philosopher file for dead ends and typos
 js/engine.js            Conversation: meters, argument tree, speech acts (no DOM)
 js/parser.js            understands the player's text (see "Parser")
+js/lexicon.js           word forms, synonyms, famous names, inventions with their dates
+js/intents.js           everyday remarks: greetings, "prove it", questions about their life…
+js/semantic.js          optional small model that recognises arguments in other words
 js/grammar.js           generates replies in each thinker's voice (see "Grammar")
 js/concepts.js          shared word lists, used as @concept in patterns
 js/storage.js           progress (with save migration) and theme in localStorage
@@ -81,6 +84,7 @@ Each node has:
 - `hints`: one or more, from gentle to explicit
 - `moves`: arguments that advance. `need` is a list of keyword groups, and every group must match. `to` is a node id or `"WIN"`. `gain` is how much conviction it adds. `reply` is one template or a list of alternatives.
 - `traps`: objections they have already answered. They cost `cost` patience and answer with `reply`.
+- `says` (optional, on a move or trap): a few example sentences in plain words. The smart understanding uses them to recognise the same argument phrased differently. Without them it uses the walkthrough line, the node's last hint and the keywords.
 
 Pattern syntax in `need` groups: `a|b|c` gives alternatives, `word` matches a whole word (plurals too, and one typo in words of six or more letters), `pre*` matches a prefix, `two words` matches a phrase within one clause, and `@concept` matches a word list from `js/concepts.js`.
 
@@ -96,9 +100,37 @@ The parser works on keywords, with several guards so that keyword stuffing no lo
 - **Clauses:** phrases never straddle punctuation.
 - **Negation scope:** in "the source is *not* boundless", *boundless* does not count. The scope ends at a conjunction or the end of the clause. Moves whose own patterns are about negation are exempt.
 - **Proximity:** all groups of a move must match within 25 words of each other.
+- **Word forms:** "quenched", "quenching" and "quenches" all match `quench`, and "dying" matches `die`.
+- **Synonyms:** a plain word in a pattern also matches its synonyms from `js/lexicon.js` ("douse" and "put out" match `extinguish*`; "limitless" matches `boundless`). Keep the sets tight: a match on one member is a match on all.
 - **Typos:** one edit is tolerated in long words.
 - **Stuffing detection:** a message counts as stuffed if it is a bare list of keywords with no grammar, if it hits three separate arguments or objections of the current node at once, or if it hits six separate arguments anywhere in the tree. Stuffing costs patience and never advances the argument.
 - **Near misses:** half an argument gets a nudge that quotes the part you got right.
+
+## Understanding everyday remarks
+
+Not every sentence is an argument, and none of them should feel like a wrong guess. When no move or objection matches, `js/intents.js` works out what kind of remark it was, and the thinker answers that, in their own voice:
+
+- greetings, thanks, apologies, goodbyes, "how are you?", laughter, and gibberish;
+- "who are you?", and questions about their life ("where are you from?", "when were you born?", "what did you write?"), answered from `place`, `dates` and the bio;
+- "what is your position?", "why?", "prove it", "what do you mean?", and a bare "you're wrong" or "no";
+- a person they knew of, or someone born after they died ("Nietzsche? I know no one of that name"), and inventions they could never have seen ("a smartphone? Is it something to eat?");
+- small talk, and a player who says they are sad or grieving;
+- an argument that belongs to a later step ("one step at a time"), or one already won.
+
+None of these cost patience. A sentence that is about the subject but does not make a known argument gets a reply that engages with it, and only starts to cost patience after two such tries at the same step. Only remarks that are off the subject, insults, repeats and keyword stuffing cost patience.
+
+## Smart understanding (optional)
+
+`js/semantic.js` can load a small sentence-embedding model (all-MiniLM-L6-v2, about 23 MB, run in the browser by transformers.js from a CDN and cached after the first visit). It compares what you wrote with example sentences for each move and objection of the current step, and for each kind of remark, so an argument counts even when it shares no keyword with the data file.
+
+The model only reads. It never writes a reply: every line still comes from the thinker's file and the grammar, so it cannot put words in anyone's mouth. The engine keeps the last word:
+
+- keyword stuffing is caught before the model is asked;
+- a move is accepted only when the model is confident (`THRESHOLDS` in `js/semantic.js`) and the move clearly beats every other move and objection at that step;
+- an argument the player denies ("the source is *not* boundless") is never accepted;
+- an objection recognised this way gets the thinker's answer but costs no patience.
+
+The model loads in the background. Until it is ready, or if it cannot load (offline, blocked, old browser), the game runs on the keyword parser and the everyday-remark rules alone. Players can switch it off with **Smart understanding** at the bottom of the timeline; the setting is stored apart from progress. Admin mode shows the model's closest match and score for every message, which is the place to tune the thresholds.
 
 ## Grammar
 
@@ -117,7 +149,7 @@ The parser works on keywords, with several guards so that keyword stuffing no lo
 npm test
 ```
 
-The tests need Node 18 or newer and nothing else. They validate every data file, check that every template refers to rules that exist, play every walkthrough with several random seeds, check that keyword dumps never advance, and check that each voice produces varied, fully expanded deflections in every mood.
+The tests need Node 18 or newer and nothing else. They validate every data file, check that every template refers to rules that exist, play every walkthrough with several random seeds, check that keyword dumps never advance, check that each voice produces varied, fully expanded deflections and everyday replies in every mood, and check the smart understanding's safeguards with a stand-in model (the real model is never downloaded by the tests).
 
 ## Portraits
 

@@ -75,8 +75,10 @@ export function reactionFor(before, c, kind) {
     case "repeat": case "stuffing": return { face: "cross", anim: "shake" };
     case "trap": return lost ? { face: "cross", anim: "shake" } : { face: "puzzled", anim: "tilt" };
     case "flatter": case "greet": case "agree": case "who are you": return { face: "amused", anim: "nod" };
-    case "near miss": return { face: "interested", anim: "nod" };
-    case "question": return { face: "thinking", anim: "" };
+    case "thanks": case "apology": case "howareyou": case "laugh": case "farewell": case "about their life":
+    case "answeryes": case "small talk": case "feeling": return { face: "amused", anim: "nod" };
+    case "near miss": case "on topic": case "ahead": case "behind": return { face: "interested", anim: "nod" };
+    case "question": case "their view": case "why": case "challenge": case "clarify": return { face: "thinking", anim: "" };
     case null: case undefined: return { face: "thinking", anim: "" };
     default: return { face: "puzzled", anim: "tilt" }; // deflect, too short, give up
   }

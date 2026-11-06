@@ -20,6 +20,7 @@
      • keyword-stuffing detection (see detectStuffing)
    ===================================================================== */
 import { CONCEPTS } from "./concepts.js";
+import { lemmas, synonymsOf } from "./lexicon.js";
 
 export const NEGATORS = new Set(["not", "no", "never", "neither", "nor", "without", "nothing", "none", "hardly", "barely", "impossible"]);
 
@@ -44,7 +45,7 @@ export const FUNCTION_WORDS = new Set((
 ).split(/\s+/));
 
 /* Words that never make a good echo of the player's argument. */
-const ECHO_STOP = new Set((
+export const ECHO_STOP = new Set((
   "about above after again against because been before being below between both could does doing down during " +
   "each from further have having here hers herself himself into itself just more most myself once only other " +
   "ought ours ourselves over same should some such than that their theirs them themselves then there these they " +
@@ -52,7 +53,8 @@ const ECHO_STOP = new Set((
   "think believe really maybe perhaps actually surely things thing something anything everything nothing someone " +
   "people world claim argue right wrong agree still might must also even though whether point mean means saying " +
   "would could should because since basically literally simply clearly obviously exactly certainly definitely " +
-  "therefore however anyway"
+  "therefore however anyway explain understand remember happen happens happened imagine wonder today tomorrow yesterday " +
+  "whatever please thanks sorry hello"
 ).split(/\s+/));
 
 const NOSPACE_CONTRACTIONS = {
@@ -143,7 +145,15 @@ function compileAlt(p, concepts, seen) {
   const star = p.endsWith("*");
   const words = normalise(star ? p.slice(0, -1) : p).replace(/-/g, " ").replace(/[^a-z0-9' ]/g, " ").split(/\s+/).filter(Boolean);
   if (!words.length) return [];
-  return [{ words, star, src: p }];
+  const alts = [{ words, star, src: p }];
+  // synonyms (lexicon.js): "extinguish*" also matches "quench", "douse", "put out"…
+  if (words.length === 1 || !star) {
+    for (const syn of synonymsOf(words.join(" "))) {
+      if (NEGATORS.has(syn)) continue;
+      alts.push({ words: syn.split(" "), star: false, src: p + " ~ " + syn });
+    }
+  }
+  return alts;
 }
 
 /* A group "a|b|@c" compiles to a list of alternatives plus a flag telling
@@ -163,7 +173,7 @@ function wordMatches(tok, w, star, fuzzy) {
     if (tok.startsWith(w)) return true;
     return fuzzy && w.length >= 7 && tok.length >= w.length && tok[0] === w[0] && editDistance(tok.slice(0, w.length), w) <= 1;
   }
-  if (tok === w || singular(tok) === w) return true;
+  if (tok === w || singular(tok) === w || (w.length >= 3 && lemmas(tok).includes(w))) return true;
   return fuzzy && w.length >= 6 && tok.length >= 6 && tok[0] === w[0] && editDistance(tok, w) <= 1;
 }
 
@@ -182,7 +192,7 @@ export function findGroup(group, U, concepts) {
         const last = k === n - 1;
         ok = wordMatches(tok.w, alt.words[k], last && alt.star, n === 1);
       }
-      if (ok) hits.push({ start: i, len: n, words: T.slice(i, i + n).map(t => t.w).join(" "), neg: T[i].neg });
+      if (ok) hits.push({ start: i, len: n, words: T.slice(i, i + n).map(t => t.w).join(" "), neg: T[i].neg, negAlt: alt.words.some(w => NEGATORS.has(w)) });
     }
   }
   return { hits, hasNeg: g.hasNeg };
@@ -194,16 +204,22 @@ export const PROXIMITY = 25; // tokens: all groups of a move must fall within th
    { full, score, frac, contentFrac, words:[matched content words], hits } */
 export function matchNeed(need, U, concepts) {
   const groups = need.map(g => findGroup(g, U, concepts));
+  // A denied keyword does not count ("the source is not boundless"), unless the
+  // argument is itself about negation: then a negation word matched by another
+  // group ("water does NOT make fire") is part of what the player is saying.
   const negAware = !groups.some(g => g.hasNeg);
-  const usable = groups.map(g => negAware ? g.hits.filter(h => !h.neg) : g.hits);
+  const negIn = groups.map(g => g.hits.some(h => h.negAlt));
+  const usable = groups.map((g, gi) => g.hits.filter(h => !h.neg || h.negAlt || (!negAware && negIn.some((x, j) => x && j !== gi))));
   const score = usable.filter(h => h.length).length;
   const isContent = h => h.words.split(" ").some(w => !FUNCTION_WORDS.has(w));
   // groups hit by a real content word, not just "it" or "not"
   const contentScore = usable.filter(h => h.some(isContent)).length;
   const words = usable.flatMap(h => { const c = h.find(isContent); return c ? [c.words] : []; });
+  // groups that matched only inside a negation ("the source is not boundless")
+  const negated = groups.filter((g, i) => g.hits.length && !usable[i].length).length;
   let full = score === need.length;
   if (full && need.length > 1) full = withinWindow(usable, PROXIMITY);
-  return { full, score, frac: need.length ? score / need.length : 0, contentFrac: need.length ? contentScore / need.length : 0, words, hits: usable };
+  return { full, score, frac: need.length ? score / need.length : 0, contentFrac: need.length ? contentScore / need.length : 0, words, hits: usable, negated };
 }
 
 function withinWindow(lists, W) {
