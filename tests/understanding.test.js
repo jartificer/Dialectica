@@ -192,3 +192,53 @@ test("with the model's scores, every walkthrough still wins", async () => {
     assert.equal(c.result, "win", ph.id);
   }
 });
+
+/* ---------- rudeness ---------- */
+import { incivility } from "../js/intents.js";
+
+test("swearing, abuse, threats, scorn and shouting are recognised, masked spellings too", () => {
+  const kind = s => incivility(s)?.kind ?? null;
+  assert.equal(kind("Oh fuck, this is hard"), "swear");
+  assert.equal(kind("sh1t, I lost the thread"), "swear");
+  assert.equal(kind("what the f*** is that"), "swear");
+  assert.equal(kind("You are a f*cking idiot"), "abuse");
+  assert.equal(kind("you m0ron"), "abuse");
+  assert.equal(kind("Shut up, old man"), "abuse");
+  assert.equal(kind("I will kill you"), "threat");
+  assert.equal(kind("who cares"), "scorn");
+  assert.equal(kind("WHY WONT YOU LISTEN TO ME"), "shout");
+});
+
+test("ordinary philosophical words are not mistaken for rudeness", () => {
+  for (const s of ["Is hell real?", "Damnation awaits the wicked.", "Buridan's ass starves between two bales.",
+    "Socrates owed a cock to Asclepius.", "Please shut the door.", "In the state of nature men kill each other.",
+    "Is it stupid to believe the earth floats on water?", "I feel like a fool.", "The USA and NASA"])
+    assert.equal(incivility(s), null, s);
+});
+
+test("a rude thinker takes offence, even at a good argument, and walks out on the third offence", () => {
+  const c = talk(thales);
+  c.respond("What about fire, you f*cking idiot?");
+  assert.equal(c.debug.kind, "insult");
+  assert.equal(c.node, thales.start, "abuse never advances the argument");
+  assert.equal(c.pat, thales.patience - 2);
+  const warn = c.respond("Damn it, this is hard.");
+  assert.equal(c.debug.kind, "swear");
+  assert.equal(warn.filter(o => o.who === "them").length, 2, "a last warning follows the second offence");
+  c.respond("WHY WONT YOU LISTEN TO ME");
+  assert.equal(c.debug.kind, "shout");
+  assert.equal(c.result, null, "shouting alone is not an offence");
+  const out = c.respond("who cares");
+  assert.equal(c.result, "lose");
+  assert.ok(out.some(o => /walked away/.test(o.text)));
+});
+
+for (const ph of all) {
+  test(ph.id + ": every rude remark gets a fully expanded, offended reply in every mood", () => {
+    const v = createVoice(ph, { rng: seeded(13) });
+    for (const mood of MOODS) for (const a of ["insult", "swear", "threat", "scorn", "shout", "lastwarning", "walkout"]) for (let i = 0; i < 3; i++) {
+      const s = v.say("@" + a, {}, mood);
+      assert.ok(s.length > 3 && !/#/.test(s) && !/\s[,.!?]/.test(s), a + "/" + mood + ": " + s);
+    }
+  });
+}

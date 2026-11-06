@@ -144,6 +144,55 @@ export function anachronism(U, ph) {
   return null;
 }
 
+/* ---------- incivility ----------
+   Swearing, abuse, threats, scorn and shouting. Checked on the raw text
+   before anything else, so a good argument wrapped in abuse still gets an
+   offended thinker. Masked spellings ("f*ck", "sh1t", "fuuuck") count.
+   Words that are ordinary in philosophy stay out of the lists: hell,
+   damnation, ass (the donkey), cock (the one Socrates owed Asclepius). */
+const SWEAR = /\b(fuck\w*|fck\w*|fuk\w*|motherfuck\w*|shit\w*|bullshit|horseshit|crap|crappy|bitch\w*|bastard\w*|asshole\w*|arsehole\w*|dickhead\w*|wanker\w*|twat\w*|cunt\w*|prick|piss off|pissed|bollocks|bloody hell|goddamn\w*|god damn|damn it|dammit|wtf|stfu|omfg|ffs|jesus christ)\b/;
+const MASKED = /(?<![a-z])(f[*#@!%]{2,}k?|f[*#@!%]ck\w*|s[*#!%]{2,}t|sh[*#!%]t|b[*#!%]{2,}ch|a[*#!%]{2,}hole)(?![a-z])/;
+const ABUSE = /\b(stupid|idiot\w*|fool|dumb|dumbass|moron\w*|imbecile|cretin|loser|pathetic|retard\w*|clown|liar|fraud|charlatan|senile|braindead|brain dead|halfwit|nitwit|dimwit|numbskull|buffoon|jerk|creep|scum)\b/;
+const AT_THEM = /\b(you|your|yours|you're|youre|u|ur|old man|old fool|grandpa)\b/;
+const ALWAYS_ABUSE = /\b(shut up|shut it|screw you|hate you|you suck|go to hell|eat shit|up yours|f off|get lost|go away|nobody asked you|no one asked you|piss off)\b/;
+const THREAT = /\b((i will|i'll|i am going to|i'm going to|gonna|i want to|i could) (kill|hurt|punch|hit|beat|stab|strangle|slap|murder) you|hope you die|go die|drop dead|kill yourself|kys)\b/;
+const SCORN = /\b(who cares|nobody cares|no one cares|whatever,? old man|blah blah|boring old|so boring|you are boring|you're boring|this is (stupid|dumb|pointless|boring)|lame|cringe|ok boomer|okay boomer)\b/;
+
+/* lower-case, de-accent, undo leetspeak and squash long letter runs. Masks
+   between letters ("f*ck", "sh!t") become a placeholder, tried as each vowel. */
+function unmask(raw) {
+  const t = String(raw).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    .replace(/[’`]/g, "'")
+    .replace(/(?<=[a-z])[013457](?=[a-z])/g, d => ({ 0: "o", 1: "i", 3: "e", 4: "a", 5: "s", 7: "t" }[d]))
+    .replace(/(?<=[a-z])[@$](?=[a-z])/g, c => (c === "@" ? "a" : "s"))
+    .replace(/(?<=[a-z])[*#!%_.-]+(?=[a-z])/g, "\u0001")
+    .replace(/([a-z])\1{2,}/g, "$1$1"); // fuuuuck → fuuck
+  const out = [];
+  for (const v of ["u", "i", "a", "o", ""]) {
+    const w = t.replace(/\u0001/g, v);
+    out.push(w, w.replace(/([a-z])\1/g, "$1"));
+  }
+  return [...new Set(out)];
+}
+
+/* {kind, word} or null. kind: threat | abuse | swear | scorn | shout */
+export function incivility(raw) {
+  const variants = unmask(raw), t = variants[0].replace(/\u0001/g, "");
+  const hit = rx => { for (const v of variants) { const m = v.match(rx); if (m) return m[0]; } return null; };
+  let w;
+  if ((w = hit(THREAT))) return { kind: "threat", word: w };
+  if ((w = hit(ALWAYS_ABUSE))) return { kind: "abuse", word: w };
+  const swear = hit(SWEAR) || String(raw).toLowerCase().match(MASKED)?.[0], abuse = hit(ABUSE);
+  const atThem = AT_THEM.test(t);
+  if (abuse && atThem) return { kind: "abuse", word: abuse };
+  if (swear && atThem) return { kind: "abuse", word: swear };
+  if (swear) return { kind: "swear", word: swear };
+  if ((w = t.match(SCORN)?.[0])) return { kind: "scorn", word: w };
+  const letters = String(raw).replace(/[^A-Za-z]/g, "");
+  if (letters.length >= 10 && letters.replace(/[^A-Z]/g, "").length / letters.length > 0.8 && /\b[A-Z]{3,}\b.*\b[A-Z]{3,}\b/.test(raw)) return { kind: "shout", word: "" };
+  return null;
+}
+
 /* ---------- gibberish ---------- */
 const KEYBOARD = /(qwer|wert|erty|asdf|sdfg|dfgh|fghj|ghjk|hjkl|zxcv|xcvb|cvbn|vbnm|uiop|jkl)/;
 export function isGibberish(U) {

@@ -117,7 +117,9 @@ Not every sentence is an argument, and none of them should feel like a wrong gue
 - small talk, and a player who says they are sad or grieving;
 - an argument that belongs to a later step ("one step at a time"), or one already won.
 
-None of these cost patience. A sentence that is about the subject but does not make a known argument gets a reply that engages with it, and only starts to cost patience after two such tries at the same step. Only remarks that are off the subject, insults, repeats and keyword stuffing cost patience.
+Rudeness is checked before anything else, so a good argument wrapped in abuse still gets an offended thinker and never advances. Swearing and scorn ("who cares") cost 1 patience, insults aimed at them 2, threats 3; shouting in capitals gets a wince but costs nothing. Masked spellings ("f*ck", "sh1t") count, while words that are ordinary in philosophy (hell, damnation, Buridan's ass) do not. The second offence brings a last warning, and on the third the thinker walks away and the conversation is lost.
+
+Apart from rudeness, none of these cost patience. A sentence that is about the subject but does not make a known argument gets a reply that engages with it, and only starts to cost patience after two such tries at the same step. Only remarks that are off the subject, insults, repeats and keyword stuffing cost patience.
 
 ## Smart understanding (optional)
 

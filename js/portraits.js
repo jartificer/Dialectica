@@ -72,6 +72,9 @@ export function reactionFor(before, c, kind) {
   const lost = before.pat - c.pat;
   if (lost >= 2) return { face: "furious", anim: "recoil" };
   switch (kind) {
+    case "insult": case "threat": return { face: "furious", anim: "recoil" };
+    case "swear": case "scorn": return { face: "cross", anim: "recoil" };
+    case "shout": return { face: "stern", anim: "recoil" };
     case "repeat": case "stuffing": return { face: "cross", anim: "shake" };
     case "trap": return lost ? { face: "cross", anim: "shake" } : { face: "puzzled", anim: "tilt" };
     case "flatter": case "greet": case "agree": case "who are you": return { face: "amused", anim: "nod" };
