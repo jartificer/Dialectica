@@ -6,5 +6,7 @@ export default [
   "thales", "laozi", "confucius", "heraclitus", "parmenides", "protagoras", "socrates", "plato", "aristotle", "zhuangzi", "epicurus",
   "marcus", "nagarjuna", "augustine", "shankara", "avicenna", "anselm", "ghazali", "aquinas",
   "wangyangming", "hobbes", "descartes", "spinoza", "berkeley", "hume", "kant", "wollstonecraft",
-  "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "beauvoir"
+  "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "beauvoir",
+  "hypatia", "banzhao", "hildegard", "pizan", "elisabeth", "cavendish", "astell",
+  "arendt", "weil", "anscombe", "murdoch", "foot"
 ];
