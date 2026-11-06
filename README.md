@@ -2,7 +2,7 @@
 
 Argue your way through 2,500 years of philosophy. Every great thinker has a conviction they would die for; your job is to talk each of them out of it, in plain English.
 
-Forty-five thinkers from Greece, China, India, Persia, Europe and beyond, in chronological order, get harder as you go: Thales, Laozi, Confucius, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Zhuangzi, Epicurus, Ban Zhao, Marcus Aurelius, Nāgārjuna, Augustine, Hypatia, Śaṅkara, Ibn Sīnā, Anselm, al-Ghazālī, Hildegard of Bingen, Aquinas, Christine de Pizan, Wang Yangming, Hobbes, Descartes, Elisabeth of Bohemia, Margaret Cavendish, Spinoza, Mary Astell, Berkeley, Hume, Kant, Wollstonecraft, Kierkegaard, Marx, Nietzsche, Wittgenstein, Sartre, Arendt, Beauvoir, Simone Weil, Elizabeth Anscombe, Iris Murdoch and Philippa Foot.
+Forty-seven thinkers from Greece, China, India, Persia, Europe and beyond, in chronological order, get harder as you go: Thales, Laozi, Confucius, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Zhuangzi, Epicurus, Ban Zhao, Marcus Aurelius, Nāgārjuna, Augustine, Hypatia, Śaṅkara, Ibn Sīnā, Anselm, al-Ghazālī, Hildegard of Bingen, Aquinas, Christine de Pizan, Wang Yangming, Hobbes, Descartes, Elisabeth of Bohemia, Margaret Cavendish, Spinoza, Mary Astell, Berkeley, Hume, Kant, Wollstonecraft, Kierkegaard, Marx, Nietzsche, Wittgenstein, Sartre, Arendt, Beauvoir, Simone Weil, Cioran, Elizabeth Anscombe, Iris Murdoch, Philippa Foot and John Rawls.
 
 ## Running it
 
@@ -176,5 +176,5 @@ Progress lives in `localStorage` under `dialectica.v1`, and every new version mu
 
 - Wins are keyed by philosopher id, so adding or reordering thinkers never loses one. A test checks that every id from older versions still exists.
 - A thinker is open if it is first, if the one before it is convinced, if it or anyone later is convinced, or if it has ever been open before. The save remembers every thinker that has been open (`opened`), so inserting new thinkers between old ones never re-locks someone you had already reached.
-- Older saves are migrated on load (`migrate` in `js/storage.js`). Saves without `opened` (version 1) replay the old unlock rule against the version 1 timeline (`LEGACY_ORDER`), and every save from before version 3 also replays it against the version 2 timeline (`V2_ORDER`), so anyone either version would have opened stays open. `tests/progress.test.js` covers the migration.
-- When you change the roster again, add the current timeline as a new `…_ORDER` list, bump `SAVE_VERSION`, and replay it in `migrate` the same way.
+- Older saves are migrated on load (`migrate` in `js/storage.js`). Saves without `opened` (version 1) replay the old unlock rule against the version 1 timeline (`LEGACY_ORDER`), and older saves also replay it against each later timeline they predate (`V2_ORDER`, `V3_ORDER`), so anyone an earlier version would have opened stays open. `tests/progress.test.js` covers the migration.
+- When you change the roster again, add the current timeline as a new `…_ORDER` list, add it to `HISTORY` with the new version, and bump `SAVE_VERSION`. Thinkers appended after the last one need none of this.

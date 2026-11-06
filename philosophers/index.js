@@ -8,5 +8,5 @@ export default [
   "wangyangming", "hobbes", "descartes", "spinoza", "berkeley", "hume", "kant", "wollstonecraft",
   "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "beauvoir",
   "hypatia", "banzhao", "hildegard", "pizan", "elisabeth", "cavendish", "astell",
-  "arendt", "weil", "anscombe", "murdoch", "foot"
+  "arendt", "weil", "anscombe", "murdoch", "foot", "rawls", "cioran"
 ];
