@@ -1,15 +1,18 @@
-<!-- Rawls, after photographs of him at Harvard in the 1970s: short hair neatly parted on the side, a long thin face, jacket, shirt and tie -->
+<!-- Rawls, after photographs of him at Harvard around 1971: long lean face, high forehead with short hair parted on the left, prominent ears, jacket, white shirt and narrow tie -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 <g class="fig">
-<path d="M24 27C23.5 18 27 15 32 15S40.5 18 40 27"/>
-<path d="M24 25q-2-11 8-11.5q10 .5 8 11.5M29 14.5q-3 3-5 7M29 14.5q6-1 10 3q1 2 1 5M24 25q-1 2 0 3M40 25q1 2 0 3"/>
-<path d="M32 25.8l-1 5.4q1 .8 2 0"/>
-<path d="M24 28q.5 7 3 10.5q2.5 3.5 5 3.5t5-3.5q2.5-3.5 3-10.5"/>
-<path d="M29 41.5v5M35 41.5v5"/>
-<path d="M8 64q2-11 15-16l6 7l3-2l3 2l6-7q13 5 15 16M29 53l3-2l3 2l-2 3h-2zM31 56l-2 8M33 56l2 8M23 48l5 16M41 48l-5 16"/>
-<g class="brow l"><path d="M26.4 22.6q2.2-1 4.2 0"/></g>
-<g class="brow r"><path d="M33.4 22.6q2.2-1 4.2 0"/></g>
-<g class="eyes"><g class="look"><path d="M26.8 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><path d="M34.2 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.4" r=".6" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.4" r=".6" fill="currentColor" stroke="none"/></g></g>
-<g class="mouth"><path class="m-rest" d="M30.2 36.6q1.8.6 3.6 0"/><path class="m-smile" opacity="0" d="M29.5 36.1q2.5 2.6 5 0"/><path class="m-frown" opacity="0" d="M30 37.7q2-2.2 4 0"/><path class="m-flat" opacity="0" d="M30.5 36.9h3"/><ellipse class="m-open" opacity="0" cx="32" cy="37.5" rx="1.2" ry="1.8"/></g>
+<path d="M24 27C23.5 16.5 27 13 32 13S40.5 16.5 40 27"/>
+<path d="M24 22q-1-8 3.5-9.5q6-2 10.5 0q3.5 2 2 9.5M28 13q1 3 0 6M28.5 13.5q5-.5 10 3"/>
+<path d="M24 24c-2.6-.5-2.8 6.5 0 6.5M40 24c2.6-.5 2.8 6.5 0 6.5"/>
+<path d="M32 25.5l-1.4 6.6q1.4.9 2.8 0"/>
+<path d="M28.5 33.5q-1.2 2 -.6 4M35.5 33.5q1.2 2 .6 4"/>
+<path d="M24 29q.6 8 3.2 11.5q2.5 3.7 4.8 3.7t4.8-3.7q2.6-3.5 3.2-11.5"/>
+<path d="M28.5 43v4M35.5 43v4"/>
+<path d="M26.5 47l5.5 4l5.5-4M30.5 50.5l1.5 1.5l1.5-1.5l-.8 2h-1.4zM31.3 53l-.8 11M32.7 53l.8 11"/>
+<path d="M8 64q2-11 16-17l4 17M56 64q-2-11-16-17l-4 17"/>
+<g class="brow l"><path d="M25.8 23q2.5-1 5 -.2" stroke-width="1.8"/></g>
+<g class="brow r"><path d="M33.2 22.8q2.5-.8 5 .2" stroke-width="1.8"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.6q1.5-1 3 0q-1.5 1-3 0"/><path d="M34.2 25.6q1.5-1 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.6" r=".7" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.6" r=".7" fill="currentColor" stroke="none"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30 38h4"/><path class="m-smile" opacity="0" d="M29.2 37.4q2.8 2.8 5.6 0"/><path class="m-frown" opacity="0" d="M29.7 39.1q2.3-2.4 4.6 0"/><path class="m-flat" opacity="0" d="M30.3 38.3h3.4"/><ellipse class="m-open" opacity="0" cx="32" cy="38.9" rx="1.3" ry="2"/></g>
 </g>
 </svg>
