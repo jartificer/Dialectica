@@ -4,6 +4,8 @@ Argue your way through 2,500 years of philosophy. Every great thinker has a conv
 
 Forty-seven thinkers from Greece, China, India, Persia, Europe and beyond, in chronological order, get harder as you go: Thales, Laozi, Confucius, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Zhuangzi, Epicurus, Ban Zhao, Marcus Aurelius, Nāgārjuna, Augustine, Hypatia, Śaṅkara, Ibn Sīnā, Anselm, al-Ghazālī, Hildegard of Bingen, Aquinas, Christine de Pizan, Wang Yangming, Hobbes, Descartes, Elisabeth of Bohemia, Margaret Cavendish, Spinoza, Mary Astell, Berkeley, Hume, Kant, Wollstonecraft, Kierkegaard, Marx, Nietzsche, Wittgenstein, Sartre, Arendt, Beauvoir, Simone Weil, Cioran, Elizabeth Anscombe, Iris Murdoch, Philippa Foot and John Rawls.
 
+**Content notice:** the conversations take on mature subjects, as the philosophers themselves did, including death and grief, war and violence, slavery, religion, suffering and despair. Dialectica is meant for adults and is not intended for unsupervised minors. The same notice appears on the start page.
+
 ## Running it
 
 The game is plain HTML, CSS and ES modules. It has no build step and no dependencies.
