@@ -242,3 +242,29 @@ for (const ph of all) {
     }
   });
 }
+
+/* ---------- a player in distress ---------- */
+
+import { distress } from "../js/intents.js";
+import { CARE_NOTE } from "../js/engine.js";
+
+const DISTRESSED = ["I want to kill myself.", "Sometimes I want to die.", "I think about ending my life", "I've been self-harming again",
+  "I don't want to live anymore", "I feel suicidal", "everyone would be better off without me", "i want to hurt myself"];
+const PHILOSOPHICAL = ["We are all going to die one day.", "Death is nothing to us.", "The sovereign may not command a man to harm himself.",
+  "Mortality gives our projects their weight.", "Killing is worse than letting die.", "Pity multiplies suffering."];
+
+test("a player who writes about hurting themselves gets a kind, out-of-character note from every thinker, at no cost", () => {
+  for (const ph of all) for (const line of DISTRESSED) {
+    const c = talk(ph);
+    const out = c.respond(line);
+    assert.equal(c.debug.kind, "distress", ph.id + ": " + line);
+    assert.equal(c.pat, ph.patience, ph.id + ": no patience lost");
+    assert.equal(c.rudeness, 0);
+    assert.deepEqual(out.map(o => o.who), ["sys"], ph.id + ": the thinker does not answer in character");
+    assert.equal(out[0].text, CARE_NOTE);
+  }
+});
+
+test("talking about death as a philosophical subject is not mistaken for distress", () => {
+  for (const line of PHILOSOPHICAL) assert.equal(distress(line), false, line);
+});

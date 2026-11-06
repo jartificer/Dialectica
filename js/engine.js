@@ -12,7 +12,13 @@
    After each call, `result` is "win", "lose" or null.
    ===================================================================== */
 import { analyse, matchNeed, detectStuffing, conceptsFor, FUNCTION_WORDS, ECHO_STOP } from "./parser.js";
-import { detectAct, isSmalltalk, isFeeling, peopleIndex, incivility } from "./intents.js";
+import { detectAct, isSmalltalk, isFeeling, peopleIndex, incivility, distress } from "./intents.js";
+
+/* Shown out of character when a player writes about wanting to die or to hurt themselves. */
+export const CARE_NOTE = "Stepping out of the game for a moment: it sounds like you might be going through something really hard, and you don't have to face it alone. " +
+  "If you are thinking about hurting yourself, please talk to someone you trust, or to a free, confidential helpline: " +
+  "in the US call or text 988, in the UK and Ireland call Samaritans on 116 123, and findahelpline.com lists lines in other countries. " +
+  "If you are in danger right now, call your local emergency number. The conversation will wait for you.";
 import { lemmas } from "./lexicon.js";
 import { THRESHOLDS } from "./semantic.js";
 import { createVoice } from "./grammar.js";
@@ -126,6 +132,13 @@ export class Conversation {
     note("deflect");
 
     if (!U.words) { speak("@short"); return out; }
+
+    // a player who sounds as if they might hurt themselves: step out of the game, kindly, at no cost
+    if (distress(raw)) {
+      note("distress");
+      sys(CARE_NOTE, "care");
+      return out;
+    }
 
     // repeated input
     if (P === this.last) { note("repeat"); this.pat -= 1; speak("@repeat"); return done(); }
