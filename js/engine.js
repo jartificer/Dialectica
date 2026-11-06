@@ -12,7 +12,7 @@
    After each call, `result` is "win", "lose" or null.
    ===================================================================== */
 import { analyse, matchNeed, detectStuffing, conceptsFor, FUNCTION_WORDS, ECHO_STOP } from "./parser.js";
-import { detectAct, isSmalltalk, isFeeling, peopleIndex } from "./intents.js";
+import { detectAct, isSmalltalk, isFeeling, peopleIndex, incivility } from "./intents.js";
 import { lemmas } from "./lexicon.js";
 import { THRESHOLDS } from "./semantic.js";
 import { createVoice } from "./grammar.js";
@@ -28,6 +28,9 @@ const RX = {
 /* Patience a remark costs. Arguments that miss cost 1; remarks that are
    about the argument, or are ordinary conversation, are free. */
 const FREE_ON_TOPIC = 2;
+/* incivility: patience it costs, and how many offences before they walk out */
+const RUDE_COST = { threat: 3, abuse: 2, swear: 1, scorn: 1, shout: 0 };
+const WALKOUT = 3;
 /* everyday words that say nothing about what an argument is about */
 const COMMON = new Set(("like make made makes take know good well much many look come give gives does done keep kind sort " +
   "thing things time times part also first last long great little same other another every each ever even never always " +
@@ -69,6 +72,7 @@ export class Conversation {
     this.asked = false;  // did their last line end with a question?
     this.onTopic = {};   // free on-topic misses used, per node
     this.vocab = new Map();
+    this.rudeness = 0;   // offences so far; at WALKOUT they leave
   }
 
   get over() { return this.result !== null; }
@@ -128,6 +132,10 @@ export class Conversation {
     this.last = P;
     this.turns++;
 
+    // rudeness first: an argument wrapped in abuse still gets an offended thinker
+    const rude = incivility(raw);
+    if (rude) return this.offended(rude, out, speak, sys, note, done);
+
     // keyword stuffing beats everything else
     const st = detectStuffing(U, ph, node);
     const stuffInfo = "stuffing check: separate hits " + st.nodeHits + " here, " + st.treeHits + " in the whole tree" + (st.listy ? ", reads as a bare list" : "");
@@ -163,7 +171,7 @@ export class Conversation {
     }
 
     const act = detectAct(U, ph, { asked: this.asked, people: this.people });
-    if (act?.act === "insult") { this.pat -= 2; note("insult"); speak("@insult"); sys("That cost you 2 patience.", "bad"); return done(); }
+    if (act?.act === "insult") return this.offended({ kind: "abuse", word: "" }, out, speak, sys, note, done);
 
     // the semantic layer: the same argument in other words
     const pick = sem && sem.node === this.node ? semPick(sem) : null;
@@ -218,7 +226,7 @@ export class Conversation {
     // the semantic layer's guess at the kind of remark
     if (sem?.act && sem.act.score >= THRESHOLDS.act) {
       const guess = { act: sem.act.name };
-      if (guess.act === "insult") { this.pat -= 1; note("insult", "understood (similarity " + sem.act.score.toFixed(2) + ")"); speak("@insult"); sys("That cost you 1 patience.", "bad"); return done(); }
+      if (guess.act === "insult") return this.offended({ kind: "scorn", word: "understood, similarity " + sem.act.score.toFixed(2) }, out, speak, sys, note, done);
       if (this.reply(guess, U, vars, speak, sys, note)) return done();
     }
 
@@ -253,6 +261,28 @@ export class Conversation {
     this.pat -= 1;
     speak("@deflect");
     if (this.pat > 0 && this.pat <= 2 && this.gMood !== "irritated") speak("@annoyed");
+    return done();
+  }
+
+  /* Swearing, abuse, threats, scorn, shouting: they take offence, and after
+     WALKOUT offences they leave (the conversation is lost). */
+  offended(rude, out, speak, sys, note, done) {
+    const cost = RUDE_COST[rude.kind] ?? 1;
+    if (cost) this.rudeness++;
+    this.pat -= cost;
+    this.partials = 0;
+    const kind = rude.kind === "abuse" ? "insult" : rude.kind;
+    note(kind, (rude.word ? "“" + rude.word + "”, " : "") + "cost " + cost + ", offence " + this.rudeness + " of " + WALKOUT);
+    if (this.rudeness >= WALKOUT || (this.pat <= 0 && cost)) {
+      speak("@walkout");
+      this.pat = 0;
+      this.result = "lose";
+      sys(this.ph.name + " has walked away. Civility is part of the argument.", "bad");
+      return done();
+    }
+    speak("@" + (rude.kind === "abuse" ? "insult" : rude.kind));
+    if (this.rudeness === WALKOUT - 1 && cost) speak("@lastwarning");
+    if (cost) sys((rude.kind === "threat" ? "Threats" : rude.kind === "swear" ? "Foul language" : rude.kind === "scorn" ? "Scorn" : "Insults") + " cost you " + cost + " patience.", "bad");
     return done();
   }
 
@@ -360,7 +390,7 @@ export class Conversation {
   }
 
   finish(out) {
-    if (this.result !== "win" && this.pat <= 0) {
+    if (this.result === null && this.pat <= 0) {
       this.pat = 0;
       this.result = "lose";
       out.push({ who: "them", text: this.say(this.ph.lose, {}) });

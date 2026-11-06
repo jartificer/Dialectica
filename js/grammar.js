@@ -29,7 +29,7 @@ export const MOODS = ["composed", "intrigued", "wavering", "impatient", "irritat
 export const VARS = ["frag", "echo", "half", "name", "thesis", "place", "dates", "fact", "other", "thing"];
 
 /* Speech-act rules whose voice lines blend with the shared ones. */
-const BLEND = new Set(["deflect", "greet", "insult", "flatter", "agree", "near", "nudge", "repeat", "short",
+const BLEND = new Set(["deflect", "greet", "insult", "swear", "threat", "scorn", "shout", "lastwarning", "walkout", "flatter", "agree", "near", "nudge", "repeat", "short",
   "annoyed", "restate", "whoami", "stuffing", "giveup", "counter", "prod", "reflect", "echoq", "open", "dismiss", "lands",
   "farewell", "thanks", "apology", "howareyou", "view", "why", "challenge", "clarify", "disagree", "answerno", "answeryes",
   "laugh", "gibberish", "bioplace", "biodates", "biofact", "biounknown", "redirect", "future", "past", "peer", "anachronism",
@@ -99,9 +99,27 @@ export const RULES = {
   ],
   insult: [
     "*draws back* Insults are the arguments of those who have none.", "Abuse is not refutation, #addr#.",
-    "I have been called worse by better.", "*coldly* If you cannot reason, at least be civil.",
-    "Rudeness will not get you any further, #addr#."
+    "*coldly* If you cannot reason, at least be civil.", "Rudeness will not get you any further, #addr#.",
+    "*stiffens* I did not come here to be abused. Speak to me with respect, or not at all.",
+    "#oath#! How dare you. Is that what passes for argument where you come from?",
+    "*flushes with anger* You insult me because you cannot answer me. That is a confession, #addr#.",
+    "*turns away for a moment* I have heard enough of that. Argue, or go."
   ],
+  "insult@irritated": ["*voice shaking with anger* Enough! One more word like that and we are finished.", "*glares* You try my patience past bearing, #addr#.",
+    "I will not take much more of this."],
+  swear: ["*winces* Such language, #addr#! Keep a civil tongue if you want me to listen.", "#oath#! Is that how you speak to your elders?",
+    "*frowns* Mind your words. Foul language is the mark of a mind that has run out of better ones.", "*recoils* There is no need for that, #addr#.",
+    "*sharply* Curse in the marketplace if you must. Here, we reason."],
+  "swear@irritated": ["*snaps* Watch your tongue!", "Foul words on top of poor arguments? You go too far, #addr#."],
+  threat: ["*rises, pale with anger* Threats? Whoever threatens has already lost the argument.", "*steps back* Violence is the argument of those who have none.",
+    "*stares at you, cold* You threaten me? Then this conversation is nearly over."],
+  scorn: ["*stiffens* If you do not care, why are you here, #addr#?", "Scorn costs you nothing, #addr#, but it costs me my patience.",
+    "*raises an eyebrow, offended* Contempt is the cheapest kind of opinion.", "Then find a better use of your time, or show me some respect."],
+  shout: ["*winces* There is no need to shout, #addr#. I can hear you.", "Softly, #addr#. A louder voice is not a better argument.",
+    "*covers both ears* Shouting proves nothing but the strength of your lungs."],
+  lastwarning: ["One more word like that and I am leaving.", "This is your last warning, #addr#.", "Speak like that again and we are done."],
+  walkout: ["*stands and turns away* I will not be spoken to like this. Good day.", "*gathers everything up without a word and leaves*",
+    "That is enough. Find someone else to abuse. *walks away*"],
   flatter: [
     "Flattery! Pleasant, but it moves nothing.", "Praise me less and argue more, #addr#.", "*waves a hand* Sweet words. Where is your argument?",
     "You will not soften me that way, #addr#."
