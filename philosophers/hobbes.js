@@ -52,7 +52,7 @@ export default {
       ]
     },
     life:{
-      enter:"A covenant not to defend myself from force is always void. If the sovereign commands a man to kill himself, he may disobey. The condemned man may resist the guards who lead him to the scaffold. But that is one man's private liberty, not a right of subjects against the state.",
+      enter:"A covenant not to defend myself from force is always void. If the sovereign commands a man to wound or maim himself, he may disobey. The condemned man may resist the guards who lead him to the scaffold. But that is one man's private liberty, not a right of subjects against the state.",
       stance:"Hobbes admits no one can give up the right to defend their own life, but calls it one person's private liberty, not a right of subjects.",
       hints:["What if it is not one man the sovereign threatens, but many?",
              "Say that if the sovereign threatens many subjects at once, they may defend themselves together."],

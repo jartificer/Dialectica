@@ -105,6 +105,7 @@ The parser works on keywords, with several guards so that keyword stuffing no lo
 - **Typos:** one edit is tolerated in long words.
 - **Stuffing detection:** a message counts as stuffed if it is a bare list of keywords with no grammar, if it hits three separate arguments or objections of the current node at once, or if it hits six separate arguments anywhere in the tree. Stuffing costs patience and never advances the argument.
 - **Near misses:** half an argument gets a nudge that quotes the part you got right.
+- **Distress:** if a player writes about wanting to die or to hurt themselves, the game checks for it before anything else, steps out of character and shows a short, kind note with helpline numbers (`CARE_NOTE` in `js/engine.js`). It costs nothing and does not count as a turn.
 
 ## Understanding everyday remarks
 

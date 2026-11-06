@@ -2,23 +2,23 @@
 export default {
   id:"cioran", name:"Emil Cioran", dates:"1911–1995", era:"20th century", place:"A garret on the rue de l'Odéon, Paris",
   diff:5, patience:5, glyph:"EC", color:"#3a3a3a", born:1911,
-  core:"Lucidity shows that nothing is worth affirming: every hope is an illusion, and being born was the first mistake.",
+  core:"Lucidity shows that nothing is worth affirming: every hope is an illusion.",
   target:"Some things in life are worth affirming.",
   bio:"Romanian-born essayist who wrote his first book, On the Heights of Despair, at twenty-two during years of insomnia in Sibiu, then moved to Paris in 1937 and stayed for the rest of his life, writing in French from 1949. In books of aphorisms such as A Short History of Decay and The Trouble with Being Born he turned pessimism into a polished art. He refused almost every literary prize, lived for decades in a small attic flat, and was known among his friends, Beckett and Ionesco among them, as a wonderful, very funny talker.",
   voice:{
-    claim:["nothing is worth affirming", "every hope is an illusion", "lucidity sees through everything", "being born was the first mistake"],
+    claim:["nothing is worth affirming", "every hope is an illusion", "lucidity sees through everything", "every system is a cage"],
     tic:["I am a disciple of insomnia, #addr#.", "An aphorism is a thought with the fat cut off.", "Every system is a cage someone mistook for a home."],
-    image:["Paris at four in the morning, and only the insomniac awake to see through it.", "A man carrying his own birth around like a wound that will not close."],
+    image:["Paris at four in the morning, and only the insomniac awake to see through it.", "A café at closing time, the chairs stacked, and every grand idea swept out with the crumbs."],
     addr:["my friend","cher ami","chère amie","my dear"],
     oath:["Ah, Dieu","Bah"],
     gest:["*shrugs with his whole body*","*smiles a thin, delighted smile*","*rubs his tired eyes*","*waves a hand at the whole universe*"],
-    core:["my lucidity","the trouble with being born","the vanity of everything"],
+    core:["my lucidity","the vanity of all systems","the vanity of everything"],
     greet:["*opens the door of his attic* Come in. I have not slept, of course. That makes me excellent company."]
   },
   start:"n0",
   nodes:{
     n0:{
-      enter:"Lucidity is a curse, #addr#. Once you see clearly, everything falls apart: progress, history, every great cause. People hope because they have not looked. I have looked, every night since I was twenty, unable to sleep. Nothing holds. Nothing is worth affirming. Being born was the first mistake, and the rest followed from it.",
+      enter:"Lucidity is a curse, #addr#. Once you see clearly, everything falls apart: progress, history, every great cause. People hope because they have not looked. I have looked, every night since I was twenty, unable to sleep. Nothing holds. Nothing is worth affirming. Every hope is a mistake that has not yet been found out.",
       stance:"Cioran holds that lucidity shows nothing is worth affirming, and every hope is an illusion.",
       hints:["If nothing is worth affirming, why does he keep doing a certain thing, book after book?",
              "Point out that he has kept writing for sixty years, polishing every sentence: someone who affirms nothing would not bother."],

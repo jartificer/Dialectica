@@ -144,6 +144,26 @@ export function anachronism(U, ph) {
   return null;
 }
 
+/* ---------- distress ----------
+   A player who writes about wanting to die or to hurt themselves is not making
+   a move in the game. This is checked before anything else, and the game steps
+   out of character to answer kindly, at no cost. A false alarm (someone
+   discussing suicide as a topic) only shows a kind note, which is harmless. */
+const DISTRESS = new RegExp("\\b(" + [
+  "(kill|killing|hurt|hurting|harm|harming|cut|cutting|starve|starving) myself",
+  "suicid\\w*", "self[ -]?harm\\w*",
+  "(end|ending|take|taking) (my|my own) li(fe|ves)", "end it all", "ending it all",
+  "i (really |just |sometimes |often )?(want|wanna|wish) (to )?die", "i am (ready|going) to die", "i'm (ready|going) to die", "wish i (was|were) dead", "better off dead",
+  "better off without me", "no (reason|point) (to|in) (live|living|go on|going on)",
+  "(do not|dont|don't|no longer) want to (live|be alive|be here|exist|wake up)",
+  "wish i had never been born", "wish i (was|were) never born", "can not go on", "cannot go on", "can't go on"
+].join("|") + ")\\b");
+
+export function distress(raw) {
+  const t = String(raw).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[’`]/g, "'").replace(/\s+/g, " ");
+  return DISTRESS.test(t);
+}
+
 /* ---------- incivility ----------
    Swearing, abuse, threats, scorn and shouting. Checked on the raw text
    before anything else, so a good argument wrapped in abuse still gets an

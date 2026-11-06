@@ -55,10 +55,10 @@ export default {
       enter:"So the difference is not killing against letting die, but what we do to the one. The surgeon must cut the visitor up and use his body as a resource. The tram is merely turned, and the man on the side track dies as a side effect. Then doing and allowing carry less weight than I said.",
       stance:"Foot concedes that the surgeon is forbidden for using a person, not because killing is worse than letting die.",
       hints:["Take a case of killing and of letting die where nothing else differs. Is one really worse?",
-             "Point out that when everything else is equal, drowning a cousin in the bath and watching him drown are equally wicked."],
+             "Point out that when everything else is equal, pushing a rich uncle into a river for his money and standing by while he falls in are equally wicked."],
       moves:[
-        {need:["drown*|bath*|cousin*|inherit*|equal*|equally|everything else|identical","kill*|let*|allow*|watch*|wicked|bad|worse|evil"], to:"equal", gain:25,
-         reply:["*a long breath* The bath. Yes, Rachels pressed that one."]}
+        {need:["drown*|river|uncle|bath*|cousin*|inherit*|equal*|equally|everything else|identical","kill*|let*|allow*|watch*|wicked|bad|worse|evil"], to:"equal", gain:25,
+         reply:["*a long breath* Rachels's two heirs. Yes, he pressed that one."]}
       ],
       traps:[
         {need:["side effect|foresee*|foreseen"], cost:1,
@@ -66,7 +66,7 @@ export default {
       ]
     },
     equal:{
-      enter:"One man drowns his young cousin in the bath for an inheritance; another sees the boy slip and go under, and simply watches. Each is as vile as the other. When nothing else differs, the difference I relied on almost vanishes.",
+      enter:"One man pushes his rich uncle into the river for the inheritance; another sees the old man slip in by accident and simply does nothing, for the same inheritance. Each is as bad as the other. When nothing else differs, the difference I relied on almost vanishes.",
       stance:"Foot admits that when nothing else differs, killing and letting die look equally wicked.",
       hints:["So what is left of the difference between killing and letting die in themselves?",
              "Conclude that there is no deep moral difference between killing and letting die."],
@@ -85,7 +85,7 @@ export default {
   walkthrough:[
     "A bystander who pulls the lever kills one instead of letting five die, and most people think that is allowed.",
     "What forbids the surgeon is using a person as a means without their consent.",
-    "When everything else is equal, drowning a cousin in the bath and watching him drown are equally wicked.",
+    "When everything else is equal, pushing your uncle into the river for his money and standing by while he falls in are equally wicked.",
     "Then there is no deep moral difference between killing and letting die."
   ]
 };
