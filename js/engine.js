@@ -11,7 +11,10 @@
      {who:"hint", label, text, cost}
    After each call, `result` is "win", "lose" or null.
    ===================================================================== */
-import { analyse, matchNeed, detectStuffing, conceptsFor } from "./parser.js";
+import { analyse, matchNeed, detectStuffing, conceptsFor, FUNCTION_WORDS, ECHO_STOP } from "./parser.js";
+import { detectAct, isSmalltalk, isFeeling, peopleIndex } from "./intents.js";
+import { lemmas } from "./lexicon.js";
+import { THRESHOLDS } from "./semantic.js";
 import { createVoice } from "./grammar.js";
 
 export const DIFFICULTY = ["", "Novice", "Apprentice", "Adept", "Expert", "Master"];
@@ -19,17 +22,35 @@ export const hintCost = ph => (ph.diff >= 3 ? 1 : 0);
 
 const RX = {
   hint: /^\s*(hint|help|clue|give me a (hint|clue)|i need a hint)\s*[?.!]*\s*$/i,
-  insult: /\b(stupid|idiot|fool|dumb|moron|shut up|loser|imbecile|cretin|pathetic|hate you|screw you|bullshit|nonsense old man)\b/,
-  flatter: /\b(genius|brilliant|so wise|very wise|great philosopher|admire|love your|amazing|you are wise|so smart|so clever)\b/,
-  greet: /^ (hi|hello|hey|greetings|good (morning|day|evening|afternoon)|salve|chaire|howdy|yo|bonjour|guten tag)\b/,
-  who: /\bwho are you\b|\bwhat is your name\b|\btell me about yourself\b/,
-  agree: /^ (i agree|you are right|true|yes|indeed|exactly|ok|okay|fair enough|fair point|right|sure|agreed|of course) /,
-  giveup: /\b(i give up|no idea|i do not know what to say|what should i say|i am stuck|i have no clue|what do you want me to say)\b/,
-  ask: /\b(what|why|how|explain|mean|clarify|define|tell me|do you|is it|are you|can you|what is your)\b/
+  ask: /\b(what|why|how|explain|mean|clarify|define|tell me|do you|is it|are you|can you|what is your|would you|could you|does|did|is|are)\b/
 };
 
+/* Patience a remark costs. Arguments that miss cost 1; remarks that are
+   about the argument, or are ordinary conversation, are free. */
+const FREE_ON_TOPIC = 2;
+/* everyday words that say nothing about what an argument is about */
+const COMMON = new Set(("like make made makes take know good well much many look come give gives does done keep kind sort " +
+  "thing things time times part also first last long great little same other another every each ever even never always " +
+  "seem seems seen tell told said says want wants need needs think thought true right wrong yours mine their there where " +
+  "here then than these those very more most less such only just would could should might shall upon into onto from").split(" ")); // misses per node that touch the subject before they cost patience
+
+/* The best semantic candidate among the node's moves and traps, and how far ahead of the runner-up it is. */
+export function semPick(sem) {
+  const items = [...(sem.moves || []).map((score, i) => ({ kind: "move", i, score })), ...(sem.traps || []).map((score, i) => ({ kind: "trap", i, score }))]
+    .sort((a, b) => b.score - a.score);
+  if (!items.length) return null;
+  return { ...items[0], margin: items[0].score - (items[1]?.score ?? 0) };
+}
+function semSummary(sem, node) {
+  const p = semPick(sem);
+  const parts = [];
+  if (p) parts.push("closest: " + p.kind + " " + (p.i + 1) + (p.kind === "move" ? " → " + node.moves[p.i].to : "") + " at " + p.score.toFixed(2) + " (margin " + p.margin.toFixed(2) + ")");
+  if (sem.act) parts.push("remark: " + sem.act.name + " at " + sem.act.score.toFixed(2));
+  return parts.length ? "semantic " + parts.join(", ") : "";
+}
+
 export class Conversation {
-  constructor(ph, { rng = Math.random } = {}) {
+  constructor(ph, { rng = Math.random, roster = [] } = {}) {
     this.ph = ph;
     this.voice = createVoice(ph, { rng });
     this.concepts = conceptsFor(ph);
@@ -44,6 +65,10 @@ export class Conversation {
     this.result = null;
     this.stanceText = "";
     this.debug = null; // what the last reply was based on, for admin mode
+    this.people = peopleIndex(roster);
+    this.asked = false;  // did their last line end with a question?
+    this.onTopic = {};   // free on-topic misses used, per node
+    this.vocab = new Map();
   }
 
   get over() { return this.result !== null; }
@@ -70,13 +95,17 @@ export class Conversation {
     const ph = this.ph;
     const text = this.say(ph.nodes[ph.start].enter, {});
     this.stanceText = text;
+    this.asked = /\?\s*$/.test(text);
     return [
       { who: "sys", text: "You approach " + ph.name + ". " + ph.place + ", " + ph.dates + "." },
       { who: "them", text }
     ];
   }
 
-  respond(raw) {
+  /* `sem` (optional) is what the semantic layer made of the same text, for
+     the node the conversation is at: see semantic.js. Without it the game
+     runs on the keyword parser and the dialogue-act rules alone. */
+  respond(raw, { sem = null } = {}) {
     if (this.over) return [];
     if (RX.hint.test(raw)) return this.hint();
 
@@ -87,13 +116,15 @@ export class Conversation {
     const speak = (t, extra) => out.push({ who: "them", text: this.say(t, Object.assign({}, vars, extra || {})) });
     const sys = (text, cls) => out.push({ who: "sys", text, cls });
     const P = U.text;
-    const note = (kind, detail) => { this.debug = { kind, detail: detail || "", node: this.node, frag: U.frag, echo: U.echo }; };
+    const semInfo = sem && sem.node === this.node ? semSummary(sem, node) : "";
+    const note = (kind, detail) => { this.debug = { kind, detail: [detail, semInfo].filter(Boolean).join("; "), node: this.node, frag: U.frag, echo: U.echo }; };
+    const done = () => { const last = out.filter(o => o.who === "them").at(-1); if (last) this.asked = /\?\s*$/.test(last.text); return this.finish(out); };
     note("deflect");
 
     if (!U.words) { speak("@short"); return out; }
 
     // repeated input
-    if (P === this.last) { note("repeat"); this.pat -= 1; speak("@repeat"); return this.finish(out); }
+    if (P === this.last) { note("repeat"); this.pat -= 1; speak("@repeat"); return done(); }
     this.last = P;
     this.turns++;
 
@@ -108,7 +139,7 @@ export class Conversation {
       sys(this.stuffs === 1
         ? "A string of keywords is not an argument. Join your ideas with reasons. (−1 patience)"
         : "Keyword stuffing again. (−1 patience)", "bad");
-      return this.finish(out);
+      return done();
     }
 
     // argument moves: the decision tree
@@ -116,30 +147,53 @@ export class Conversation {
       const m = matchNeed(mv.need, U, this.concepts);
       if (m.full) {
         note("move", "move " + (i + 1) + " → " + mv.to + " (matched: " + m.words.join(", ") + "; " + stuffInfo + ")");
-        this.advance(mv, out, vars); return this.finish(out);
+        this.advance(mv, out, vars); return done();
       }
     }
     // traps: objections they have already answered
     for (const tr of node.traps || []) {
-      if (matchNeed(tr.need, U, this.concepts).full) {
+      const m = matchNeed(tr.need, U, this.concepts);
+      if (m.full) {
         this.pat -= tr.cost || 0;
-        note("trap", "matched: " + matchNeed(tr.need, U, this.concepts).words.join(", ") + ", cost " + (tr.cost || 0));
+        note("trap", "matched: " + m.words.join(", ") + ", cost " + (tr.cost || 0));
         speak(tr.reply);
         if (tr.cost) sys("They have heard that objection before. (−" + tr.cost + " patience)");
-        return this.finish(out);
+        return done();
       }
     }
-    // speech acts
-    if (RX.insult.test(P)) { this.pat -= 2; note("insult"); speak("@insult"); sys("That cost you 2 patience.", "bad"); return this.finish(out); }
-    if (RX.flatter.test(P) && U.words < 14) { note("flatter"); speak("@flatter"); return this.finish(out); }
-    if (RX.greet.test(P) && U.words < 7) { note("greet"); speak("@greet"); return this.finish(out); }
-    if (RX.who.test(P)) {
-      note("who are you"); speak("@whoami");
-      out.push({ who: "them", text: this.say(ph.bio.split(". ").slice(0, 2).join(". ").replace(/\.?$/, "."), vars) });
-      return this.finish(out);
+
+    const act = detectAct(U, ph, { asked: this.asked, people: this.people });
+    if (act?.act === "insult") { this.pat -= 2; note("insult"); speak("@insult"); sys("That cost you 2 patience.", "bad"); return done(); }
+
+    // the semantic layer: the same argument in other words
+    const pick = sem && sem.node === this.node ? semPick(sem) : null;
+    if (pick && !act && pick.kind === "move" && pick.score >= THRESHOLDS.move && pick.margin >= THRESHOLDS.margin && U.words >= 4) {
+      const mv = node.moves[pick.i];
+      if (!matchNeed(mv.need, U, this.concepts).negated) {
+        note("move", "move " + (pick.i + 1) + " → " + mv.to + " (understood: similarity " + pick.score.toFixed(2) + ")");
+        this.advance(mv, out, vars); return done();
+      }
     }
-    if (RX.giveup.test(P)) { note("giveup"); speak("@giveup"); sys("Stuck? The Hint button nudges you toward the next step."); return this.finish(out); }
-    if (RX.agree.test(P) && U.words < 6) { note("agree"); speak("@agree"); return this.finish(out); }
+
+    if (act) {
+      const handled = this.reply(act, U, vars, speak, sys, note);
+      if (handled) return done();
+    }
+
+    // an objection they have answered, said in other words: their answer, but free
+    if (pick && pick.kind === "trap" && pick.score >= THRESHOLDS.trap && pick.margin >= THRESHOLDS.margin) {
+      note("trap", "understood as objection " + (pick.i + 1) + " (similarity " + pick.score.toFixed(2) + "), no cost");
+      speak(node.traps[pick.i].reply);
+      return done();
+    }
+
+    // a good argument, but for another stage of the conversation
+    const elsewhere = this.otherNodeMove(U);
+    if (elsewhere) {
+      note(elsewhere, "matches a move at another node");
+      speak("@" + elsewhere);
+      return done();
+    }
 
     // near-miss: part of a multi-part argument
     let best = null, bestFrac = 0;
@@ -152,24 +206,137 @@ export class Conversation {
       this.partials++;
       note("near miss", "half of a move matched: " + best.words.join(", "));
       speak("@near", { half: best.words[0] || null });
-      return this.finish(out);
+      return done();
+    }
+    if (pick && pick.kind === "move" && pick.score >= THRESHOLDS.near && this.partials < 3) {
+      this.partials++;
+      note("near miss", "close to move " + (pick.i + 1) + " (similarity " + pick.score.toFixed(2) + ")");
+      speak("@near");
+      return done();
     }
 
-    // questions: restate where things stand
+    // the semantic layer's guess at the kind of remark
+    if (sem?.act && sem.act.score >= THRESHOLDS.act) {
+      const guess = { act: sem.act.name };
+      if (guess.act === "insult") { this.pat -= 1; note("insult", "understood (similarity " + sem.act.score.toFixed(2) + ")"); speak("@insult"); sys("That cost you 1 patience.", "bad"); return done(); }
+      if (this.reply(guess, U, vars, speak, sys, note)) return done();
+    }
+
+    const topical = this.isOnTopic(U);
+    if (!topical && isFeeling(U)) { note("feeling"); speak("@feeling"); return done(); }
+    if (!topical && isSmalltalk(U)) { note("small talk"); speak("@smalltalk"); return done(); }
+
+    // questions: answer about the matter, or turn the question back
     if (U.isQuestion && RX.ask.test(P)) {
-      note("question");
-      speak("@restate");
-      out.push({ who: "them", text: this.say(this.stanceText || node.enter || ph.nodes[ph.start].enter, vars) });
-      return this.finish(out);
+      if (topical) {
+        note("question", topical ? "on the subject" : "");
+        speak("@restate");
+        out.push({ who: "them", text: this.say(this.stanceText || node.enter || ph.nodes[ph.start].enter, vars) });
+      } else { note("question", "off the subject"); speak("@askback"); }
+      return done();
     }
 
-    if (U.words < 3) { note("too short"); speak("@short"); return this.finish(out); }
+    if (U.words < 3) { note("too short"); speak("@short"); return done(); }
+
+    // on the subject but not an argument they know: engage, and only charge after a couple
+    if (topical) {
+      const used = this.onTopic[this.node] || 0;
+      this.onTopic[this.node] = used + 1;
+      if (used >= FREE_ON_TOPIC) this.pat -= 1;
+      note("on topic", "about the subject, no move matched" + (used >= FREE_ON_TOPIC ? ", cost 1" : ", free"));
+      speak("@engage");
+      if (this.pat > 0 && this.pat <= 2 && this.gMood !== "irritated") speak("@annoyed");
+      return done();
+    }
 
     // deflection, built from the player's own words
     this.pat -= 1;
     speak("@deflect");
     if (this.pat > 0 && this.pat <= 2 && this.gMood !== "irritated") speak("@annoyed");
-    return this.finish(out);
+    return done();
+  }
+
+  /* Answer a dialogue act. Returns false if this act has nothing to say here. */
+  reply(act, U, vars, speak, sys, note) {
+    const ph = this.ph, node = this.current;
+    const restate = () => this.say(this.stanceText || node.enter || ph.nodes[ph.start].enter, vars);
+    const them = text => speak(text);
+    switch (act.act) {
+      case "gibberish": note("gibberish"); speak("@gibberish"); return true;
+      case "giveup": note("giveup"); speak("@giveup"); sys("Stuck? The Hint button nudges you toward the next step."); return true;
+      case "who":
+        note("who are you"); speak("@whoami");
+        them(ph.bio.split(". ").slice(0, 2).join(". ").replace(/\.?$/, "."));
+        return true;
+      case "bio": {
+        const f = act.fact || { kind: "unknown" };
+        note("about their life", f.kind);
+        if (f.kind === "place") speak("@bioplace", { place: ph.place });
+        else if (f.kind === "dates") speak("@biodates", { dates: ph.dates });
+        else if (f.kind === "fact") speak("@biofact", { fact: f.fact });
+        else speak("@biounknown");
+        return true;
+      }
+      case "view": note("their view"); speak("@view", { thesis: ph.core }); return true;
+      case "why": case "challenge": case "clarify":
+        note(act.act); speak("@" + act.act);
+        out(restate());
+        return true;
+      case "howareyou": case "farewell": case "thanks": case "apology": case "laugh":
+      case "disagree": case "answerno": case "answeryes":
+        note(act.act); speak("@" + act.act); return true;
+      case "flatter": note("flatter"); speak("@flatter"); return true;
+      case "greet": note("greet"); speak("@greet"); return true;
+      case "agree": note("agree"); speak("@agree"); return true;
+      case "anachronism": note("anachronism", act.thing); speak("@anachronism", { thing: act.thing }); return true;
+      case "person": {
+        const p = act.person;
+        note("person", p.name + " (" + p.when + ")");
+        speak(p.when === "later" ? "@future" : p.when === "earlier" ? "@past" : "@peer", { other: p.name });
+        return true;
+      }
+      case "smalltalk": note("small talk"); speak("@smalltalk"); return true;
+      case "feeling": note("feeling"); speak("@feeling"); return true;
+      default: return false;
+    }
+    function out(text) { them(text); }
+  }
+
+  /* Does the sentence share a content word with what this part of the
+     argument is about? */
+  isOnTopic(U) {
+    const words = this.vocabulary(this.node);
+    return U.toks.some(t => t.w.length >= 4 && !t.neg && !FUNCTION_WORDS.has(t.w) && !ECHO_STOP.has(t.w) && !COMMON.has(t.w) && lemmas(t.w).some(l => !COMMON.has(l) && words.has(l)));
+  }
+  vocabulary(id) {
+    if (this.vocab.has(id)) return this.vocab.get(id);
+    const ph = this.ph, n = ph.nodes[id];
+    const text = [ph.core, ph.target, n.enter || "", n.stance, ...(ph.voice.claim || []), ...(ph.voice.core || [])].join(" ");
+    const words = new Set();
+    const addWord = w => { if (w.length >= 4 && !FUNCTION_WORDS.has(w) && !ECHO_STOP.has(w) && !COMMON.has(w)) lemmas(w).forEach(l => words.add(l)); };
+    text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/#[^#]*#/g, " ").split(/[^a-z]+/).forEach(addWord);
+    for (const it of [...n.moves, ...(n.traps || [])]) for (const g of it.need) for (const alt of g.split("|"))
+      if (alt[0] !== "@" && !alt.includes(" ")) addWord(alt.replace(/\*$/, "").toLowerCase());
+    for (const nm of ph.name.toLowerCase().split(/[^a-z]+/)) words.delete(nm);
+    this.vocab.set(id, words);
+    return words;
+  }
+
+  /* A full move of another node: "ahead" if that node is still to come, "behind" if it is passed. */
+  otherNodeMove(U) {
+    const ph = this.ph, reach = from => {
+      const seen = new Set([from]), q = [from];
+      while (q.length) { const id = q.shift(); for (const m of ph.nodes[id].moves) if (m.to !== "WIN" && !seen.has(m.to)) { seen.add(m.to); q.push(m.to); } }
+      return seen;
+    };
+    const ahead = reach(this.node);
+    for (const [id, n] of Object.entries(ph.nodes)) {
+      if (id === this.node) continue;
+      if (!n.moves.some(mv => matchNeed(mv.need, U, this.concepts).full)) continue;
+      if (ahead.has(id)) return "ahead";
+      if (reach(id).has(this.node)) return "behind";
+    }
+    return null;
   }
 
   advance(mv, out, vars) {

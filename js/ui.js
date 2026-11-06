@@ -6,6 +6,7 @@
 import { Conversation, DIFFICULTY, hintCost } from "./engine.js";
 import * as store from "./storage.js";
 import { paintPortrait, faceFor, reactionFor, setFace } from "./portraits.js";
+import { createUnderstanding, loadBrowserEmbedder, withTimeout, MODEL } from "./semantic.js";
 
 const $ = id => document.getElementById(id);
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -19,6 +20,34 @@ let busy = false;
 let settleTimer = 0;  // returns the portrait to its mood face after a reaction
 const faces = () => [$("pPortrait"), $("pBioPortrait")];
 let admin = false;  // admin mode: everything open, debug tools, wins not saved
+
+/* ---- smart understanding: an optional model that only reads the player's text ---- */
+let smart = true;
+let understanding = null;          // set once the model has loaded
+let smartState = "off";            // off | loading | ready | failed
+let smartPct = 0;
+function ensureSmart() {
+  if (!smart || understanding || smartState === "loading") return;
+  smartState = "loading"; smartPct = 0; showSmart();
+  loadBrowserEmbedder({ onProgress: p => { smartPct = p; showSmart(); } })
+    .then(embed => {
+      understanding = createUnderstanding(embed);
+      smartState = "ready"; showSmart();
+      if (C) understanding.prepare(C.ph).catch(() => {});
+    })
+    .catch(e => { console.warn("[dialectica] smart understanding unavailable:", e); smartState = "failed"; showSmart(); });
+}
+function showSmart() {
+  const t = $("smartToggle");
+  if (t) { t.textContent = "Smart understanding: " + (smart ? "on" : "off"); t.setAttribute("aria-pressed", String(smart)); }
+  const s = $("smartStatus");
+  if (!s) return;
+  s.textContent = !smart ? "Understanding: keywords and everyday remarks (smart understanding is off)."
+    : smartState === "ready" ? "Understanding: smart. Say it your own way."
+    : smartState === "loading" ? "Understanding: loading the language model… " + Math.round(smartPct * 100) + "% (keywords meanwhile)"
+    : smartState === "failed" ? "Understanding: keywords and everyday remarks (the language model could not load)."
+    : "";
+}
 
 export function initUI(philosophers) {
   PHILOSOPHERS = philosophers;
@@ -45,6 +74,14 @@ export function initUI(philosophers) {
     $("input").value = w[C.walkIdx]; $("input").focus();
   };
   applyAdmin();
+  smart = store.loadSmart();
+  $("smartToggle").onclick = () => {
+    smart = !smart; store.saveSmart(smart);
+    $("smartNote").hidden = false;
+    if (smart) ensureSmart(); else { smartState = understanding ? "ready" : "off"; }
+    showSmart();
+  };
+  showSmart();
   $("themeBtn").onclick = () => {
     const root = document.documentElement;
     const cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -109,7 +146,9 @@ function showView(v) {
 export function startTalk(id) {
   const ph = PHILOSOPHERS.find(p => p.id === id);
   if (!ph) return;
-  C = new Conversation(ph);
+  C = new Conversation(ph, { roster: PHILOSOPHERS });
+  ensureSmart();
+  if (smart && understanding) understanding.prepare(ph).catch(() => {});
   showView("talk");
   paintPortrait($("pPortrait"), ph);
   // a larger copy of the portrait heads the "About" box
@@ -199,15 +238,23 @@ function updateSide() {
   }
 }
 
-function submit() {
+async function submit() {
   if (busy || !C || C.over) return;
   const raw = $("input").value.trim();
   if (!raw) return;
   $("input").value = "";
   addMsg({ who: "you", text: raw });
+  const conv = C;
+  let sem = null;
+  if (smart && understanding) {
+    busy = true; $("sendBtn").disabled = true;
+    sem = await withTimeout(understanding.understand(raw, conv.ph, conv.node), MODEL.timeout);
+    busy = false; $("sendBtn").disabled = false;
+    if (conv !== C) return; // the player left or restarted meanwhile
+  }
   const before = { conv: C.conv, pat: C.pat };
   C.debug = null; // so a hint (which sets no debug info) is not read as the previous reply
-  const lines = C.respond(raw);
+  const lines = C.respond(raw, { sem });
   show(lines, reactionFor(before, C, C.debug?.kind ?? null));
 }
 

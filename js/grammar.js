@@ -26,11 +26,14 @@
    ===================================================================== */
 
 export const MOODS = ["composed", "intrigued", "wavering", "impatient", "irritated"];
-export const VARS = ["frag", "echo", "half", "name"];
+export const VARS = ["frag", "echo", "half", "name", "thesis", "place", "dates", "fact", "other", "thing"];
 
 /* Speech-act rules whose voice lines blend with the shared ones. */
 const BLEND = new Set(["deflect", "greet", "insult", "flatter", "agree", "near", "nudge", "repeat", "short",
-  "annoyed", "restate", "whoami", "stuffing", "giveup", "counter", "prod", "reflect", "echoq", "open", "dismiss", "lands"]);
+  "annoyed", "restate", "whoami", "stuffing", "giveup", "counter", "prod", "reflect", "echoq", "open", "dismiss", "lands",
+  "farewell", "thanks", "apology", "howareyou", "view", "why", "challenge", "clarify", "disagree", "answerno", "answeryes",
+  "laugh", "gibberish", "bioplace", "biodates", "biofact", "biounknown", "redirect", "future", "past", "peer", "anachronism",
+  "smalltalk", "feeling", "askback", "engage", "ahead", "behind"]);
 const VOICE_SHARE = 0.6;
 
 export const RULES = {
@@ -129,6 +132,64 @@ export const RULES = {
     "If you do not know what to say, ask. There is no shame in a question."
   ],
   lands: ["Your argument lands. Their position shifts."],
+
+  /* --- dialogue acts (see intents.js): answering the remark that was made --- */
+  redirect: ["But we were speaking of #core#.", "Now, back to #core#.", "But that is not why you came.",
+    "Still, #core# is waiting for an argument.", "Now: #core#.", "Enough of me. Back to #core#."],
+  farewell: ["Go well, #addr#. #Core.cap# will still be here when you return.", "#gest# Leaving already? Come back with a sharper argument.",
+    "Farewell, then. But you have not yet moved #core# an inch.", "Go, if you must. I will be here, thinking."],
+  thanks: ["You are welcome, #addr#. Now, where were we?", "*nods* Thanks are cheap. Arguments are dear. #Redirect#",
+    "No need to thank me. Convince me instead.", "#gest# Gladly. #Redirect#"],
+  apology: ["*waves it away* No harm done. #Redirect#", "Forgiven, #addr#. #Redirect#", "Think nothing of it. Now argue, and argue well.",
+    "#gest# Apology accepted. #Redirect#"],
+  howareyou: ["Well enough, #addr#, and better if you bring me a good argument.", "#gest# I am thinking, as always. And you came to argue.",
+    "Content, since #claim#. #Redirect#", "*smiles* Kind of you to ask. #Redirect#"],
+  view: ["#gest# My position is simple: #thesis#", "Plainly, #addr#: #thesis#", "I hold it still: #thesis#",
+    "Let me say it once more. #thesis#", "#hmm# This is what I hold: #thesis#"],
+  why: ["Why? #hmm# Hear my reasons again.", "You want the reason. Very well.", "#gest# I will tell you why.", "Why? Listen, #addr#."],
+  challenge: ["Proof? I have been giving it to you. Listen again.", "#oath#! You want proof? Then hear it.", "How do I know? #hmm# Like this.",
+    "*leans forward* You doubt me? Good. Then follow the reasoning.", "Ask for proof, and you shall have my reasons."],
+  clarify: ["#hmm# Let me put it more plainly, #addr#.", "Then I will go slowly.", "#gest# Simply, then.", "Forgive me. Once more, and more plainly."],
+  disagree: ["Then show me where I am wrong, #addr#.", "Wrong? Perhaps. But where, exactly?", "Saying no is easy. Give me the reason.",
+    "*raises an eyebrow* A verdict without an argument.", "#gest# You disagree. Good. Now tell me why.", "Then #claim# is false? Show me how."],
+  "disagree@irritated": ["Then prove it, or stop saying it.", "Denial is not an argument, #addr#.", "Wrong, wrong, wrong. Why?"],
+  answerno: ["No? Then tell me why not, #addr#.", "No? Show me, then.", "#hmm# No? On what grounds?", "You say no. Give me the reason.",
+    "*leans in* No? Then what is it?"],
+  answeryes: ["Yes? Then we agree, and #claim#.", "*smiles* Then you see it too. So why argue?", "Yes. And so #claim#.",
+    "If yes, then #core# stands, #addr#."],
+  laugh: ["*smiles* Laughter is good for the soul, but it refutes nothing.", "#gest# I am glad you are amused. Now argue.",
+    "Laugh if you like, #addr#. #Core.cap# is no joke to me.", "*chuckles* Very good. Now, seriously."],
+  gibberish: ["#gest# I do not know that tongue, #addr#.", "Is that a language? Not one I speak.", "*frowns* Say that again, in words.",
+    "Your fingers have run ahead of your thoughts, #addr#."],
+  bioplace: ["#gest# You find me at #place#.", "Where? Here, at #place#. #Redirect#", "I am of #place#, #addr#. #Redirect#"],
+  biodates: ["My years? #dates#, as your historians count them. #Redirect#", "*smiles* #dates#, they will tell you. #Redirect#",
+    "Old enough to have thought hard about #core#. Your books say #dates#."],
+  biofact: ["#gest# So they tell it: #fact.q# #Redirect#", "They say this of me: #fact.q# #Redirect#",
+    "#hmm# You will hear it said that #fact.q# Some of it is even true. #Redirect#", "#fact.q# So the story goes. #Redirect#"],
+  biounknown: ["That is my own business, #addr#. #Redirect#", "*waves a hand* My life is less interesting than my argument. #Redirect#",
+    "Ask me about #core#, not about me."],
+  future: ["#Other#? I have never heard of anyone by that name, #addr#.", "#gest# Who is #other#? No one I know.",
+    "#Other#… a stranger to me. Speak for yourself, not for strangers.", "I know no #other#. Make the argument in your own words."],
+  past: ["#Other#? I know what is said of #other#. But I am not #other#, and #claim#.", "#gest# You bring up #other#. Then tell me what #other# would say against #core#.",
+    "#Other# is long dead, #addr#, and I am here. Argue with me."],
+  peer: ["#Other#? #hmm# I know of #other#. But tell me what you think, not what #other# thinks.",
+    "#gest# Leave #other# out of this. It is you and I, and #core#."],
+  anachronism: ["#Thing.a#? I do not know what that is, #addr#.", "#gest# You speak of #thing.q#. I have no idea what that is.",
+    "*frowns* #Thing.q.cap#? Is it something to eat? Explain it in words I would know, or return to #core#.",
+    "I have never heard of #thing.a#. Strange times you must come from, #addr#."],
+  smalltalk: ["We can talk of #echo# another day, #addr#. Today: #core#.", "#gest# Another time, #addr#. #Core.cap# will not settle itself.",
+    "Ha! You are trying to distract me.", "#Echo.cap# can wait. #Core.cap# cannot.", "*smiles* Later, perhaps, over a cup of something. First, #core#."],
+  feeling: ["*softens* I am sorry to hear it, #addr#. Thinking is a good companion in hard times.", "#gest# That is heavy to carry. Sit a while; argue if it helps.",
+    "*is quiet for a moment* Grief and worry visit everyone, #addr#. Speak when you are ready.", "I hear you, #addr#. Philosophy began as a medicine for the soul, so let us practise it."],
+  askback: ["You ask me about #echo#? I have thought less about that than about #core#.", "#gest# A fair question, #addr#, but ask it of #core#.",
+    "#Echo.cap#? That is your question to answer, not mine. Mine is #core#.", "#hmm# Let me ask you instead: what does that do to #core#?"],
+  engage: ["#reflect# You speak to the matter, at least. Yet #claim#.", "#hmm# You are on the subject, #addr#, but not yet at the joint. #prod#",
+    "#gest# #Echo.q#. Yes, that belongs here. But how does it touch #core#?", "#reflect# Then follow it further. Where does it leave #core#?",
+    "That is to the point, but it does not yet move me. #prod#", "#gest# Close to the matter, #addr#. Still, #claim#."],
+  "engage@irritated": ["On the subject, at least. But it does not move me.", "#reflect# And? #prod#"],
+  ahead: ["#gest# You run ahead of me, #addr#. That may matter later. First things first.", "Not yet. We must settle the first question before that one.",
+    "*holds up a hand* One step at a time. Answer what is in front of us."],
+  behind: ["We have settled that already, #addr#. Go on from there.", "Yes, yes, you won that point. Now what?", "#gest# You made that point before. Build on it."],
 
   /* identity defaults, normally supplied by the voice */
   addr: ["my friend"],

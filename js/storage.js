@@ -6,6 +6,7 @@
 const SAVE_KEY = "dialectica.v1";
 const THEME_KEY = "dialectica.theme";
 const ADMIN_KEY = "dialectica.admin";
+const SMART_KEY = "dialectica.smart";
 
 function store() {
   try { return globalThis.localStorage || null; } catch (e) { return null; }
@@ -105,3 +106,8 @@ export const saveTheme = t => write(THEME_KEY, t);
    so trying a later thinker never touches real progress. */
 export const loadAdmin = () => read(ADMIN_KEY) === "1";
 export const saveAdmin = on => write(ADMIN_KEY, on ? "1" : "0");
+
+/* Smart understanding (semantic.js): on unless the player switched it off.
+   A separate key, so it never touches saved progress. */
+export const loadSmart = () => read(SMART_KEY) !== "0";
+export const saveSmart = on => write(SMART_KEY, on ? "1" : "0");

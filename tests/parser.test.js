@@ -17,6 +17,8 @@ test("negation scope blocks a keyword the player denies", () => {
   assert.ok(m(["fire"], "not water but fire"), "negation stops at a conjunction");
   assert.ok(m(["son*"], "did you feel nothing when your sons died"));
   assert.ok(m(["@neg|destroy*", "fire"], "water does not make fire"), "moves about negation ignore the scope");
+  assert.ok(!m(["boundless|neither|none of them"], "the source is not boundless"), "a denied keyword stays denied even if the group could match a negation");
+  assert.ok(m(["boundless|neither|none of them"], "neither water nor fire"));
 });
 
 test("phrases do not straddle punctuation", () => {
