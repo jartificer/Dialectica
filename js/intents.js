@@ -100,7 +100,7 @@ export function bioFact(ph, U) {
 }
 
 /* ---------- people and things from another time ---------- */
-const NAME_SKIP = new Set(["of", "the", "ibn", "al", "de", "von", "saint", "st", "mary", "karl", "simone", "jean", "paul", "george", "david", "immanuel", "friedrich", "ludwig", "thomas", "rene", "baruch", "soren", "marcus", "wang", "ghazali"]);
+const NAME_SKIP = new Set(["of", "the", "ibn", "al", "de", "von", "saint", "st", "mary", "karl", "simone", "jean", "paul", "george", "david", "immanuel", "friedrich", "ludwig", "thomas", "rene", "baruch", "soren", "marcus", "wang", "ghazali", "foot", "iris", "hannah", "elizabeth", "margaret", "christine"]);
 
 /* aliases → {name, born, id?} for everyone on the timeline plus NAMES */
 export function peopleIndex(roster = []) {

@@ -35,7 +35,14 @@ export const LEGACY_ORDER = [
   "thales", "heraclitus", "parmenides", "protagoras", "socrates", "plato", "aristotle", "epicurus",
   "marcus", "augustine", "anselm", "descartes", "berkeley", "hume", "kant", "nietzsche", "sartre"
 ];
-export const SAVE_VERSION = 2;
+/* The timeline of version 2, before twelve more thinkers were inserted (some between old ones). */
+export const V2_ORDER = [
+  "thales", "laozi", "confucius", "heraclitus", "parmenides", "protagoras", "socrates", "plato", "aristotle", "zhuangzi", "epicurus",
+  "marcus", "nagarjuna", "augustine", "shankara", "avicenna", "anselm", "ghazali", "aquinas",
+  "wangyangming", "hobbes", "descartes", "spinoza", "berkeley", "hume", "kant", "wollstonecraft",
+  "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "beauvoir"
+];
+export const SAVE_VERSION = 3;
 
 const fresh = () => ({ version: SAVE_VERSION, done: {}, unlocked: false, opened: {} });
 let save = fresh();
@@ -64,6 +71,11 @@ export function migrate(raw) {
   } else {
     // version 1: rebuild what was open on the old timeline
     LEGACY_ORDER.forEach((id, i) => { if (isUnlockedAt(LEGACY_ORDER, i, { done, opened: {} })) s.opened[id] = true; });
+  }
+  // before version 3: keep whatever the version 2 timeline opened, even if it was never displayed
+  if (!(raw.version >= 3)) {
+    const before = { done, opened: { ...s.opened } };
+    V2_ORDER.forEach((id, i) => { if (isUnlockedAt(V2_ORDER, i, before)) s.opened[id] = true; });
   }
   return s;
 }

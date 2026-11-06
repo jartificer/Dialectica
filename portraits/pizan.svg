@@ -1,0 +1,16 @@
+<!-- Christine de Pizan, after the illuminations of the Queen's Manuscript (British Library, Harley 4431): a horned headdress under a white veil, a plain high-necked gown -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 5 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<g class="fig">
+<path d="M24 27q-.5-8 8-8.5q8.5.5 8 8.5"/>
+<path d="M24 21q-7 0-7-6q1-5 6-3q3 2 4 6M40 21q7 0 7-6q-1-5-6-3q-3 2-4 6M24.5 18.5q7.5-3 15 0"/>
+<path d="M19 12q-3 10 0 22q1 5 4 9M45 12q3 10 0 22q-1 5-4 9M19 12q13-8 26 0"/>
+<path d="M32 25.8l-1 5.4q1 .8 2 0"/>
+<path d="M24 28q.5 7 3 10.5q2.5 3.5 5 3.5t5-3.5q2.5-3.5 3-10.5"/>
+<path d="M29 41.5v5M35 41.5v5"/>
+<path d="M8 64q2-11 15-16q9 3 18 0q13 5 15 16M27 48q5 2 10 0"/>
+<g class="brow l"><path d="M26.4 22.6q2.2-1 4.2 0"/></g>
+<g class="brow r"><path d="M33.4 22.6q2.2-1 4.2 0"/></g>
+<g class="eyes"><g class="look"><path d="M26.8 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><path d="M34.2 25.4q1.5-1.2 3 0q-1.5 1-3 0"/><circle cx="28.3" cy="25.4" r=".6" fill="currentColor" stroke="none"/><circle cx="35.7" cy="25.4" r=".6" fill="currentColor" stroke="none"/></g></g>
+<g class="mouth"><path class="m-rest" d="M30.2 36.6q1.8.6 3.6 0"/><path class="m-smile" opacity="0" d="M29.5 36.1q2.5 2.6 5 0"/><path class="m-frown" opacity="0" d="M30 37.7q2-2.2 4 0"/><path class="m-flat" opacity="0" d="M30.5 36.9h3"/><ellipse class="m-open" opacity="0" cx="32" cy="37.5" rx="1.2" ry="1.8"/></g>
+</g>
+</svg>
