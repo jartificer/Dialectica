@@ -42,7 +42,16 @@ export const V2_ORDER = [
   "wangyangming", "hobbes", "descartes", "spinoza", "berkeley", "hume", "kant", "wollstonecraft",
   "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "beauvoir"
 ];
-export const SAVE_VERSION = 3;
+/* The timeline of version 3, before Cioran was inserted between Weil and Anscombe. */
+export const V3_ORDER = [
+  "thales", "laozi", "confucius", "heraclitus", "parmenides", "protagoras", "socrates", "plato", "aristotle", "zhuangzi", "epicurus",
+  "banzhao", "marcus", "nagarjuna", "augustine", "hypatia", "shankara", "avicenna", "anselm", "ghazali", "hildegard", "aquinas", "pizan",
+  "wangyangming", "hobbes", "descartes", "elisabeth", "cavendish", "spinoza", "astell", "berkeley", "hume", "kant", "wollstonecraft",
+  "kierkegaard", "marx", "nietzsche", "wittgenstein", "sartre", "arendt", "beauvoir", "weil", "anscombe", "murdoch", "foot"
+];
+/* Each earlier timeline, with the save version that came after it. */
+const HISTORY = [[V2_ORDER, 3], [V3_ORDER, 4]];
+export const SAVE_VERSION = 4;
 
 const fresh = () => ({ version: SAVE_VERSION, done: {}, unlocked: false, opened: {} });
 let save = fresh();
@@ -72,10 +81,11 @@ export function migrate(raw) {
     // version 1: rebuild what was open on the old timeline
     LEGACY_ORDER.forEach((id, i) => { if (isUnlockedAt(LEGACY_ORDER, i, { done, opened: {} })) s.opened[id] = true; });
   }
-  // before version 3: keep whatever the version 2 timeline opened, even if it was never displayed
-  if (!(raw.version >= 3)) {
+  // keep whatever each later timeline opened, even if the player never saw it
+  for (const [order, after] of HISTORY) {
+    if (raw.version >= after) continue;
     const before = { done, opened: { ...s.opened } };
-    V2_ORDER.forEach((id, i) => { if (isUnlockedAt(V2_ORDER, i, before)) s.opened[id] = true; });
+    order.forEach((id, i) => { if (isUnlockedAt(order, i, before)) s.opened[id] = true; });
   }
   return s;
 }

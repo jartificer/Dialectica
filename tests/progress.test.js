@@ -11,7 +11,7 @@ globalThis.localStorage = {
   removeItem: k => disk.delete(k)
 };
 const store = await import("../js/storage.js");
-const { LEGACY_ORDER, V2_ORDER, isUnlockedAt, migrate } = store;
+const { LEGACY_ORDER, V2_ORDER, V3_ORDER, isUnlockedAt, migrate } = store;
 
 const order = (await loadAll()).sort((a, b) => a.born - b.born).map(p => p.id);
 const openIds = s => order.filter((id, i) => isUnlockedAt(order, i, s));
@@ -20,7 +20,7 @@ const v2Open = (done, opened = {}) => V2_ORDER.filter((id, i) => isUnlockedAt(V2
 const wins = ids => Object.fromEntries(ids.map((id, n) => [id, { turns: n + 3 }]));
 
 test("no philosopher id from an older version has been renamed or removed", () => {
-  for (const id of [...LEGACY_ORDER, ...V2_ORDER]) assert.ok(manifest.includes(id), id + " is missing: old saves would lose that win");
+  for (const id of [...LEGACY_ORDER, ...V2_ORDER, ...V3_ORDER]) assert.ok(manifest.includes(id), id + " is missing: old saves would lose that win");
 });
 
 test("an old save keeps every win and best score", () => {
@@ -64,6 +64,17 @@ test("a version 2 player who had beaten everyone opens every inserted thinker, a
   for (const id of order) if (!tail.includes(id)) assert.ok(open.includes(id), id);
   assert.ok(open.includes(tail[0]), tail[0] + " should open after Beauvoir");
   for (const id of tail.slice(1)) assert.ok(!open.includes(id), id + " should wait for the one before");
+});
+
+test("anyone open on the version 3 timeline is still open after Cioran is inserted", () => {
+  for (let k = 0; k <= V3_ORDER.length; k++) {
+    const done = wins(V3_ORDER.slice(0, k));
+    const before = V3_ORDER.filter((id, i) => isUnlockedAt(V3_ORDER, i, { done, opened: {} }));
+    for (const opened of [Object.fromEntries(before.map(id => [id, true])), {}]) {
+      const after = openIds(migrate({ version: 3, done, opened }));
+      for (const id of before) assert.ok(after.includes(id), "after " + k + " wins, " + id + " was re-locked");
+    }
+  }
 });
 
 test("a version 1 save also keeps open whatever version 2 would have opened", () => {
