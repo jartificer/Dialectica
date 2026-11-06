@@ -68,9 +68,8 @@ export default {
       enter:"In the Appendix to my Treatise I confessed it: when I come to explain the principles that unite our successive perceptions, all my hopes vanish. Perceptions are distinct existences, and the mind never perceives any real connection among distinct existences. I plead the privilege of a sceptic: it is too hard for my understanding.",
       stance:"Hume admits he cannot explain what unites the perceptions into one self, and retreats into scepticism.",
       hints:["Perceptions never wander between people. What does that show?",
-             "Argue that a perception can't exist unowned: every pain is somebody's pain."],
+             "Argue that perceptions never get mixed up between two people, so something makes each one this mind's and not another's."],
       moves:[
-        {need:["perceiv*|subject|someone|somebody|bearer|owner|experienc*|haver","requir*|presuppos*|need*|must|without|cannot|imply|implies|assum*"], to:"WIN", gain:100},
         {need:["own*|mine|belong*|whose|yours|someone*|somebody|another person|other person|other people|two people|share*|swap*|transfer*|mix*|wander*|separate","@neg|always|never|cannot|must|only"], to:"owner", gain:25,
          reply:["True — your toothache never strays into my bundle, though it resembles mine and has causes like mine. Something makes a perception *this* mind's and not another's."]}
       ],
@@ -85,7 +84,7 @@ export default {
       hints:["Must you perceive the perceiver for it to be real? Think of the eye and seeing.",
              "Argue that a perception requires a subject who has it. The eye doesn't see itself, yet it sees: the self is the having, not one more item in the bundle."],
       moves:[
-        {need:["subject|owner|self|perceiver|bearer|someone|somebody|haver|eye|having|viewpoint|point of view|i am|experiencer|observer","requir*|presuppos*|need*|must|without|cannot|imply|implies|assum*|itself|not one of|not another|condition|not a perception|isn't a perception|not itself"], to:"WIN"}
+        {need:["subject|owner|self|perceiver|bearer|someone|somebody|haver|eye|having|viewpoint|point of view|i am|experiencer|observer","requir*|presuppos*|need*|must|without|cannot|imply|implies|assum*|itself|not one of|not another|condition|not a perception|isn't a perception|not itself|one more|not an item|another item"], to:"WIN"}
       ],
       traps:[
         {need:["soul|substance"], cost:1, reply:["Substance again? I have no impression of it, #addr#."]}
@@ -97,6 +96,7 @@ export default {
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "What ties the bundle of perceptions together?",
-    "Every perception needs someone who has it; a pain cannot exist without a subject."
+    "My toothache never strays into your head; something makes it mine and not yours.",
+    "Like the eye, which sees everything except itself, the self is the having of perceptions; it must be there even if you never find it among them."
   ]
 };

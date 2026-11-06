@@ -55,7 +55,7 @@ export default {
       enter:"King Charles the Sixth sealed it with his own hand, poor mad man, and gave France to the English and their heirs. So by the letter of obedience, Joan defied her sovereign's own word. I said it was holy work. I still say so. But then it was not obedience I was praising.",
       stance:"Christine admits Joan defied the crown's own treaty, and that it was not obedience she praised.",
       hints:["What did Joan serve, if not the command of the crown?",
-             "Argue that what makes a ruler's command binding is the common good it serves, and Joan served the good of France."],
+             "Argue that even if the old king had been well, a treaty handing France to its enemies would not bind: what makes a command binding is the common good it serves."],
       moves:[
         {need:["common good|common profit|good of|welfare|justice|people|kingdom|realm|france|country","serv*|binding|bind*|legitim*|depend*|measur*"], to:"good", gain:25,
          reply:["*sets down her quill* The common profit. #hmm#"]}
@@ -85,7 +85,7 @@ export default {
   walkthrough:[
     "You wrote a poem in praise of Joan of Arc, who took up arms.",
     "The Treaty of Troyes, sealed by the old king himself, disinherited Charles, and Joan defied it.",
-    "What makes a command binding is the common good it serves, and Joan served the good of France.",
+    "Even if the old king had been well, a treaty handing France to its enemies would not bind; what makes a command binding is the common good it serves.",
     "Then subjects may rightly resist a ruler who betrays the common good."
   ]
 };

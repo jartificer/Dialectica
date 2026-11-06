@@ -55,7 +55,7 @@ export default {
       enter:"So the difference is not killing against letting die, but what we do to the one. The surgeon must cut the visitor up and use his body as a resource. The tram is merely turned, and the man on the side track dies as a side effect. Then doing and allowing carry less weight than I said.",
       stance:"Foot concedes that the surgeon is forbidden for using a person, not because killing is worse than letting die.",
       hints:["Take a case of killing and of letting die where nothing else differs. Is one really worse?",
-             "Point out that when everything else is equal, pushing a rich uncle into a river for his money and standing by while he falls in are equally wicked."],
+             "Argue that if killing were worse in itself, it would be worse wherever nothing else differs; yet drowning a rich uncle for his money and letting him drown for the same money are equally wrong."],
       moves:[
         {need:["drown*|river|uncle|bath*|cousin*|inherit*|equal*|equally|everything else|identical","kill*|let*|allow*|watch*|wicked|bad|worse|evil"], to:"equal", gain:25,
          reply:["*a long breath* Rachels's two heirs. Yes, he pressed that one."]}
@@ -66,12 +66,12 @@ export default {
       ]
     },
     equal:{
-      enter:"One man pushes his rich uncle into the river for the inheritance; another sees the old man slip in by accident and simply does nothing, for the same inheritance. Each is as bad as the other. When nothing else differs, the difference I relied on almost vanishes.",
-      stance:"Foot admits that when nothing else differs, killing and letting die look equally wicked.",
-      hints:["So what is left of the difference between killing and letting die in themselves?",
-             "Conclude that there is no deep moral difference between killing and letting die."],
+      enter:"One man pushes his rich uncle into the river for the inheritance; another sees the old man slip in by accident and simply does nothing, for the same inheritance. Each act is as wrong as the other. *frowns* Unless the difference can matter in some cases and vanish in others.",
+      stance:"Foot admits that when nothing else differs, killing and letting die are equally wrong, but wonders whether the difference matters only in some cases.",
+      hints:["If the difference only shows up when something else is present, what is really doing the work?",
+             "Argue that if the difference only matters when other factors are present, then those factors matter, not killing and letting die in themselves."],
       moves:[
-        {need:["no deep|no real|no moral|no difference|not deep|equal*|same","kill*|let*|allow*"], to:"WIN"}
+        {need:["no deep|no real|no moral|no difference|not deep|equal*|same|in themselves|themselves|other factors|those factors","kill*|let*|allow*"], to:"WIN"}
       ],
       traps:[
         {need:["rachels|smith|jones"], cost:0,
@@ -85,7 +85,7 @@ export default {
   walkthrough:[
     "A bystander who pulls the lever kills one instead of letting five die, and most people think that is allowed.",
     "What forbids the surgeon is using a person as a means without their consent.",
-    "When everything else is equal, pushing your uncle into the river for his money and standing by while he falls in are equally wicked.",
-    "Then there is no deep moral difference between killing and letting die."
+    "If killing were worse in itself, it would be worse wherever nothing else differs; yet drowning your uncle for his money and letting him drown for the same money are equally wrong.",
+    "If the difference only matters when other factors are present, then those factors matter, not killing and letting die in themselves."
   ]
 };

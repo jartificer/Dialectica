@@ -3,7 +3,7 @@ export default {
   id:"sartre", name:"Jean-Paul Sartre", dates:"1905–1980", era:"20th century", place:"Café de Flore, Paris",
   diff:5, patience:6, glyph:"S", color:"#2f3b4a", born:1905,
   core:"Existence precedes essence: there is no human nature, and we are totally free.",
-  target:"There is a shared human nature that limits our freedom.",
+  target:"Our freedom is not total: a shared human condition limits it.",
   bio:"Novelist, playwright and the public face of existentialism. Sartre argued that we are ‘condemned to be free’: no God and no human nature tells us what to be, so we are wholly responsible for what we make of ourselves. Simone de Beauvoir, and later his own Marxism, pushed him to take the weight of situations far more seriously.",
   voice:{
     claim:["there is no human nature", "man is nothing but what he makes of himself", "we are condemned to be free", "you are always responsible for what you do"],
@@ -72,11 +72,11 @@ export default {
       ]
     },
     cond:{
-      stance:"Sartre accepts a universal ‘human condition’ (birth, body, mortality, other people), but denies that it is a human nature.",
-      hints:["What is the difference between a ‘universal human condition’ and a ‘human nature’?",
-             "Argue that a set of limits shared by every human, shaping every choice, is just what a human nature is. He has only renamed it."],
+      stance:"Sartre accepts a universal ‘human condition’ (birth, body, mortality, other people), but denies that it is a human nature, and still calls our freedom total.",
+      hints:["If every choice is made inside limits no one chose, is freedom still total?",
+             "Argue that if a condition every human shares limits every choice, then freedom is not total."],
       moves:[
-        {need:["differen*|renam*|word*|name|same thing|semantic*|label*|just a|merely|call it|calling|called|no different","nature|essence"], to:"WIN"}
+        {need:["not total|not absolute|not unlimited|limit*|constrain*|bound*|renam*|same thing","condition|shared|share*|every|all|universal*|common|nature|essence"], to:"WIN"}
       ],
       traps:[
         {need:["freedom|free|choose"], cost:1,
@@ -84,13 +84,13 @@ export default {
       ]
     }
   },
-  win:"*stubs out the cigarette slowly* A condition every human shares, which shapes every project and limits every choice… If it walks like an essence and talks like an essence, mon ami. Simone will laugh at me over dinner. Very well, #addr#: there is a shared human nature that limits our freedom. But what we make of it is still up to us. That much I keep.",
+  win:"*stubs out the cigarette slowly* Years ago I wrote that whatever the circumstances, a man is always free to choose. Reading it now, I think: incredible, I actually believed that. Simone will laugh at me over dinner. Very well, #addr#: our freedom is not total; a shared human condition limits it. But a man can always make something of what is made of him. That much I keep.",
   lose:"*pays for his coffee* You choose to bore me, #addr#. I choose to leave. We are both free. Au revoir.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "You did not choose your body, your birth or your death; that is your facticity.",
     "Simone de Beauvoir showed that an oppressed woman is not equally free, whatever meaning she chooses.",
     "But every human shares a body, needs others and must die.",
-    "A universal condition that limits every choice is just a human nature under another name."
+    "Then your freedom is not total: a condition every human shares limits every choice."
   ]
 };

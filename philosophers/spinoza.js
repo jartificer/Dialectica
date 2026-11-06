@@ -19,7 +19,7 @@ export default {
   nodes:{
     n0:{
       enter:"There is only one substance, God or Nature, and everything follows from its nature as the properties of a triangle follow from the triangle. A stone, thrown, if it could think, would believe it flies by its own free will. So do we: aware of our desires, ignorant of their causes. Free will is that ignorance.",
-      stance:"Spinoza says everything follows necessarily from God or Nature; free will is only ignorance of the causes of our desires.",
+      stance:"Spinoza says everything follows necessarily from God or Nature; free will is only ignorance of the causes of our desires, and people live in bondage to their passions.",
       hints:["If everything is fixed, why did he bother writing a book telling people how to live?",
              "Ask: if everything is fixed, why did he bother to write an Ethics full of advice?"],
       moves:[
@@ -79,7 +79,7 @@ export default {
       ]
     }
   },
-  win:"*holds a finished lens up to the window* Free will is an illusion: that I keep. But freedom is not. To act from one's own nature, understanding the causes, is to be free, and a human being can do it, more or less, as all excellent things are done. Very well, #addr#: human beings can be free. Not free of necessity, but free within it. That was always the point of the book. I had only forgotten to say so plainly.",
+  win:"*holds a finished lens up to the window* Free will is an illusion: that I keep. But freedom is not. To act from one's own nature, understanding the causes, is to be free, and a human being can do it, more or less, though all things excellent are as difficult as they are rare. Very well, #addr#: human beings can be free. Not free of necessity, but free within it. That was always the point of Part Five. You have only made me say it before the part about the stone.",
   lose:"*returns to his lenses* Not to laugh, not to lament, but to understand. I understand that we are finished. Good day, friend.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[

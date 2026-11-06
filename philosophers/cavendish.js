@@ -69,7 +69,7 @@ export default {
       enter:"Many glasses and many eyes, compared and checked, so that reason has more to work with and not less. That is not so different from what I do when I compare the reports of all my senses. I have called them boys blowing bubbles… perhaps some of the bubbles catch the light.",
       stance:"Cavendish admits that compared observations give reason more to work with.",
       hints:["Then what can instruments do that reason sitting alone cannot?",
-             "Conclude that experiments and instruments can teach us truths that reason alone cannot."],
+             "Name a discovery a lens made that no reasoning could have foretold, like Hooke's cells in cork, and conclude that instruments can teach truths reason alone cannot."],
       moves:[
         {need:["experiment*|instrument*|microscop*|lens*|glass*|observ*","teach|learn*|discover*|show*|reveal*|truth*|knowledge"], to:"WIN"}
       ],
@@ -86,6 +86,6 @@ export default {
     "Your naked eye deceives you too, and you rely on reason to correct it.",
     "Then reason can judge what the microscope shows, just as it judges the eye.",
     "When different lenses and many observers agree, the agreement corrects the error.",
-    "So experiments and instruments can teach us truths that reason alone cannot."
+    "Hooke's microscope found cells in cork that no reasoning could have foretold, so experiments and instruments can teach us truths that reason alone cannot."
   ]
 };

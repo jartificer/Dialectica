@@ -3,7 +3,7 @@ export default {
   id:"weil", name:"Simone Weil", dates:"1909–1943", era:"20th century", place:"A workers' café near the Renault factory",
   diff:5, patience:5, glyph:"SW", color:"#5a4a3a", born:1909,
   core:"Obligations come first; rights are only their shadow, and the language of rights turns justice into haggling.",
-  target:"Rights are as important as obligations.",
+  target:"Rights matter in their own right, not only as the shadow of obligations.",
   bio:"French philosopher, activist and mystic. A brilliant student who taught philosophy in provincial schools, she gave much of her salary to the unemployed and took a year off teaching to work on factory assembly lines, so as to know the condition of workers from the inside. She went to Spain to join the anarchists, and later, in London with the Free French, wrote The Need for Roots, which argues that obligations, not rights, come first. Her notebooks, published after her death in 1943, became Gravity and Grace.",
   voice:{
     claim:["obligations come before rights", "rights are the language of the market", "justice is not a bargain", "the afflicted need attention, not a share"],
@@ -69,9 +69,9 @@ export default {
       enter:"If the cry cannot speak, it must be given words, and the law is one place where words are kept. Then a right is not haggling. It is the cry, written down so that it cannot be ignored. I did not want to see that.",
       stance:"Weil admits a right can be the cry of the afflicted, written down so it cannot be ignored.",
       hints:["Then how do rights stand beside obligations?",
-             "Conclude that rights are as important as obligations."],
+             "Conclude that rights matter in their own right, not only as the shadow of obligations."],
       moves:[
-        {need:["right|rights","as important|as much|equal*|both|alongside|together|just as|essential|necessary"], to:"WIN"}
+        {need:["right|rights","as important|as much|equal*|both|alongside|together|just as|essential|necessary|own right|not only|not just|not merely|shadow|matter*"], to:"WIN"}
       ],
       traps:[
         {need:["roots|uproot*|rootedness"], cost:0,
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*a rare small smile* So the cry of the afflicted needs both: someone who feels the obligation, and a right in which the cry can be written. Very well, #addr#: rights are as important as obligations. I will still say obligations come first in the order of thought. But I will stop sneering at the word.",
+  win:"*a rare small smile* So the cry of the afflicted needs both: someone who feels the obligation, and a right in which the cry can be written. Very well, #addr#: rights matter in their own right, not only as the shadow of obligations. I will still say obligations come first in the order of thought. But I will stop sneering at the word.",
   lose:"*picks up her satchel* I am due at the factory gate at six, #addr#. You may walk with me if you like, but we will not speak.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "In the strikes of 1936 you stood with the strikers in the factories, who demanded things.",
     "If the bosses ignore an obligation, the worker needs a right to claim it.",
     "A right can be the form in which the cry of the afflicted is heard.",
-    "So rights are as important as obligations."
+    "So rights matter in their own right, not only as the shadow of obligations."
   ]
 };

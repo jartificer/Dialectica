@@ -68,7 +68,7 @@ export default {
       enter:"If it truly gave ataraxia, without pain or fear, I would have no reason to refuse it.",
       stance:"Epicurus says that if a machine gave perfect tranquil pleasure, there would be no reason to refuse it.",
       hints:["Would people actually choose this? Would you?",
-             "Say that most people would refuse to plug in — and then explain why."],
+             "Say that on reflection you would refuse to plug in, and not out of fear; then explain why."],
       moves:[
         {need:["@neg|refuse|reject*|decline*|nobody|no one|few|most people|never|horrif*|horrible|terrible|sad|empty|hollow","enter|plug*|choose|chose|want|accept|go in|use|it|that|live|choose it|step in"], to:"refuse", gain:25,
          reply:["#hmm# You would refuse? Then perhaps it is fear of the unknown — an empty fear, and those I teach people to dispel."]}
@@ -104,8 +104,8 @@ export default {
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "Imagine a machine that gave you perfect calm pleasure for the rest of your life.",
-    "Most people would refuse to plug into it.",
+    "On reflection I would refuse to plug into it, and not out of fear.",
     "Because we want our lives to be real, not just to feel real.",
-    "Friendship matters for its own sake, more than the pleasure it brings."
+    "As you say yourself, every friendship is desirable for its own sake; friendship matters for its own sake, more than the pleasure it brings."
   ]
 };

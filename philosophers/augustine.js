@@ -73,10 +73,10 @@ export default {
     will:{
       enter:"In the City of God I wrote that the evil will has no efficient cause, only a deficient one. It is a turning away from God, a falling short. So it is still a lack.",
       stance:"Augustine says the evil will has only a ‘deficient cause’: it is a turning away, a falling short, and so still a kind of lack.",
-      hints:["A turning away is still a turning. Is a turning nothing?",
-             "Argue that turning away is an act. It happens, it has effects: the theft really happened. So it is something real."],
+      hints:["He grants the act was real. Was the badness in it only something missing? Remember what he says he loved.",
+             "Argue that his love of the wrongdoing for its own sake had its own aim and strength, while a mere falling short aims at nothing; so the evil in his will was something present."],
       moves:[
-        {need:["turn*|act|action|event|deed|choice|chose|theft|will|wanting","real|really|exist*|something|actual*|positive|happen*|occur*|not nothing|not a lack|not an absence|produce*|caused|effect*"], to:"WIN"}
+        {need:["love*|loved|loving|aim*|aimed|direct*|strength|strong|sought|seek*|for its own sake|itself","present|presence|something|positive|real|really|not nothing|not an absence|aims at nothing|nothing to aim|has an aim|its own"], to:"WIN"}
       ],
       traps:[
         {need:["deficien*|lack|absen*|privation|missing"], cost:1,
@@ -86,12 +86,12 @@ export default {
       ]
     }
   },
-  win:"*closes the book of Paul* A turning is still a turning. The boy shook the tree, the pears fell, the pigs ate. Something was *done*, not merely left undone. Then the evil will is a real act, even if it is an act of falling away. Very well, #addr#: evil is something real, not a mere absence. I shall add it to my Retractions. That book is getting long.",
+  win:"*closes the book of Paul* Blindness wants nothing. But that boy wanted the wrong itself, and wanted it hard. A mere falling short has no aim, and mine had one. Then the evil in the will is not only a hole where good should be; it is a love bent toward the wrong. Very well, #addr#: evil is something real, not a mere absence. I shall add it to my Retractions. That book is getting long.",
   lose:"*rises* I must go and preach; the people of Hippo are waiting. Take up and read, #addr#, and come back when you have.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "What about the pears you stole as a boy?",
     "Your wanting was real; the will to steal was something present, not a lack.",
-    "Turning away is still an act; the theft really happened, so it is something real."
+    "Your love of the wrongdoing for its own sake had its own aim and strength; a mere falling short aims at nothing, so the evil in your will was something present."
   ]
 };

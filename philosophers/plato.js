@@ -78,14 +78,28 @@ export default {
     tma:{
       enter:"If the large things and Largeness itself are alike in being large, then another Largeness appears over them all, and another over those, and the Forms become unlimited in number… *long pause* Perhaps, then, the Forms are only thoughts, existing in souls?",
       stance:"Facing an infinite regress, Plato wonders whether the Forms are only thoughts in the mind.",
-      hints:["If a Form were just a thought, it would be a thought *of* something. Of what?",
-             "Suggest the Forms exist only in the things themselves, not apart — as their structure or nature. (This is what his student Aristotle argued.)"],
+      hints:["If the Forms are wholly apart from our world, how could we ever come to know them?",
+             "Press the 'greatest difficulty' from his own Parmenides: Forms that are wholly separate relate only to one another, so we could never know them."],
+      moves:[
+        {need:["apart|separate*|their own|own realm|another world|other world|wholly|cut off|beyond","know*|knowable|unknowable|reach*|grasp*|learn*|never|cannot|relate*|access*"], to:"gulf", gain:25,
+         reply:["*very quietly* The greatest difficulty. I wrote that one too."]}
+      ],
+      traps:[
+        {need:["thought*|mind|idea*|concept*|soul|head|mental"], cost:1,
+         reply:["Only thoughts? But every thought is a thought *of* something — of a single Form that it thinks. We are back where we began, #addr#. That will not do."]}
+      ]
+    },
+    gulf:{
+      enter:"If the Forms are wholly by themselves, they relate only to one another, and the things among us relate only to one another. Knowledge itself would belong to the gods and not to us. We could know nothing of Beauty or Justice, which is the very thing I built the Forms to explain.",
+      stance:"Plato admits that wholly separate Forms would be unknowable to us, which defeats the reason he posited them.",
+      hints:["If they cannot be apart from us, and cannot be mere thoughts, where can the Forms be?",
+             "Suggest the Forms exist only in the things themselves, not apart, as their structure or nature. (This is what his student Aristotle argued.)"],
       moves:[
         {need:["in things|in the things|in objects|in each|within|inside|immanent|in matter|not separate|not apart|inseparabl*|in particulars|structure|nature of|aristotle|in the world|embodied|part of things|belong to things"], to:"WIN"}
       ],
       traps:[
         {need:["thought*|mind|idea*|concept*|soul|head|mental"], cost:1,
-         reply:["Only thoughts? But every thought is a thought *of* something — of a single Form that it thinks. We are back where we began, #addr#. That will not do."]}
+         reply:["Thoughts again? A thought is of something, #addr#. We have been there."]}
       ]
     }
   },
@@ -96,6 +110,7 @@ export default {
     "How exactly do beautiful things participate in Beauty itself?",
     "Then is the Form like a sail spread over many people, each covered by only a part?",
     "If large things resemble Largeness, then we need another Form to explain what they share, and so on forever.",
+    "If the Forms are wholly apart from our world, they relate only to one another, and we could never know them.",
     "The Forms exist only in the things themselves, as their structure."
   ]
 };

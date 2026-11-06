@@ -3,7 +3,7 @@ export default {
   id:"wittgenstein", name:"Ludwig Wittgenstein", dates:"1889–1951", era:"20th century", place:"A village school in Trattenbach, Austria",
   diff:5, patience:6, glyph:"LW", color:"#3a3a4a", born:1889,
   core:"A sentence has meaning by picturing a possible fact; what cannot be pictured cannot be said, and the problems of philosophy dissolve into nonsense.",
-  target:"The meaning of a word is its use, not the object it pictures.",
+  target:"For a large class of cases, the meaning of a word is its use, not the object it pictures.",
   bio:"Son of one of the richest families in Vienna, he studied with Bertrand Russell in Cambridge, wrote the Tractatus Logico-Philosophicus in notebooks while serving in the trenches and a prison camp, gave away his fortune, and became a primary school teacher in the Austrian mountains, convinced he had solved philosophy. Years later he returned to Cambridge and took much of the Tractatus apart himself.",
   voice:{
     claim:["a proposition is a picture of a fact", "what can be said at all can be said clearly", "what cannot be said must be passed over in silence", "the problems of philosophy rest on misunderstanding the logic of language"],
@@ -72,7 +72,7 @@ export default {
       enter:"Board games, card games, ball games, games of patience. Some have winners, some do not. Some need skill, some luck. I see similarities criss-crossing and overlapping, like the faces of a family. No one thing. *stops* Then what holds the word together?",
       stance:"Wittgenstein sees that games share no single essence, only overlapping ‘family resemblances’, and asks what then holds a word together.",
       hints:["If not one essence, then what? Think of a word as a tool.",
-             "Say: the meaning of a word is its use in the language, like a tool in a toolbox."],
+             "Say: for a large class of cases, the meaning of a word is its use in the language, like a tool in a toolbox."],
       moves:[
         {need:["use|used|using|usage|role|job|tool*|function*","meaning|mean*|word*|language"], to:"WIN"}
       ],
@@ -82,13 +82,13 @@ export default {
       ]
     }
   },
-  win:"*sits down heavily on a pupil's bench* The meaning is the use. Hammer, saw, glue-pot: tools do not share one essence, and neither do words. I climbed my ladder, threw it away, and it was the wrong ladder. Very well, #addr#: the meaning of a word is its use, not the object it pictures. I shall have to go back to Cambridge. Russell will be unbearable.",
+  win:"*sits down heavily on a pupil's bench* The meaning is the use. Hammer, saw, glue-pot: tools do not share one essence, and neither do words. I climbed my ladder, threw it away, and it was the wrong ladder. Very well, #addr#: for a large class of cases, the meaning of a word is its use, not the object it pictures. I shall have to go back to Cambridge. Russell will be unbearable.",
   lose:"*waves you out* Go. Go! You are making the stove smoke and the children laugh. We have arithmetic.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "By your own standard, the propositions of the Tractatus are themselves nonsense.",
     "But your schoolchildren learn words by using them, not by matching pictures to facts.",
     "Then what do all games have in common, from chess to football?",
-    "So the meaning of a word is its use in the language, like a tool in a toolbox."
+    "So for a large class of cases, the meaning of a word is its use in the language, like a tool in a toolbox."
   ]
 };

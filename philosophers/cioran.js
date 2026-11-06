@@ -66,10 +66,10 @@ export default {
       ]
     },
     friends:{
-      enter:"Beckett and I can walk for hours and say almost nothing, and it is the best thing in the week. And with the others I talk until two in the morning and laugh like a madman. My friends say I am the gayest pessimist in Paris. I confess it: I do not live as I write.",
-      stance:"Cioran admits that friendship, talk and laughter, like Bach, are things he keeps returning to.",
-      hints:["So is it true that nothing is worth affirming?",
-             "Conclude that some things in life are worth affirming: music, friendship, laughter."],
+      enter:"Beckett and I can walk for hours and say almost nothing, and it is the best thing in the week. And with the others I talk until two in the morning and laugh like a madman. My friends say I am the gayest pessimist in Paris. And here is the scandal: I have looked at these things with all my lucidity, at four in the morning, and found nothing to unmask.",
+      stance:"Cioran admits that friendship, talk and laughter, like Bach, survive his lucidity, and he keeps returning to them.",
+      hints:["His lucidity sees through everything else. What does it find in these?",
+             "Conclude that his own lucidity has examined them and found nothing false, so some things in life are worth affirming: music, friendship, laughter."],
       moves:[
         {need:["some|something|things|music|friendship|laughter|bach|life","worth|affirm*|value*|matter*|good"], to:"WIN"}
       ],
@@ -86,6 +86,6 @@ export default {
     "You have kept writing for sixty years, polishing every sentence; someone who affirms nothing would not bother.",
     "You say that without Bach even God would be second rate, and his music moves you to tears.",
     "Your friends, Beckett and Ionesco, know you for long, joyful, very funny conversations.",
-    "So some things in life are worth affirming: music, friendship and laughter."
+    "Your lucidity has examined them and found nothing false, so some things in life are worth affirming: music, friendship and laughter."
   ]
 };

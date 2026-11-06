@@ -3,7 +3,7 @@ export default {
   id:"wollstonecraft", name:"Mary Wollstonecraft", dates:"1759–1797", era:"Enlightenment", place:"Newington Green, London",
   diff:5, patience:6, glyph:"W", color:"#7a3a5a", born:1759,
   core:"Reason is what makes us human. Women must be educated to reason, and feeling must always be governed by it.",
-  target:"Feeling is as essential to a good life as reason.",
+  target:"Feeling is essential to a good life, not just a servant of reason.",
   bio:"Writer, teacher and reviewer who ran a school at Newington Green, travelled to revolutionary Paris, and answered Edmund Burke in A Vindication of the Rights of Men. In A Vindication of the Rights of Woman she argued that women only seem weaker in mind because they are trained in ‘sensibility’ instead of reason. Her later letters from a journey through Scandinavia are full of feeling, and she died soon after giving birth to her daughter Mary.",
   voice:{
     claim:["reason is what makes us human", "the passions must be governed by reason", "women are weak only because they are taught to be", "virtue rests on understanding, not on feeling"],
@@ -42,7 +42,7 @@ export default {
       enter:"But that is a rational passion: indignation guided by reason, at a wrong that reason has seen. I do not condemn feeling. I condemn the sickly sensibility that men cultivate in women to keep them pretty and powerless.",
       stance:"Wollstonecraft says her indignation is a ‘rational passion’ guided by reason; she only condemns cultivated sensibility.",
       hints:["Could reason alone ever make anyone care about women's freedom at all?",
-             "Argue that reason alone gives no aim: without feeling, nobody would care about women's freedom."],
+             "Argue that her indignation gave her reason its aim: without feeling, nobody would care about women's freedom."],
       moves:[
         {need:["reason|reasoning|rational*|intellect*|understanding","aim*|goal*|care|cares|caring|motiv*|purpose|value*|without"], to:"aim", gain:25,
          reply:["#hmm# Reason gives no aim of its own. That is Mr Hume's sort of argument, and I do not love it. But…"]}
@@ -70,7 +70,7 @@ export default {
       enter:"Written to a man who had stopped loving me, about rocks and waterfalls and my little Fanny. Godwin says reading them made him fall in love with me. I did not reason my way through those months. I felt them, and the feeling made me wiser, not weaker.",
       stance:"Wollstonecraft admits that in her letters feeling did not obey reason, and that it made her wiser.",
       hints:["If feeling made her wiser, is it a servant, or a partner?",
-             "Conclude that feeling is as essential to a good life as reason: they work as equal partners."],
+             "Conclude that feeling is essential to a good life: a partner of reason, not only its servant."],
       moves:[
         {need:["equal*|partner*|both|together|alongside|as much as|as essential|essential|necessary|share*|union|balance","feeling*|passion*|emotion*|heart|love"], to:"WIN"}
       ],
@@ -80,13 +80,13 @@ export default {
       ]
     }
   },
-  win:"*laughs, and it surprises her* A partner, then, and not a servant. I spent a whole book telling women to stop feeling and start thinking, when what I wanted was for them to be allowed to do both. Very well, #addr#: feeling is as essential to a good life as reason. But I will still have them educated. That part stands.",
+  win:"*laughs, and it surprises her* A partner, then, and not a servant. I spent a whole book telling women to stop feeling and start thinking, when what I wanted was for them to be allowed to do both. Very well, #addr#: feeling is essential to a good life, not just a servant of reason. But I will still have them educated. That part stands.",
   lose:"*returns to her desk* I have a review due and a child asleep upstairs. Good day, sir. Do think it over.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "Your own indignation at injustice is a passion, and it drives your whole book.",
-    "Reason alone gives no aim; without feeling, nobody would care about women's freedom at all.",
+    "Your indignation gave your reason its aim; without feeling, nobody would care about women's freedom at all.",
     "In your Letters from Sweden you wrote with your whole heart, not as a philosopher of pure reason.",
-    "Then feeling is as essential to a good life as reason; they work as equal partners."
+    "Then feeling is essential to a good life, a partner of reason and not only its servant."
   ]
 };

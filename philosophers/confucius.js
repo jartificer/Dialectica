@@ -19,7 +19,7 @@ export default {
   start:"n0",
   nodes:{
     n0:{
-      enter:"*bows* Restrain yourself and return to the rites: that is how a person becomes good. Do not look at what is contrary to ritual, do not listen to it, do not speak it, do not move toward it. The son who bows to his father, the minister who bows to his lord: from these small forms, the whole realm comes into order.",
+      enter:"*bows* Restrain yourself and return to the rites: that is how a person becomes good. Do not look at what is contrary to ritual, do not listen to it, do not speak it, do not move toward it. The son who bows to his father, the minister who bows to his lord: from these small forms, the whole realm comes into order. *watches you, as he watches all his students, to see whether you will push back*",
       stance:"Confucius believes that following the rites, the forms of correct conduct, is what makes a person good.",
       hints:["Can someone go through every correct form and still be cold inside?",
              "Point out that a person can perform every ritual perfectly and still be hollow, insincere or just going through the motions."],
@@ -68,7 +68,7 @@ export default {
       ]
     }
   },
-  win:"*bows, slowly, and this time it looks meant* A man who is not humane, what has he to do with ritual? I said it, and then I spent my life polishing the bronze vessels and forgetting what they were for. Very well, #addr#: without genuine humaneness, ritual is empty. Is it not a pleasure to learn, even at my age?",
+  win:"*bows, slowly, and smiles* A man who is not humane, what has he to do with ritual? I said it long ago, and I waited to see whether you would find it for yourself. Most students only polish the bronze vessels and forget what they are for. Very well, #addr#: without genuine humaneness, ritual is empty. Is it not a pleasure to learn, even at my age?",
   lose:"*rises and arranges his robes* The gentleman knows when to withdraw. It is time, #addr#. Study the Odes, and come back.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
