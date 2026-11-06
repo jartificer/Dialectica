@@ -75,9 +75,9 @@ export default {
     inference:{
       stance:"Berkeley admits objects might outlast perception, but asks what evidence could show they do, since you never meet one unperceived.",
       hints:["You can't perceive the unperceived. But what explains the order of what you do perceive?",
-             "Argue from the best explanation: the fire burns down to ash while you're out of the room, the clock moves on. Things that exist unperceived explain this better than ideas that blink in and out."],
+             "Argue from what he just granted: if the colour is not an idea, nothing needs to perceive the fire for it to exist, so it simply goes on burning to ash while you are out of the room."],
       moves:[
-        {need:["explain*|explanation|best|account for|reason to|evidence|infer*|simplest|simpler","fire|ash|ashes|logs|clock*|candle|burn*|order|regular*|continu*|unseen|meanwhile|absent|while i was|while we"], to:"WIN"}
+        {need:["explain*|explanation|best|account for|reason to|evidence|infer*|simplest|simpler|nothing needs|need not|needs no|no need|simply|not an idea","fire|ash|ashes|logs|clock*|candle|burn*|order|regular*|continu*|unseen|meanwhile|absent|while i was|while we"], to:"WIN"}
       ],
       traps:[
         {need:["god"], cost:1,
@@ -87,13 +87,13 @@ export default {
       ]
     }
   },
-  win:"*looks at the fire, which has burned low while we talked* I did not watch those logs turn to ash, and yet they did, at just the rate logs do. If the blue is not the seeing, and the fire keeps its own time when no one attends to it, then the simplest account is that it is there, minding its own business. Very well, #addr#: material things exist independently of being perceived. I shall go and take some tar-water. It is good for shock.",
+  win:"*looks at the fire, which has burned low while we talked* I did not watch those logs turn to ash, and yet they did, at just the rate logs do. If the blue is not the seeing, then nothing needs to see the fire for it to be, and it keeps its own time when no one attends to it, minding its own business. Very well, #addr#: material things exist independently of being perceived. I shall go and take some tar-water. It is good for shock.",
   lose:"*smiles kindly* I perceive that you are tired, #addr#, and so, by my principles, you are. Good night.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "What happens to the tree in the quad when nobody is looking?",
     "You confuse the act of conceiving with what is conceived: my thought is about the tree, but the tree itself is not my thought.",
     "Blue is not the same as the sensation of seeing blue; the colour itself is not an idea in the mind.",
-    "The best explanation for the fire burning down to ash while I was out of the room is that it exists unperceived."
+    "If the colour itself is not an idea, nothing needs to perceive the fire for it to exist; it simply went on burning to ash while I was out of the room."
   ]
 };

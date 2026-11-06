@@ -71,9 +71,9 @@ export default {
       enter:"But I only hold up a mirror. I take their positions and show that they collapse on their own terms. If I had a thesis, I could be faulted. I have none, so I cannot be faulted.",
       stance:"Nāgārjuna says he only shows other positions collapse on their own terms; having no thesis, he cannot be faulted.",
       hints:["Listen to what he just said: ‘I have no thesis.’ What kind of sentence is that?",
-             "Argue that saying you hold no thesis is itself a thesis."],
+             "Argue that even a mirror needs a rule: to show a view collapses, he must hold that a contradiction is a fault, and that is a thesis."],
       moves:[
-        {need:["no thesis|no position|no view|no claim|have none|hold none|thesis|position","itself|also|already|still|counts|is a|is one|@contradict"], to:"WIN"}
+        {need:["no thesis|no position|no view|no claim|have none|hold none|thesis|position|rule|principle","itself|also|already|still|counts|is a|is one|you hold|must hold|@contradict"], to:"WIN"}
       ],
       traps:[
         {need:["mirror|reflect*|their own terms|reductio|prasanga"], cost:1,
@@ -81,13 +81,13 @@ export default {
       ]
     }
   },
-  win:"*laughs quietly, and the beads stop* ‘I have no thesis’: and in that sentence, a thesis. A raft is still a raft while you are crossing the river, friend. I said to let go of it on the far bank, but I am still standing in the water. Very well, #addr#: I do hold a thesis after all. Emptiness. Hold it lightly, as I should have.",
+  win:"*laughs quietly, and the beads stop* A mirror that shows a fault must know what a fault is. Every time I show a view collapsing, I lean on the rule that a contradiction is a fault, and that rule I hold. A raft is still a raft while you are crossing the river, friend. I said to let go of it on the far bank, but I am still standing in the water. Very well, #addr#: I do hold a thesis after all. Emptiness. Hold it lightly, as I should have.",
   lose:"*closes his eyes* Your words are empty, friend, and today they do not even stop a phantom. Go in peace.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "If everything is empty, then your own words are empty too and powerless.",
     "But saying that empty things still function is a claim about how things work.",
     "Yet you refute every rival school, which means you think their views are wrong.",
-    "But saying you have no thesis is itself a thesis."
+    "To show that a view collapses, you must hold that a contradiction is a fault, and that is a thesis you hold."
   ]
 };

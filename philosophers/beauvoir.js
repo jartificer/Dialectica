@@ -66,8 +66,8 @@ export default {
       ]
     },
     mother:{
-      enter:"I sat by her bed for weeks. Her death was not a meaning. It was something done to her, an outrage, an accident that happens to everyone and is still an accident. I wrote that every death is a kind of violation.",
-      stance:"Beauvoir admits that at her mother's bedside death felt like an outrage and a violation, not a meaning.",
+      enter:"I sat by her bed for weeks. Her death was not a meaning. It was something done to her, an outrage, an accident that happens to everyone and is still an accident. Afterwards I wrote that there is no natural death: for every one of us, death is an accident and an unjustifiable violation, even when we know it is coming.",
+      stance:"Beauvoir admits she wrote that for every person, death is an unjustifiable violation, not a meaning.",
       hints:["If death is a violation, can it also be the gift that gives life its meaning?",
              "Conclude that death is a violence that takes meaning away, not a gift that gives it."],
       moves:[
@@ -85,7 +85,7 @@ export default {
   walkthrough:[
     "Fosca's life is empty because he is immortal alone, outliving everyone he loves.",
     "A friendship matters for what it is now, not because it will end.",
-    "When your mother died you wrote that there is no such thing as a natural death.",
+    "In A Very Easy Death you wrote that there is no natural death: for every person, death is an unjustifiable violation.",
     "Then death is a violence that takes meaning away, not a gift that gives it."
   ]
 };

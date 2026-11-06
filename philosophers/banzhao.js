@@ -88,7 +88,7 @@ export default {
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "You are a great historian; you finished the Book of Han yourself.",
-    "In your Lessons for Women you say girls should be taught to read just as boys are.",
+    "In your Lessons for Women you say it is wrong to teach only boys to read and not girls.",
     "When Empress Deng was regent she asked for your advice on affairs of state.",
     "Then a woman's learning should be valued just as highly as a man's."
   ]

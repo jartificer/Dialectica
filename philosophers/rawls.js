@@ -39,7 +39,7 @@ export default {
       enter:"Yes, and he ends up far richer than anyone else. But justice applies first to the basic structure of society, not to each transaction. Background institutions, taxes and transfers, keep the overall distribution fair while people trade as they like.",
       stance:"Rawls says justice concerns the basic structure, which taxes and transfers keep fair while people trade freely.",
       hints:["How often would those institutions have to step in, and against what?",
-             "Argue that keeping the pattern means constantly taxing or forbidding free choices: liberty upsets patterns."],
+             "Argue that even fair rules set in advance must forbid or tax away whatever free choices would otherwise produce: liberty upsets patterns."],
       moves:[
         {need:["interfer*|forbid*|stop*|tax|taxes|taxing|taxation|redistribut*|taking|constant*","liberty|freedom|choice|choices|free"], to:"liberty", gain:25,
          reply:["*adjusts his tie* Liberty upsets patterns. #hmm#"]}
@@ -54,11 +54,11 @@ export default {
     liberty:{
       enter:"But the liberties I protect are the basic ones: conscience, speech, the person, political participation. Owning productive property without limit is not among them. And no one deserves their talents: they come from a natural lottery. So taxing what those talents earn is not theft. We treat the distribution of talents as a common asset.",
       stance:"Rawls says unlimited property is not a basic liberty, and that talents are a common asset from a natural lottery.",
-      hints:["He criticised utilitarianism for ignoring that persons are distinct. Does treating talents as a common asset respect that?",
-             "Point out that treating people's talents as a common asset ignores the separateness of persons, the very thing he accused utilitarianism of ignoring."],
+      hints:["He says even the effort people make depends on luck. What does that leave of persons as free and responsible?",
+             "Point out that if even a person's effort is owed to luck, nothing a person does is their own, which clashes with his own picture of persons as free and responsible."],
       moves:[
         {need:["separate*|separateness|distinct*|individual*|own|owns|self ownership","person*|people|kant*|utilitar*|talent*|means"], to:"separate", gain:25,
-         reply:["*a long pause, and a small stammer* The separateness of persons."]}
+         reply:["*a long pause, and a small stammer* Effort too. I did write that."]}
       ],
       traps:[
         {need:["lottery|luck|deserv*|arbitrar*"], cost:1,
@@ -66,8 +66,8 @@ export default {
       ]
     },
     separate:{
-      enter:"I used that charge against the utilitarians, who would sacrifice one person for a larger sum. And you turn it back on me: if my talents are a common asset, am I quite my own? I still think the worst off have a claim on us. But perhaps not a claim on every fruit of every free exchange.",
-      stance:"Rawls admits that treating talents as a common asset sits uneasily with the separateness of persons.",
+      enter:"I wrote that even the willingness to make an effort depends on happy circumstances. And you turn it back on me: if nothing a person does is quite their own, what is left of the free and responsible persons my whole theory is meant to respect? I still think the worst off have a claim on us. But perhaps not a claim on every fruit of every free exchange.",
+      stance:"Rawls admits that treating even effort as luck sits uneasily with his picture of persons as free and responsible.",
       hints:["So can an inequality be just even when it does not help the worst off?",
              "Conclude that inequalities arising from free exchanges can be just, even if they do not help the worst off."],
       moves:[
@@ -84,8 +84,8 @@ export default {
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "If a million fans freely pay a basketball star to watch him play, he grows rich from free choices alone.",
-    "Keeping your pattern means constantly taxing or forbidding people's free choices: liberty upsets patterns.",
-    "Treating talents as a common asset ignores the separateness of persons, which you accused utilitarianism of ignoring.",
+    "Even fair rules set in advance must forbid or tax away whatever people's free choices would otherwise produce: liberty upsets patterns.",
+    "You say even the effort a person makes is owed to luck; then nothing a person does is their own, which clashes with your idea of persons as free and responsible.",
     "Then inequalities that arise from free exchanges can be just, even if they do not help the worst off."
   ]
 };

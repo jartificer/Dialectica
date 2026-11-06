@@ -59,21 +59,21 @@ export default {
              "Argue that the Logos is always the same — that the law of change does not itself change."],
       moves:[
         {need:["@same|@neg|unchang*","logos|law*|measure*|order|pattern*|rule*|account|it"], to:"last", gain:25,
-         reply:["#gest# The Logos does not change? Hmm. Perhaps it is only how men speak about the flux — a word, and words change like everything else."]}
+         reply:["#gest# The Logos does not change? Hmm. But this world is an ever-living fire, and fire is the most restless thing there is. How could its law sit still?"]}
       ],
       traps:[
         {need:["god|gods|zeus"], cost:1, reply:["The one wise thing is unwilling and willing to be called by the name of Zeus. Do not hide behind names, #addr#."]}
       ]
     },
     last:{
-      stance:"Heraclitus wavers: he suggests the Logos might just be a human way of talking about change, and words change too.",
-      hints:["Is the Logos invented by people, or discovered?",
-             "Remind him of his own words: the Logos holds always, whether or not men understand it — it is common to all."],
+      stance:"Heraclitus wavers: the world is an ever-living fire, and he asks how the law of something so restless could stay the same.",
+      hints:["How does his ever-living fire kindle and go out? Always at random, or in some way that stays fixed?",
+             "Remind him of his own words: the fire is kindled in measures and goes out in measures. The measures stay; the Logos holds always."],
       moves:[
-        {need:["@truth|before|even if|whether|regardless|independ*|common|everyone|all men|anyone|exist*|discover*|not invent*|found|holds|understand*|asleep|sleepers|awake"], to:"WIN"}
+        {need:["@truth|before|even if|whether|regardless|independ*|common|everyone|all men|anyone|exist*|discover*|not invent*|found|holds|understand*|asleep|sleepers|awake|measure*"], to:"WIN"}
       ],
       traps:[
-        {need:["word*|language|speech|name*|invent*"], cost:1, reply:["Exactly — words. Mortal words, shifting like water. You hand me my own victory, #addr#."]}
+        {need:["flame*|restless*|burn*|hungry"], cost:1, reply:["Restless, yes, never still for an instant. You hand me my own victory, #addr#."]}
       ]
     }
   },
@@ -83,6 +83,6 @@ export default {
   walkthrough:[
     "But the change itself never changes; it always follows the same pattern.",
     "The Logos itself does not change.",
-    "The Logos holds whether or not anyone understands it; it was discovered, not invented."
+    "Your ever-living fire is kindled in measures and goes out in measures; the measures never change, so the Logos holds always."
   ]
 };

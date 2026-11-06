@@ -69,9 +69,9 @@ export default {
       enter:"I say the waking world is cancelled too, by the knowledge of Brahman, as waking cancels the dream. Until then it has practical reality, vyavahārika. But from the highest standpoint, it is appearance.",
       stance:"Śaṅkara says the waking world is ‘practically’ real until liberation cancels it, as waking cancels a dream.",
       hints:["Look at how he lives. What did he spend his short life doing, and for whom?",
-             "Point out that he walked across India to teach students and found monasteries: he treats them, and their liberation, as real."],
+             "Point out that dreams are cancelled every morning, but nothing has ever been seen to cancel the waking world: until something does, it stands as real."],
       moves:[
-        {need:["teach*|taught|student*|disciple*|monaster*|matha*|debate*|walk*|travel*|commentar*|wrote|journey*","real|matter*|count*|serious*|really|treat*"], to:"WIN"}
+        {need:["cancel*|sublat*|overturn*|wake up from|woken from|dispel*|disappear*","never|nothing|no one|nobody|not once|no evidence|every morning|until"], to:"WIN"}
       ],
       traps:[
         {need:["practical*|convention*|vyavahar*|two levels|levels|standpoint*"], cost:1,
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*sets down his staff* I walked from Kerala to the Himalaya, argued with every school, founded four monasteries, wrote until my hand ached, all to free people from a world I call unreal. A man does not cross India to wake a dream-figure. Very well, #addr#: the world of many things is real, not mere illusion. Real enough to walk on and to teach in. I will need a new commentary.",
+  win:"*sets down his staff* Every morning the dream is cancelled, and the waking world is still there. I have promised that it too will be cancelled, yet I walked from Kerala to the Himalaya and taught in it as if it stood. A man does not cross India to wake a dream-figure. Very well, #addr#: the world of many things is real, not mere illusion. Real enough to walk on and to teach in. I will need a new commentary.",
   lose:"*rises and takes up his staff* The road to the north is long and you are not on it, seeker. May you wake in time.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "If only Brahman is real, who is it that is mistaken and sees the illusion?",
     "Something that is neither real nor unreal is just a label for a mystery.",
     "When you wake, the same world is waiting for everyone, unlike a private dream.",
-    "Yet you walked across India to teach students, so you treat them as real."
+    "Nothing has ever been seen to cancel the waking world, while dreams are cancelled every morning; until something does, the world stands as real."
   ]
 };

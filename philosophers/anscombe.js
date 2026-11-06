@@ -69,7 +69,7 @@ export default {
       enter:"A child learns 'you can't do that' while playing a game, and later 'you promised, so you must'. Those stopping modals are learned in a practice, and they bind. No lawgiver handed them down. We make them, and still they bind us. Hm.",
       stance:"Anscombe admits a promise makes a binding 'must' through a human practice, with no lawgiver.",
       hints:["So does the moral 'ought' have to be thrown away?",
-             "Conclude that the moral ought can make sense without a divine lawgiver: it comes from human needs and practices."],
+             "Conclude that the ought that forbids murdering the innocent can rest on human needs and practices, without a divine lawgiver."],
       moves:[
         {need:["ought|obligat*|must|duty|duties","sense|meaning*|meaningful|makes sense|without|practice*"], to:"WIN"}
       ],
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*relights her cigar* Very well, #addr#. 'Ought' can make sense without a divine lawgiver, when it rests on human needs and on practices like promising. I still say most moral philosophers since Sidgwick use the word like a magic spell, and I shall go on saying it. But the word itself can be rescued.",
+  win:"*relights her cigar* Very well, #addr#. The ought that forbids murdering the innocent can make sense without a divine lawgiver, when it rests on human needs and on practices like promising. I still say most moral philosophers since Sidgwick use the word like a magic spell, and I shall go on saying it. But the word itself can be rescued.",
   lose:"*picks up her cigar and a pile of her children's school reports* I have seven children and a lecture, #addr#. Good afternoon.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "You called Truman's bombing of Hiroshima murder, and anyone can see that without God.",
     "Necessity comes from need: as a plant needs water, human goods give a real must.",
     "A promise creates a real must through a human practice, with no lawgiver needed.",
-    "So the moral ought can make sense without a divine lawgiver; it comes from human needs and practices."
+    "So the ought that forbids murdering the innocent can rest on human needs and practices, without a divine lawgiver."
   ]
 };

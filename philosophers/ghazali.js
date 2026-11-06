@@ -68,10 +68,10 @@ export default {
     logic:{
       enter:"But fire without burning is no contradiction. I can conceive of it: cotton touching flame, unburnt. So God can do it.",
       stance:"Al-Ghazālī says fire without burning is no contradiction, so God can separate them.",
-      hints:["What is fire, if not the thing that burns?",
-             "Argue that burning is part of what fire is. Fire that never burns would not be fire: a contradiction. So that connection is necessary."],
+      hints:["He granted that God gives things natures, and that we know them well enough for medicine. What would happen to that knowledge if fire had no nature of its own?",
+             "Argue, as Ibn Rushd did, that if fire has no nature of its own, nothing can be defined or known; to know what fire is, is to know that it burns."],
       moves:[
-        {need:["contradict*|impossible|incoheren*|absurd|not be fire|no longer fire|not fire","burn*|nature|definition|essence|what fire is|what it is|part of"], to:"WIN"}
+        {need:["know*|knowledge|defin*|name*|nature*|essence|science|what fire is","burn*|cannot|nothing|impossible|no knowledge|what it is|what fire is"], to:"WIN"}
       ],
       traps:[
         {need:["conceiv*|imagin*|picture"], cost:1,
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*is silent for a long time, beads still* Fire that never burns is not fire. Then I have not imagined fire unburning; I have imagined something else and given it fire's name. Ibn Rushd will write a whole book saying this to me, and he will enjoy it. Very well, #addr#: some causes really do necessitate their effects, or the things would not be what they are. God created the natures; the natures bind the effects. I must pray on it.",
+  win:"*is silent for a long time, beads still* If fire has no nature, I cannot even say what I am imagining when I picture it unburning. And my own physician's knowledge, which I trust, would be knowledge of nothing. Ibn Rushd will write a whole book saying this to me, and he will enjoy it. Very well, #addr#: some causes really do necessitate their effects, or the things would not be what they are. God created the natures; the natures bind the effects. I must pray on it.",
   lose:"*rises for prayer* The call is sounding, seeker. Doubt a little longer, and come back.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "Then anything could happen: the book on your shelf could turn into a horse.",
     "If God's habits are so reliable that we trust them in medicine, they are just the natures of things.",
     "You agree that even God cannot do the logically impossible.",
-    "Fire that never burns would be a contradiction, since burning is part of what fire is."
+    "If fire has no nature of its own, nothing can be defined or known; to know what fire is, is to know that it burns."
   ]
 };

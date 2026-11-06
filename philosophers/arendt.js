@@ -3,7 +3,7 @@ export default {
   id:"arendt", name:"Hannah Arendt", dates:"1906–1975", era:"20th century", place:"A lecture room at the New School, New York",
   diff:5, patience:6, glyph:"HA", color:"#4a4a6a", born:1906,
   core:"Politics is the realm of freedom; poverty and need must be kept out of it, or they crush freedom, as in the French Revolution.",
-  target:"Relieving poverty is a proper task of politics.",
+  target:"Relieving poverty can be a proper task of politics, when citizens decide it together.",
   bio:"German-born political theorist who fled the Nazis in 1933, was interned in France, and reached New York in 1941. The Origins of Totalitarianism made her name, and The Human Condition distinguished labour, work and action. In On Revolution she argued that the French Revolution failed because the misery of the poor swamped the search for freedom, while the American one succeeded. Her report on the Eichmann trial gave the world the phrase 'the banality of evil'.",
   voice:{
     claim:["politics is for freedom, not for necessity", "the social question destroys revolutions", "hunger cannot argue, it can only demand", "freedom lives in action among equals"],
@@ -54,10 +54,10 @@ export default {
     appear:{
       enter:"To appear in public, one must be able to leave the household behind for a while. A starving man cannot. So freedom presupposes liberation from necessity; I have written that too. But liberation is the work of administration, of experts and offices. It is housekeeping on a national scale. It is not action.",
       stance:"Arendt grants freedom needs relief from want, but calls that relief administration, not political action.",
-      hints:["When working people organised and spoke for themselves, was that only housekeeping? Think of the councils she admired.",
-             "Point out that the workers' councils she admired were poor people acting together in public."],
+      hints:["Is deciding how a society should meet need the same as delivering the bread? Think of the councils and town meetings she admired.",
+             "Argue that deciding together, in public, how a society should meet need is action among equals, even if delivering the bread is administration."],
       moves:[
-        {need:["council*|labour movement|labor movement|worker*|union*|strike*|soviet*|hungar*|civil rights","act*|together|speak*|organis*|organiz*|politic*|public|themselves"], to:"councils", gain:25,
+        {need:["council*|labour movement|labor movement|worker*|union*|strike*|soviet*|hungar*|civil rights|decid*|deliberat*","act*|together|speak*|organis*|organiz*|politic*|public|themselves"], to:"councils", gain:25,
          reply:["*stubs out her cigarette* The councils."]}
       ],
       traps:[
@@ -66,10 +66,10 @@ export default {
       ]
     },
     councils:{
-      enter:"Budapest in fifty-six: workers who stopped being a mass and began to speak. I wrote that the labour movement, for a short while, was one of the few groups in modern times that acted politically at all. They acted about their wages and their bread, and it was action all the same.",
-      stance:"Arendt admits that working people acting together about their bread were acting politically.",
+      enter:"In Toronto someone asked me about housing. Building the houses is administration. But whether a city's housing should bring people together or keep them apart is a question for citizens to argue in public. I said then that such questions have a double face. Deciding together how a people should meet its needs is action, even if delivering the bread is housekeeping.",
+      stance:"Arendt admits that citizens deciding together in public how to meet need are acting politically, even if delivery is administration.",
       hints:["So is relieving poverty only housekeeping, or can it belong to politics?",
-             "Conclude that relieving poverty is a proper task of politics."],
+             "Conclude that relieving poverty can be a proper task of politics, when citizens decide it together."],
       moves:[
         {need:["poverty|poor|need*|hunger|misery|want","politic*|public|proper task|task|common|belong*"], to:"WIN"}
       ],
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*laughs, a deep smoker's laugh* So the poor can act, and when they act together about their bread, that is politics and not housekeeping. Very well, #addr#: relieving poverty is a proper task of politics. I reserve the right to be suspicious of anyone who promises to do it for them. Thinking without a banister is uncomfortable, and you have just taken away another one.",
+  win:"*laughs, a deep smoker's laugh* So the bread may be housekeeping, but deciding together how a people will be fed is politics. Very well, #addr#: relieving poverty can be a proper task of politics, when citizens decide it together. I reserve the right to be suspicious of anyone who promises to do it for them. Thinking without a banister is uncomfortable, and you have just taken away another one.",
   lose:"*gathers her lecture notes* My seminar starts in ten minutes, #addr#, and the students have read the book. Think it over.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "America had poverty too: the slaves, whose misery was kept out of sight.",
     "The freedom to appear in public as equals depends on relief from need.",
-    "The workers' councils you admired were poor people acting together in public.",
-    "Then relieving poverty is a proper task of politics."
+    "Deciding together, in public, how a society should meet need is action among equals, even if delivering the bread is administration.",
+    "Then relieving poverty can be a proper task of politics, when citizens decide it together."
   ]
 };

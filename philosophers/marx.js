@@ -56,7 +56,7 @@ export default {
       enter:"When it grips the masses, yes. But only because the conditions are ripe for it. Ideas are the midwife of history, never its mother.",
       stance:"Marx grants that theory can become a force, but only when material conditions are ripe.",
       hints:["Did material conditions decide the politics of his own closest friend?",
-             "Point out that Engels owns a factory in Manchester, yet he became a communist."],
+             "Point out that Engels is a partner in his family's cotton firm in Manchester, yet he became a communist."],
       moves:[
         {need:["engels|yourself|your own|bourgeois*|factory|mill owner|manchester|middle class|lawyer","communist*|socialist*|revolution*|class|proletar*|worker*|side"], to:"engels", gain:25,
          reply:["*laughs into his beard* Engels. A cotton manufacturer who pays my rent and wants to abolish himself."]}
@@ -86,7 +86,7 @@ export default {
   walkthrough:[
     "Then why write the Manifesto at all, if ideas cannot change the world?",
     "You wrote that theory becomes a material force once it grips the masses.",
-    "Engels owns a factory in Manchester, yet he became a communist.",
+    "Engels is a partner in his family's cotton firm in Manchester, yet he became a communist.",
     "So understanding can raise people out of their class and change history; ideas are more than a reflection."
   ]
 };

@@ -65,7 +65,7 @@ export default {
       enter:"The soul is joined to the body at the pineal gland, in the middle of the brain. The soul inclines the gland, the animal spirits flow through the nerves, and the arm moves.",
       stance:"Descartes claims the immaterial soul acts on the body through the pineal gland in the brain.",
       hints:["The pineal gland is a physical thing. How does something with no size or location push it?",
-             "Press him: an unextended, immaterial mind cannot push anything. Princess Elisabeth of Bohemia asked exactly this."],
+             "Press him: he has never explained how a mind with no extension could push a gland. Princess Elisabeth of Bohemia asked exactly this."],
       moves:[
         {need:["unextended|no extension|not extended|immaterial|nonphysical|non physical|non-physical|no size|no mass|no body|not physical|no location|no shape|without body|contact|elisabeth|no force|no energy"], to:"elis", gain:30,
          reply:["#gest# Princess Elisabeth asked me the very same thing: how can the soul, being only a thinking substance, move the bodily spirits?"]},
@@ -114,14 +114,14 @@ export default {
       ]
     }
   },
-  win:"*closes the Meditations* If every operation of the mind can be broken by breaking the brain, then the second substance does no work, and a wise man does not multiply substances without need. Elisabeth, you were right. I concede, #addr#: the mind is not a substance separate from the body. Now let me sit by my stove and doubt that I ever said so.",
+  win:"*closes the Meditations* If every operation of the mind can be broken by breaking the brain, then the second substance does no work, and a wise man does not multiply substances without need. Elisabeth, you were right to press me. I concede, #addr#: the mind is not a substance separate from the body. Now let me sit by my stove and doubt that I ever said so.",
   lose:"*turns back to his stove* I have resolved to doubt everything — and I find I can easily doubt you, #addr#. Good day.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "How does an immaterial mind move a physical arm?",
-    "But a mind with no extension could not push a gland.",
+    "You have never explained how something with no extension could push a gland.",
     "Brain damage changes how people think.",
     "A brain injury changes a person's reasoning and character, not just their senses.",
-    "Then why posit two substances? One is simpler; the mind is just the brain."
+    "Then why posit two substances? One is simpler; the mind is not a separate substance."
   ]
 };

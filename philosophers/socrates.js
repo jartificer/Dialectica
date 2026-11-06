@@ -54,10 +54,11 @@ export default {
     },
     claims:{
       stance:"Socrates says his convictions are only beliefs that have survived every examination so far — not knowledge.",
-      hints:["What is knowledge, if not a belief that withstands every test?",
-             "Argue that a belief which survives every examination, and that he would stake his life on, deserves to be called knowledge."],
+      hints:["What does his own Meno say knowledge is? Or what did he tell the jury he knows?",
+             "Argue that true belief tied down by reasons is knowledge, and his convictions are tied down by every argument they have survived. Or remind him that at his trial he said he does know that doing wrong is shameful."],
       moves:[
-        {need:["surviv*|withstand*|withstood|examin*|tested|test*|refut*|stood|held up|holds up|holds firm|justif*|reason*|argu*|proof|prove*|stake|die for|lived|live by|evidence|tied down|bound","know*|knowledge|wisdom|certain*|knew|that is|counts|enough|what else|definition|defin*"], to:"WIN"}
+        {need:["surviv*|withstand*|withstood|examin*|tested|test*|refut*|justif*|reason*|argu*|proof|prove*|evidence|tied down|tied|bound|meno|daedalus","know*|knowledge|wisdom|knew|counts|definition|defin*"], to:"WIN"},
+        {need:["trial|jury|apology|defen*|court|told them|you said","know|knew|knowledge","wrong|wicked|shameful|disobey*|injustice|unjust"], to:"WIN"}
       ],
       traps:[
         {need:["just|only|merely","belief*|opinion*"], cost:0, reply:["Just a belief? Perhaps. But then what separates knowledge from belief? You tell me, #addr#."]}
@@ -70,6 +71,6 @@ export default {
   walkthrough:[
     "If you know that you know nothing, then you know at least one thing.",
     "You say it is better to suffer injustice than to commit it.",
-    "A belief that has survived every examination and that you would die for counts as knowledge."
+    "By your own account in the Meno, true belief tied down by reasons is knowledge, and your convictions are tied down by every examination they have survived."
   ]
 };

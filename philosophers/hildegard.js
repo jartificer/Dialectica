@@ -54,10 +54,10 @@ export default {
     scivias:{
       enter:"Ten years for Scivias, and the monk Volmar beside me checking my Latin. I saw; then I had to understand what I had seen, and find words, and set them in order. That labour was mine. But the meaning is God's. I only serve it.",
       stance:"Hildegard admits the labour of understanding and writing was hers, but says the meaning is God's.",
-      hints:["When the prelates of Mainz ordered her to dig up a man buried in her churchyard, what did she trust?",
-             "Remind her that she refused the order to exhume the young man buried at Rupertsberg, trusting her own judgement."],
+      hints:["When the prelates of Mainz ordered her to dig up a man buried in her churchyard, how did she know he had died in peace with the Church?",
+             "Remind her that she knew the young man had confessed and received the last rites, and she told Mainz so: that was her own knowledge of the facts."],
       moves:[
-        {need:["mainz|prelate*|interdict*|exhum*|dig|buried|burial|grave|churchyard","refus*|defied|defy|resist*|judg*|conscience|stood firm"], to:"interdict", gain:25,
+        {need:["mainz|prelate*|interdict*|exhum*|dig|buried|burial|grave|churchyard|young man","confess*|last rites|sacrament*|anoint*|witness*|knew|know*|refus*|defied|defy|judg*"], to:"interdict", gain:25,
          reply:["*her voice hardens* Mainz."]}
       ],
       traps:[
@@ -66,8 +66,8 @@ export default {
       ]
     },
     interdict:{
-      enter:"They forbade us to sing the office. A whole house of women silenced over a dead young man who had confessed and been forgiven. I knew he had made his peace. I knew it, and I hid his grave so they could not find it. No vision told me that. I knew it.",
-      stance:"Hildegard admits she defied Mainz on the strength of her own judgement, not a vision.",
+      enter:"They forbade us to sing the office. A whole house of women silenced over a dead young man. I wrote to them of what I saw in the Light, yes. But I knew the facts first: he had confessed, he had received the sacraments, and there were witnesses. I put those facts before the prelates myself, and I hid his grave so they could not find it.",
+      stance:"Hildegard admits that against Mainz she relied on facts she knew herself, not only on a vision.",
       hints:["Then where does some of her knowledge come from, besides the Light?",
              "Conclude that her own mind and experience are a true source of knowledge too."],
       moves:[
@@ -79,13 +79,13 @@ export default {
       ]
     }
   },
-  win:"*lets out a long breath* So the Light shows, and I see; the herbs grow, and I watch; the order comes from Mainz, and I judge. Very well, #addr#: my own mind and experience are a true source of knowledge too. God made them as well, after all. Now let me go back to my garden; the fennel will not tend itself.",
+  win:"*lets out a long breath* So the Light shows, and I see; the herbs grow, and I watch; the order comes from Mainz, and I weigh what I know. Very well, #addr#: my own mind and experience are a true source of knowledge too. God made them as well, after all. Now let me go back to my garden; the fennel will not tend itself.",
   lose:"*turns back toward the chapel* The bell for Vespers, #addr#. The Light does not wait, and neither do my sisters.",
   // A line-by-line route to victory. Used by the tests, and a spoiler for you.
   walkthrough:[
     "In your Physica you describe herbs and stones from your own observation in the garden.",
     "You had to interpret the visions and put them into words yourself, over ten years of work.",
-    "When the prelates of Mainz ordered you to dig up the young man's grave, you refused, trusting your own judgement.",
+    "You knew the young man buried in your churchyard had confessed and received the last rites, and you told Mainz so; that was your own knowledge, not a vision.",
     "So your own mind and experience are a true source of knowledge too."
   ]
 };

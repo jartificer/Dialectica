@@ -78,7 +78,7 @@ export default {
       enter:"Still: the only true good is virtue, and virtue cannot be lost. A child is preferred, not *good*. To grieve as if a good had been lost remains an error.",
       stance:"Marcus admits rightly preferred things can be lost, but says grief wrongly treats them as true goods.",
       hints:["Does grief have to claim that the child was ‘the good’? Or only that something rightly loved is gone?",
-             "Argue that fitting grief rests only on what is true: something rightly loved is gone. That judgment is correct, so the feeling is as fitting as joy."],
+             "Argue that grief need not claim a true good was lost, only that someone rightly loved is gone. That judgment is correct, so the feeling is as fitting as joy."],
       moves:[
         {need:["fitting|fit|appropriate|proper|apt|correct|true|accurate|right|rational|reasonable|justified","griev*|grief|sorrow|mourn*|feeling|response|react*|tears|judg*"], to:"WIN"}
       ],
@@ -96,6 +96,6 @@ export default {
   walkthrough:[
     "You lost many of your children. Did you really feel nothing?",
     "You were right to value them, and you lost them.",
-    "Grief that judges that something rightly loved is gone rests on a true judgment, so it is a fitting response."
+    "Grief need not judge that a true good was lost, only that someone rightly loved is gone; that judgment is true, so grief can be fitting."
   ]
 };
