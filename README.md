@@ -1,5 +1,7 @@
 # Dialectica
 
+[![Dialectica: reason your way through 2,500 years](docs/cover.png)](https://jartificer.github.io/Dialectica/)
+
 Argue your way through 2,500 years of philosophy. Every great thinker has a conviction they would die for; your job is to talk each of them out of it, in plain English.
 
 Forty-seven thinkers from Greece, China, India, Persia, Europe and beyond, in chronological order, get harder as you go: Thales, Laozi, Confucius, Heraclitus, Parmenides, Protagoras, Socrates, Plato, Aristotle, Zhuangzi, Epicurus, Ban Zhao, Marcus Aurelius, Nāgārjuna, Augustine, Hypatia, Śaṅkara, Ibn Sīnā, Anselm, al-Ghazālī, Hildegard of Bingen, Aquinas, Christine de Pizan, Wang Yangming, Hobbes, Descartes, Elisabeth of Bohemia, Margaret Cavendish, Spinoza, Mary Astell, Berkeley, Hume, Kant, Wollstonecraft, Kierkegaard, Marx, Nietzsche, Wittgenstein, Sartre, Arendt, Beauvoir, Simone Weil, Cioran, Elizabeth Anscombe, Iris Murdoch, Philippa Foot and John Rawls.
