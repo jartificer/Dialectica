@@ -1,32 +1,16 @@
-// Visitor count without a third party: every page load downloads one tiny, unchanging file
-// attached to the GitHub release tagged "counter", and GitHub's public API reports how many
-// times that file has been downloaded. The site is already served by GitHub Pages, so no new
-// service sees the visit, and nothing is stored on the visitor's device. GitHub can take a
-// while to update the count. If anything fails (e.g. the release is missing) the count stays hidden.
+// Silent visit counter, nothing shown on the page. Every page load downloads one tiny,
+// unchanging file attached to the GitHub release tagged "counter"; GitHub tallies the
+// file's downloads, which the site owner reads from the API. The site is already served
+// by GitHub Pages, so no new service sees the visit, and nothing is stored on the device.
 const REPO = "jartificer/Dialectica";
-const TAG = "counter";
-const FILE = "visits.txt";
-export const HIT_URL = `https://github.com/${REPO}/releases/download/${TAG}/${FILE}`;
-export const COUNT_URL = `https://api.github.com/repos/${REPO}/releases/tags/${TAG}`;
+export const HIT_URL = `https://github.com/${REPO}/releases/download/counter/visits.txt`;
 
-export async function showVisits(el, fetchImpl = globalThis.fetch, wrap = el) {
-  if (!el || typeof fetchImpl !== "function") return null;
-  const quiet = { credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store" };
+export function recordVisit(fetchImpl = globalThis.fetch) {
+  if (typeof fetchImpl !== "function") return Promise.resolve(false);
   // GitHub doesn't let other sites read the download, so it is sent "no-cors": it still counts.
-  try { await fetchImpl(HIT_URL, { ...quiet, mode: "no-cors" }); } catch {}
-  try {
-    const res = await fetchImpl(COUNT_URL, { ...quiet, headers: { Accept: "application/vnd.github+json" } });
-    if (!res.ok) return null;
-    const release = await res.json();
-    const asset = (release.assets || []).find(a => a.name === FILE);
-    const value = asset && asset.download_count;
-    if (!Number.isFinite(value)) return null;
-    el.textContent = `${value.toLocaleString()} ${value === 1 ? "visit" : "visits"}`;
-    wrap.classList.remove("hidden");
-    return value;
-  } catch {
-    return null;
-  }
+  return Promise.resolve()
+    .then(() => fetchImpl(HIT_URL, { mode: "no-cors", credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store" }))
+    .then(() => true, () => false);
 }
 
-if (typeof document !== "undefined") showVisits(document.getElementById("visits"), globalThis.fetch, document.getElementById("visitsWrap"));
+if (typeof document !== "undefined") recordVisit();
