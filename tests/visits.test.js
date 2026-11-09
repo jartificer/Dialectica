@@ -9,10 +9,11 @@ function fakeEl() {
 
 test("visit counter shows the total from Abacus", async () => {
   const el = fakeEl();
-  let url = "";
-  const value = await showVisits(el, async u => { url = u; return { ok: true, json: async () => ({ value: 1234 }) }; });
+  let url = "", opts;
+  const value = await showVisits(el, async (u, o) => { url = u; opts = o; return { ok: true, json: async () => ({ value: 1234 }) }; });
   assert.equal(value, 1234);
   assert.match(url, /^https:\/\/abacus\.jasoncameron\.dev\/hit\/dialectica\/visits$/);
+  assert.equal(opts.credentials, "omit", "no cookies go to the counter");
   assert.match(el.textContent, /^1.?234 visits$/);
   assert.equal(el.classList.contains("hidden"), false);
 });
