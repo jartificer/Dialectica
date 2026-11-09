@@ -184,4 +184,4 @@ Progress lives in `localStorage` under `dialectica.v1`, and every new version mu
 
 ## License
 
-Copyright (c) 2026 jartificer (Radu Mailat). All rights reserved. You may play the game at https://jartificer.github.io/Dialectica/, but you may not copy, modify or redistribute its code or content. See [LICENSE](LICENSE).
+Copyright (c) 2026 jartificer (Radu Mailat). All rights reserved. You may play the game at https://jartificer.github.io/Dialectica/, and you may read and copy the code for your own study, but you may not modify it, create derivative works or redistribute it. See [LICENSE](LICENSE).
