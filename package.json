@@ -2,6 +2,7 @@
   "name": "dialectica",
   "version": "2.0.0",
   "description": "Argue your way through 2,500 years of philosophy.",
+  "license": "UNLICENSED",
   "private": true,
   "type": "module",
   "scripts": {
