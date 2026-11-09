@@ -49,9 +49,23 @@ function showSmart() {
     : "";
 }
 
+// Grow the argument box with its text, like a chat app's message box: one line
+// when empty, taller as you type, scrolling once it reaches the CSS max-height.
+function fitInput() {
+  const el = $("input");
+  const cs = getComputedStyle(el);
+  const max = parseFloat(cs.maxHeight) || Infinity;
+  el.style.height = "auto";
+  const want = el.scrollHeight + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth);
+  el.style.height = Math.min(want, max) + "px";
+  el.style.overflowY = want > max ? "auto" : "hidden";
+}
+
 export function initUI(philosophers) {
   PHILOSOPHERS = philosophers;
   $("composer").addEventListener("submit", e => { e.preventDefault(); submit(); });
+  $("input").addEventListener("input", fitInput);
+  window.addEventListener("resize", fitInput);
   $("input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } });
   $("hintBtn").onclick = () => { if (C && !C.over && !busy) show(C.hint()); };
   $("restartBtn").onclick = () => { if (C && !busy) startTalk(C.ph.id); };
@@ -71,7 +85,7 @@ export function initUI(philosophers) {
     const w = C.ph.walkthrough || [];
     if (!w.length) return;
     C.walkIdx = ((C.walkIdx ?? -1) + 1) % w.length;
-    $("input").value = w[C.walkIdx]; $("input").focus();
+    $("input").value = w[C.walkIdx]; fitInput(); $("input").focus();
   };
   applyAdmin();
   smart = store.loadSmart();
@@ -243,6 +257,7 @@ async function submit() {
   const raw = $("input").value.trim();
   if (!raw) return;
   $("input").value = "";
+  fitInput();
   addMsg({ who: "you", text: raw });
   const conv = C;
   let sem = null;
