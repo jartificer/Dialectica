@@ -181,3 +181,7 @@ Progress lives in `localStorage` under `dialectica.v1`, and every new version mu
 - A thinker is open if it is first, if the one before it is convinced, if it or anyone later is convinced, or if it has ever been open before. The save remembers every thinker that has been open (`opened`), so inserting new thinkers between old ones never re-locks someone you had already reached.
 - Older saves are migrated on load (`migrate` in `js/storage.js`). Saves without `opened` (version 1) replay the old unlock rule against the version 1 timeline (`LEGACY_ORDER`), and older saves also replay it against each later timeline they predate (`V2_ORDER`, `V3_ORDER`), so anyone an earlier version would have opened stays open. `tests/progress.test.js` covers the migration.
 - When you change the roster again, add the current timeline as a new `…_ORDER` list, add it to `HISTORY` with the new version, and bump `SAVE_VERSION`. Thinkers appended after the last one need none of this.
+
+## License
+
+Copyright (c) 2026 jartificer (Radu Mailat). All rights reserved. You may play the game at https://jartificer.github.io/Dialectica/, but you may not copy, modify or redistribute its code or content. See [LICENSE](LICENSE).
